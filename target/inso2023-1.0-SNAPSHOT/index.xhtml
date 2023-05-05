@@ -21,12 +21,12 @@
             <div>
                 <h:form>
                     <p:outputLabel for="txtUsuario" value="Usuario" class="block text-900 font-medium mb-2"></p:outputLabel>
-                    <p:inputText id="txtUsuario" value="#{administradorController.administrador.usuario}"
+                    <p:inputText id="txtUsuario" value="#{indexController.usuario}"
                         required="true" requiredMessage="Campo Obligatorio" styleClass="w-full mb-3" />
                     <p:message for="txtUsuario"/>
 
                     <p:outputLabel for="txtContrasena" value="Contraseña" class="block text-900 font-medium mb-2"></p:outputLabel>
-                    <p:inputText id="txtContrasena" value="#{administradorController.administrador.contrasena}"
+                    <p:inputText id="txtContrasena" value="#{indexController.password}"
                         required="true" requiredMessage="Campo Obligatorio" type="password" styleClass="w-full mb-3" />
                     <p:message for="txtContrasena" />
 
@@ -39,7 +39,7 @@
                             password?</a>
                     </div>
 
-                    <p:commandButton value="Acceder" actionListener="#{administradorController.guardar()}"
+                    <p:commandButton value="Acceder" actionListener="#{indexController.verificarUsuario()}"
                         icon="pi pi-user" styleClass="w-full" />
                 </h:form>
             </div>

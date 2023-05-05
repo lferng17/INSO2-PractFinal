@@ -42,7 +42,7 @@ public class Jugador implements Serializable{
     @Column(name="capitan")
     private int capitan;
     @Column(name="email")
-    private int email;
+    private String email;
      @Column(name="contrasena")
     private String contrasena;
 
@@ -142,11 +142,11 @@ public class Jugador implements Serializable{
         this.capitan = capitan;
     }
 
-    public int getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(int email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

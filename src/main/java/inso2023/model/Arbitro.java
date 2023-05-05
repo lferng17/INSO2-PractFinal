@@ -27,7 +27,7 @@ public class Arbitro implements Serializable{
     @Column(name="licencia")
     private int licencia;
     @Column(name="email")
-    private int email;
+    private String email;
      @Column(name="contrasena")
     private String contrasena;
 
@@ -79,11 +79,11 @@ public class Arbitro implements Serializable{
         this.licencia = licencia;
     }
 
-    public int getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(int email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
