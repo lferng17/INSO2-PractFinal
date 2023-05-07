@@ -78,7 +78,7 @@ public class indexController implements Serializable {
             if (usuario.equals(listaUsuarios.get(i)) && password.equals(listaPassword.get(i))) {
                 if (i < listaAdmin.size()) {
                     tipoUsuario = "administrador";
-                    System.out.println("administradooor");
+                    System.out.println("El usuario es un administrador");
                 } else if (i < listaAdmin.size() + listaArbitro.size()) {
                     tipoUsuario = "arbitro";
                 } else {
