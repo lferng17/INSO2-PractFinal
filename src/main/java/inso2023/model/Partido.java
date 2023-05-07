@@ -20,13 +20,13 @@ public class Partido implements Serializable{
     private int idPartido;
     @JoinColumn(name="idEquipoLocal")
     @ManyToOne
-    private int idEquipoLocal;
+    private Equipo idEquipoLocal;
     @JoinColumn(name="idEquipoVis")
     @ManyToOne
-    private int idEquipoVis;
+    private Equipo idEquipoVis;
     @JoinColumn(name="idArbitro")
     @ManyToOne
-    private int idArbitro;
+    private Arbitro idArbitro;
     @Column(name="fecha")
     private String fecha;
     @Column(name="hora")
@@ -48,27 +48,27 @@ public class Partido implements Serializable{
         this.idPartido = idPartido;
     }
 
-    public int getIdEquipoLocal() {
+    public Equipo getIdEquipoLocal() {
         return idEquipoLocal;
     }
 
-    public void setIdEquipoLocal(int idEquipoLocal) {
+    public void setIdEquipoLocal(Equipo idEquipoLocal) {
         this.idEquipoLocal = idEquipoLocal;
     }
 
-    public int getIdEquipoVis() {
+    public Equipo getIdEquipoVis() {
         return idEquipoVis;
     }
 
-    public void setIdEquipoVis(int idEquipoVis) {
+    public void setIdEquipoVis(Equipo idEquipoVis) {
         this.idEquipoVis = idEquipoVis;
     }
 
-    public int getIdArbitro() {
+    public Arbitro getIdArbitro() {
         return idArbitro;
     }
 
-    public void setIdArbitro(int idArbitro) {
+    public void setIdArbitro(Arbitro idArbitro) {
         this.idArbitro = idArbitro;
     }
 

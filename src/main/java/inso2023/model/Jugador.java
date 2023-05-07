@@ -41,7 +41,7 @@ public class Jugador implements Serializable{
     private int tarjRojas;
     @JoinColumn(name="idEquipo")
     @ManyToOne
-    private int idEquipo;
+    private Equipo idEquipo;
     @Column(name="capitan")
     private int capitan;
     @Column(name="email")
@@ -129,11 +129,11 @@ public class Jugador implements Serializable{
         this.tarjRojas = tarjRojas;
     }
 
-    public int getIdEquipo() {
+    public Equipo getIdEquipo() {
         return idEquipo;
     }
 
-    public void setIdEquipo(int idEquipo) {
+    public void setIdEquipo(Equipo idEquipo) {
         this.idEquipo = idEquipo;
     }
 

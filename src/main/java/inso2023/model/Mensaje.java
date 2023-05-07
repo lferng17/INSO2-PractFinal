@@ -19,7 +19,7 @@ public class Mensaje implements Serializable{
     private int idMensaje;
     @JoinColumn(name="idJugador")
     @ManyToOne
-    private int idJugador;
+    private Jugador idJugador;
     @Column(name="mensaje")
     private String mensaje;
 
@@ -31,11 +31,11 @@ public class Mensaje implements Serializable{
         this.idMensaje = idMensaje;
     }
 
-    public int getIdJugador() {
+    public Jugador getIdJugador() {
         return idJugador;
     }
 
-    public void setIdJugador(int idJugador) {
+    public void setIdJugador(Jugador idJugador) {
         this.idJugador = idJugador;
     }
 
