@@ -7,6 +7,7 @@ package inso2023.ejb;
 
 import inso2023.model.Administrador;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query; 
@@ -32,11 +33,14 @@ public class AdministradorFacade extends AbstractFacade<Administrador> implement
 
     @Override
     public Administrador buscarUsuario(String usuario, String password) {
+        Administrador admin = null;
         try {
             Query query = em.createQuery("SELECT a FROM Administrador a WHERE a.usuario = :usuario AND a.contrasena = :password");
             query.setParameter("usuario", usuario);
             query.setParameter("password", password);
-            return (Administrador) query.getSingleResult();
+            admin = (Administrador) query.getSingleResult();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", admin);
+            return admin;
         } catch (Exception e) {
         }
         return null;
