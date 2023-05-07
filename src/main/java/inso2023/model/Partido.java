@@ -7,9 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 @Entity
@@ -18,11 +18,14 @@ public class Partido implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPartido;
-    @Column(name="idEquipoLocal")
+    @JoinColumn(name="idEquipoLocal")
+    @ManyToOne
     private int idEquipoLocal;
-    @Column(name="idEquipoVis")
+    @JoinColumn(name="idEquipoVis")
+    @ManyToOne
     private int idEquipoVis;
-    @Column(name="idArbitro")
+    @JoinColumn(name="idArbitro")
+    @ManyToOne
     private int idArbitro;
     @Column(name="fecha")
     private String fecha;

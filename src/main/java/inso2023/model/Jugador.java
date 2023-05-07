@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,7 +39,8 @@ public class Jugador implements Serializable{
     private int tarjAma;
     @Column(name="tarjRojas")
     private int tarjRojas;
-    @Column(name="idEquipo")
+    @JoinColumn(name="idEquipo")
+    @ManyToOne
     private int idEquipo;
     @Column(name="capitan")
     private int capitan;
