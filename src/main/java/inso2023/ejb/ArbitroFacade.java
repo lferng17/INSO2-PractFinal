@@ -9,6 +9,7 @@ import inso2023.model.Arbitro;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +28,18 @@ public class ArbitroFacade extends AbstractFacade<Arbitro> implements ArbitroFac
 
     public ArbitroFacade() {
         super(Arbitro.class);
+    }
+
+    @Override
+    public Arbitro buscarUsuario(String usuario, String password) {
+        try {
+            Query query = em.createQuery("SELECT a FROM Arbitro a WHERE a.email = :usuario AND a.contrasena = :password");
+            query.setParameter("usuario", usuario);
+            query.setParameter("password", password);
+            return (Arbitro) query.getSingleResult();
+        } catch (Exception e) {
+        }
+        return null;
     }
     
 }

@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author luifer
+ * @author luifer, jgomea02
  */
 @Local
 public interface ArbitroFacadeLocal {
@@ -29,5 +29,7 @@ public interface ArbitroFacadeLocal {
     List<Arbitro> findRange(int[] range);
 
     int count();
+
+    Arbitro buscarUsuario(String usuario, String password);
     
 }

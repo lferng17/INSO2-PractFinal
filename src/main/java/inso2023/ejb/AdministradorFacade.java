@@ -9,10 +9,11 @@ import inso2023.model.Administrador;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query; 
 
 /**
  *
- * @author luifer
+ * @author luifer, jgomea02
  */
 @Stateless
 public class AdministradorFacade extends AbstractFacade<Administrador> implements AdministradorFacadeLocal {
@@ -27,6 +28,18 @@ public class AdministradorFacade extends AbstractFacade<Administrador> implement
 
     public AdministradorFacade() {
         super(Administrador.class);
+    }
+
+    @Override
+    public Administrador buscarUsuario(String usuario, String password) {
+        try {
+            Query query = em.createQuery("SELECT a FROM Administrador a WHERE a.usuario = :usuario AND a.contrasena = :password");
+            query.setParameter("usuario", usuario);
+            query.setParameter("password", password);
+            return (Administrador) query.getSingleResult();
+        } catch (Exception e) {
+        }
+        return null;
     }
     
 }

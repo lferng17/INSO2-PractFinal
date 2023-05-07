@@ -7,12 +7,13 @@ package inso2023.ejb;
 
 import inso2023.model.Jugador;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author luifer
+ * @author luifer, jgomea02
  */
 @Stateless
 public class JugadorFacade extends AbstractFacade<Jugador> implements JugadorFacadeLocal {
@@ -27,6 +28,18 @@ public class JugadorFacade extends AbstractFacade<Jugador> implements JugadorFac
 
     public JugadorFacade() {
         super(Jugador.class);
+    }
+
+    @Override
+    public Jugador buscarUsuario(String usuario, String password) {
+        try {
+            Query query = em.createQuery("SELECT j FROM Jugador j WHERE j.email = :usuario AND j.contrasena = :password");
+            query.setParameter("usuario", usuario);
+            query.setParameter("password", password);
+            return (Jugador)query.getSingleResult();
+        } catch (Exception e) {
+        }
+        return null;
     }
     
 }

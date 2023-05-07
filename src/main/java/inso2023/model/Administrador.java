@@ -1,6 +1,7 @@
 package inso2023.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,6 +44,4 @@ public class Administrador implements Serializable{
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-
-
 }

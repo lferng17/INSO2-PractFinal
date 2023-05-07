@@ -29,5 +29,7 @@ public interface AdministradorFacadeLocal {
     List<Administrador> findRange(int[] range);
 
     int count();
+
+    Administrador buscarUsuario(String usuario, String password);
     
 }

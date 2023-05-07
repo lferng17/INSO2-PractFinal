@@ -28,11 +28,6 @@ public class indexController implements Serializable {
     private String usuario;
     private String password;
     private String tipoUsuario;
-    private List<Administrador> listaAdmin;
-    private List<Arbitro> listaArbitro;
-    private List<Jugador> listaJugador;
-    private List<String> listaUsuarios;
-    private List<String> listaPassword;
 
     @EJB
     private AdministradorFacadeLocal administradorFacade;
@@ -45,49 +40,29 @@ public class indexController implements Serializable {
 
     @PostConstruct
     public void init() {
-        listaUsuarios = new ArrayList<>();
-        listaPassword = new ArrayList<>();
-
-        listaAdmin = administradorFacade.findAll();
-        listaArbitro = arbitroFacade.findAll();
-        listaJugador = jugadorFacade.findAll();
-
-        for (int i = 0; i < listaAdmin.size(); i++) {
-            listaUsuarios.add(listaAdmin.get(i).getUsuario());
-            listaPassword.add(listaAdmin.get(i).getContrasena());
-        }
-
-        for (int i = 0; i < listaArbitro.size(); i++) {
-            listaUsuarios.add(listaArbitro.get(i).getEmail());
-            listaPassword.add(listaArbitro.get(i).getContrasena());
-        }
-
-        for (int i = 0; i < listaJugador.size(); i++) {
-            listaUsuarios.add(listaJugador.get(i).getEmail());
-            listaPassword.add(listaJugador.get(i).getContrasena());
-        }
+        System.out.println(usuario);
+        System.out.println(password);
+        tipoUsuario = "";
     }
 
     public String verificarUsuario() {
-
         init();
-        System.out.println(usuario);
-        System.out.println(password);
 
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            if (usuario.equals(listaUsuarios.get(i)) && password.equals(listaPassword.get(i))) {
-                if (i < listaAdmin.size()) {
-                    tipoUsuario = "administrador";
-                    System.out.println("El usuario es un administrador");
-                } else if (i < listaAdmin.size() + listaArbitro.size()) {
-                    tipoUsuario = "arbitro";
-                } else {
-                    tipoUsuario = "jugador";
-                }
-            }
+        if(administradorFacade.buscarUsuario(usuario, password) != null){
+            tipoUsuario = "administrador";
+            System.out.println("Administrador");    
         }
-        if (tipoUsuario == null) {
+        else if(arbitroFacade.buscarUsuario(usuario, password) != null){
+            tipoUsuario = "arbitro";
+            System.out.println("Arbitro");
+        }
+        else if(jugadorFacade.buscarUsuario(usuario, password) != null){
+            tipoUsuario = "jugador";
+            System.out.println("Jugador");
+        }
+        else{
             tipoUsuario = "error";
+            System.out.println("Error");
         }
 
         return tipoUsuario;
