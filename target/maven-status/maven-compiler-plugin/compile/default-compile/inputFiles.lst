@@ -1,25 +1,27 @@
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/JugadorController.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Arbitro.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/ArbitroFacadeLocal.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/PartidoFacade.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/AbstractFacade.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/MensajeFacadeLocal.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Jugador.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/AdministradorFacadeLocal.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/JugadorFacadeLocal.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/MensajeFacade.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/EquipoFacadeLocal.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Partido.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/PartidoFacadeLocal.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/ArbitroFacade.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/PartidoController.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/ArbitroController.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Equipo.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/AdministradorController.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/MensajeController.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/EquipoFacade.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/EquipoController.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Administrador.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/JugadorFacade.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Mensaje.java
-/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/AdministradorFacade.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\AdministradorFacadeLocal.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\MensajeFacadeLocal.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\controller\AdministradorController.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\model\Administrador.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\controller\VistaArbitroController.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\ArbitroFacade.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\JugadorFacade.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\controller\JugadorController.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\AbstractFacade.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\JugadorFacadeLocal.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\MensajeFacade.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\PartidoFacade.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\controller\indexController.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\EquipoFacadeLocal.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\PartidoFacadeLocal.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\model\Mensaje.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\controller\ArbitroController.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\model\Arbitro.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\controller\EquipoController.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\AdministradorFacade.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\model\Equipo.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\controller\MensajeController.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\model\Jugador.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\controller\PartidoController.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\model\Partido.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\EquipoFacade.java
+C:\Users\wwwal\OneDrive\Escritorio\CLASE\Ingenieria Informática\4º Curso\Inso II\INSO2-PractFinal\src\main\java\inso2023\ejb\ArbitroFacadeLocal.java
