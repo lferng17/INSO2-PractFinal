@@ -49,15 +49,15 @@ public class indexController implements Serializable {
         init();
 
         if(administradorFacade.buscarUsuario(usuario, password) != null){
-            tipoUsuario = "administrador";
-            System.out.println("Administrador");    
+            tipoUsuario = "privado/administrador/vistaAdministrador.xhtml?faces-redirect=true";
+            System.out.println("administrador");    
         }
         else if(arbitroFacade.buscarUsuario(usuario, password) != null){
             tipoUsuario = "privado/arbitro/vistaArbitro.xhtml?faces-redirect=true";
             System.out.println("Arbitro");
         }
         else if(jugadorFacade.buscarUsuario(usuario, password) != null){
-            tipoUsuario = "jugador";
+            tipoUsuario = "privado/jugador/vistaJugador.xhtml?faces-redirect=true";
             System.out.println("Jugador");
         }
         else{
