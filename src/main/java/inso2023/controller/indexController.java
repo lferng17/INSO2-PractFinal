@@ -53,7 +53,7 @@ public class indexController implements Serializable {
             System.out.println("Administrador");    
         }
         else if(arbitroFacade.buscarUsuario(usuario, password) != null){
-            tipoUsuario = "privado/vistaArbitro.xhtml?faces-redirect=true";
+            tipoUsuario = "privado/arbitro/vistaArbitro.xhtml?faces-redirect=true";
             System.out.println("Arbitro");
         }
         else if(jugadorFacade.buscarUsuario(usuario, password) != null){
