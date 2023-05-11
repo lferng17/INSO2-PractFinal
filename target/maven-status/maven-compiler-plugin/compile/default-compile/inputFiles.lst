@@ -7,6 +7,7 @@
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Jugador.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/AdministradorFacadeLocal.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/JugadorFacadeLocal.java
+/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/VistaArbitroController.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/MensajeFacade.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/EquipoFacadeLocal.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Partido.java
@@ -14,6 +15,7 @@
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/ejb/ArbitroFacade.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/PartidoController.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/ArbitroController.java
+/Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/indexController.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/model/Equipo.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/AdministradorController.java
 /Users/luifer/NetBeansProjects/inso2023/src/main/java/inso2023/controller/MensajeController.java
