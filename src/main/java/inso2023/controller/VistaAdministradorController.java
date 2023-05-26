@@ -7,10 +7,10 @@ import javax.inject.Named;
 
 @Named
 @ViewScoped
-public class VistaArbitroController implements Serializable{
+public class VistaAdministradorController implements Serializable{
 
-    public void verificarArbitro() throws Exception{
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "arbitro"){
+    public void verificarAdministrador() throws Exception{
+        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "admin"){
             FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
         }
     }

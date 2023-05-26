@@ -8,14 +8,10 @@ package inso2023.controller;
 import inso2023.ejb.AdministradorFacadeLocal;
 import inso2023.ejb.ArbitroFacadeLocal;
 import inso2023.ejb.JugadorFacadeLocal;
-import inso2023.model.Administrador;
-import inso2023.model.Arbitro;
-import inso2023.model.Jugador;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -49,10 +45,14 @@ public class indexController implements Serializable {
         init();
 
         if(administradorFacade.buscarUsuario(usuario, password) != null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "admin");
             tipoUsuario = "privado/administrador/vistaAdministrador.xhtml?faces-redirect=true";
             System.out.println("administrador");    
         }
         else if(arbitroFacade.buscarUsuario(usuario, password) != null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "arbitro");
             tipoUsuario = "privado/arbitro/vistaArbitro.xhtml?faces-redirect=true";
             System.out.println("Arbitro");
         }
