@@ -8,14 +8,13 @@
     <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
 </h:head>
 
-<h:body class="surface-300">
+<h:body class="surface-200">
     <div class="flex align-items-center justify-content-center">
-        <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+        <div class="surface-card p-4 shadow-3 border-round w-full lg:w-6">
             <div class="text-center mb-5">
                 <img src="resources/images/Logo.PNG" alt="logo" height="100" styleClass="mb-3" />
                 <div class="text-900 text-3xl font-medium mb-3">¡Bienvenido!</div>
-                <span class="text-600 font-medium line-height-3">¿No tienes una cuenta?</span>
-                <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">¡Registrate!</a>
+                <span class="text-600 font-medium line-height-3">Control de la Liga Universitaria de la ULE</span>
             </div>
 
             <div>
@@ -29,15 +28,6 @@
                     <p:inputText id="txtContrasena" value="#{indexController.password}"
                         required="true" requiredMessage="Campo Obligatorio" type="password" styleClass="w-full mb-3" />
                     <p:message for="txtContrasena" />
-
-                    <div class="flex align-items-center justify-content-between mb-6">
-                        <div class="flex align-items-center">
-                            <p:selectBooleanCheckbox id="rememberme" styleClass="mr-2" />
-                            <label for="rememberme">Remember me</label>
-                        </div>
-                        <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot your
-                            password?</a>
-                    </div>
 
                     <p:commandButton value="Acceder" action="#{indexController.verificarUsuario()}"
                         icon="pi pi-user" styleClass="w-full" />
