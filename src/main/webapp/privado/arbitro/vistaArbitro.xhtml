@@ -4,8 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <f:event type="preRenderView" listener="#{vistaArbitroController.verificarArbitro()}"/>
     <body>
+        <f:event type="preRenderView" listener="#{vistaArbitroController.verificarArbitro()}"/>
         <ui:composition template="./../../WEB-INF/template/plantillaGeneral.xhtml">
             
             <ui:define name="content">

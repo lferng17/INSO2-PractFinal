@@ -10,8 +10,8 @@ import javax.inject.Named;
 public class VistaArbitroController implements Serializable{
 
     public void verificarArbitro() throws Exception{
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") == null){
-            FacesContext.getCurrentInstance().getExternalContext().redirect("publico/sinAcceso.xhtml");
+        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "arbitro"){
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
         }
     }
 
