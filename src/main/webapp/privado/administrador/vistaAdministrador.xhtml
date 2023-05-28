@@ -36,18 +36,18 @@
                 <f:facet name="header">
                     <p:outputLabel value="Acciones Administrador" styleClass="title" />
                 </f:facet>
-                <p:button value="Crear jugador" styleClass="button-width" action="#{vistaAdministradorController.crearJugador()}"/>
-                <p:button value="Crear equipo" styleClass="button-width" action="#{vistaAdministradorController.crearEquipo()}"/>
-                <p:button value="Crear partido" styleClass="button-width" action="#{vistaAdministradorController.crearPartido()}"/>
-                <p:button value="Crear arbitro" styleClass="button-width" action="#{vistaAdministradorController.crearArbitro()}"/>
-                <p:button value="Editar jugador" styleClass="button-width" action="#{vistaAdministradorController.editarJugador()}"/>
-                <p:button value="Editar equipo" styleClass="button-width" action="#{vistaAdministradorController.editarEquipo()}"/>
-                <p:button value="Editar partido" styleClass="button-width" action="#{vistaAdministradorController.editarPartido()}"/>
-                <p:button value="Editar arbitro" styleClass="button-width" action="#{vistaAdministradorController.editarArbitro()}"/>
-                <p:button value="Eliminar jugador" styleClass="button-width" action="#{vistaAdministradorController.eliminarJugador()}"/>
-                <p:button value="Eliminar equipo" styleClass="button-width"  action="#{vistaAdministradorController.eliminarEquipo()}"/>
-                <p:button value="Eliminar partido" styleClass="button-width" action="#{vistaAdministradorController.eliminarPartido()}"/>
-                <p:button value="Eliminar arbitro" styleClass="button-width" action="#{vistaAdministradorController.eliminarArbitro()}"/>
+                <p:commandButton value="Crear jugador" styleClass="button-width" actionListener="#{vistaAdministradorController.crearJugador()}"/>
+                <p:commandButton value="Crear equipo" styleClass="button-width" actionListener="#{vistaAdministradorController.crearEquipo()"}/>
+                <p:commandButton value="Crear partido" styleClass="button-width" actionListener="#{vistaAdministradorController.crearPartido()}"/>
+                <p:commandButton value="Crear arbitro" styleClass="button-width" actionListener="#{vistaAdministradorController.crearArbitro()}"/>
+                <p:commandButton value="Editar jugador" styleClass="button-width" actionListener="#{vistaAdministradorController.editarJugador()}"/>
+                <p:commandButton value="Editar equipo" styleClass="button-width" actionListener="#{vistaAdministradorController.editarEquipo()}"/>
+                <p:commandButton value="Editar partido" styleClass="button-width" actionListener="#{vistaAdministradorController.editarPartido()}"/>
+                <p:commandButton value="Editar arbitro" styleClass="button-width" actionListener="#{vistaAdministradorController.editarArbitro()}"/>
+                <p:commandButton value="Eliminar jugador" styleClass="button-width" actionListener="#{vistaAdministradorController.eliminarJugador()}"/>
+                <p:commandButton value="Eliminar equipo" styleClass="button-width"  actionListener="#{vistaAdministradorController.eliminarEquipo()}"/>
+                <p:commandButton value="Eliminar partido" styleClass="button-width" actionListener="#{vistaAdministradorController.eliminarPartido()}"/>
+                <p:commandButton value="Eliminar arbitro" styleClass="button-width" actionListener="#{vistaAdministradorController.eliminarArbitro()}"/>
                 </p:panelGrid>
             </h:form>
         </div>
