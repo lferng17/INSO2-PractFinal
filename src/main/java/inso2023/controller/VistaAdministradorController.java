@@ -1,16 +1,15 @@
 package inso2023.controller;
 
 import java.io.Serializable;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
-@Named
-@ViewScoped
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+
+@ManagedBean
 public class VistaAdministradorController implements Serializable{
 
     public void verificarAdministrador() throws Exception{
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usario") != "admin"){
+        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "admin"){
             FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
         }else{
             System.out.println("Vista Administrador");
@@ -18,51 +17,51 @@ public class VistaAdministradorController implements Serializable{
     }
 
     public void crearJugador() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("crearJugador.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaCrearJugador.xhtml");
     }
 
     public void editarJugador() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("editarJugador.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEditarJugador.xhtml");
     }
 
     public void eliminarJugador() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("eliminarJugador.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarJugador.xhtml");
     }
 
     public void crearEquipo() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("crearEquipo.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaCrearEquipo.xhtml");
     }
 
     public void editarEquipo() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("editarEquipo.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEditarEquipo.xhtml");
     }
 
     public void eliminarEquipo() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("eliminarEquipo.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarEquipo.xhtml");
     }
 
     public void crearPartido() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("crearPartido.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaCrearPartido.xhtml");
     }
 
     public void editarPartido() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("editarPartido.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEditarPartido.xhtml");
     }
 
     public void eliminarPartido() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("eliminarPartido.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarPartido.xhtml");
     }
 
     public void crearArbitro() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("crearArbitro.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaCrearArbitro.xhtml");
     }
 
     public void editarArbitro() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("editarArbitro.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEditarArbitro.xhtml");
     }
 
     public void eliminarArbitro() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("eliminarArbitro.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarArbitro.xhtml");
     }
 
 }
