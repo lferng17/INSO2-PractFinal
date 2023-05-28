@@ -22,12 +22,12 @@
                     <p:menubar>
 
                         <p:submenu label="Tablas" icon="pi pi-fw pi-table">
-                            <p:menuitem value="Clasificacion" icon="pi pi-fw pi-arrows-v" url="../../publico/clasificacionEquipos.xhtml"  styleClass="ui-button-info"/>
-                            <p:menuitem value="Estadisticas Jugadores" icon="pi pi-fw pi-chart-bar" url="../../publico/estadisticaJugadores.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Clasificacion" icon="pi pi-fw pi-arrows-v" url="#{request.contextPath}/faces/publico/clasificacionEquipos.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Estadisticas Jugadores" icon="pi pi-fw pi-chart-bar" url="#{request.contextPath}/faces/publico/estadisticaJugadores.xhtml"  styleClass="ui-button-info"/>
                         </p:submenu>
 
                         <p:submenu label="Eventos" icon="pi pi-fw pi-calendar">
-                            <p:menuitem value="Partidos" icon="pi pi-fw pi-sitemap"/>
+                            <p:menuitem value="Partidos" icon="pi pi-fw pi-sitemap" url="#{request.contextPath}/faces/publico/partidos.xhtml"  styleClass="ui-button-info"/>
                         </p:submenu>
 
                         <f:facet name="options">
