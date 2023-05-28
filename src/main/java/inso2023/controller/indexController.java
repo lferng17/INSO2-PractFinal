@@ -36,8 +36,6 @@ public class indexController implements Serializable {
 
     @PostConstruct
     public void init() {
-        System.out.println(usuario);
-        System.out.println(password);
         tipoUsuario = "";
     }
 
@@ -57,6 +55,8 @@ public class indexController implements Serializable {
             System.out.println("Arbitro");
         }
         else if(jugadorFacade.buscarUsuario(usuario, password) != null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "jugador");
             tipoUsuario = "privado/jugador/vistaJugador.xhtml?faces-redirect=true";
             System.out.println("Jugador");
         }
