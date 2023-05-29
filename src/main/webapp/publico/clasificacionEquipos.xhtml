@@ -1,14 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
         <ui:composition template="./../WEB-INF/template/plantillaGeneral.xhtml">
 
             <ui:define name="content">
-                content
+                <h:form>
+                    <div class="card">
+                        <p:dataTable var="clasificacion" value="">
+                            <p:column headerText="Posicion">
+                                <h:outputText value="1" />
+                            </p:column>
+
+                            <p:column headerText="Equipo">
+                                <h:outputText value="Equipos aqui" />
+                            </p:column>
+
+                            <p:column headerText="Puntos">
+                                <h:outputText value="Puntos aqui" />
+                            </p:column>
+
+                            <p:column headerText="Goles a Favor">
+                                <h:outputText value="Goles a favor aqui" />
+                            </p:column>
+                            
+                            <p:column headerText="Goles en Contra">
+                                <h:outputText value="Goles en contra aqui" />
+                            </p:column> 
+                        </p:dataTable>
+                    </div>
+                </h:form>
             </ui:define>
 
         </ui:composition>
