@@ -4,16 +4,28 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
 >
+<h:head>
   <f:event
     type="preRenderView"
     listener="#{vistaCapitanController.verificarCapitan()}"
   />
-  <body>
-    <ui:composition template="./../../WEB-INF/template/plantillaGeneral.xhtml">
-      <ui:define name="content">
-        <h1>Vista Capitan</h1>
+</h:head>
+<h:body>
+  <ui:composition template="./../../WEB-INF/template/plantillaGeneral.xhtml">
+    <ui:define name="content">
+      <div>
+        <h:form>
+          <div>
+            <p:outputLabel for="txtMensaje" value="Mensaje" class="block text-900 font-medium mb-2"/>
+            <p:inputTextarea rows="5" cols="40" id="txtMensaje" value="#{vistaCapitanController.mensaje}" required="true" requiredMessage="Campo Obligatorio" styleClass="w-full mb-3"/>
+          </div>
+            <p:commandButton value="Enviar Mensaje" action="#{vistaCapitanController.mandarMensaje()}" styleClass="w-full" />
+          </h:form>
+        </div>
       </ui:define>
     </ui:composition>
-  </body>
+  </h:body>
 </html>
