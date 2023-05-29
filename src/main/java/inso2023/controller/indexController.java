@@ -70,6 +70,14 @@ public class indexController implements Serializable {
 
     }
 
+    public void cerrarSesion() throws Exception{
+        // Lógica para cerrar la sesión
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        
+        // Redirige a la página de inicio de sesión
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../../index.xhtml");
+    }
+
     public String getUsuario() {
         return usuario;
     }
