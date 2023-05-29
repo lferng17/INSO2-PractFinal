@@ -12,29 +12,29 @@
             <ui:define name="content">
                 <h:form>
                     <div class="card">
-                        <p:dataTable var="estadisticas" value="">
+                        <p:dataTable var="jugador" value="#{estadisticaJugadoresController.listaJugadores}">
                             <p:column headerText="Nombre Jugador">
-                                <h:outputText value="Nombre Jugador" />
+                                <h:outputText value="#{jugador.nombre} #{jugador.apellidos}" />
                             </p:column>
 
                             <p:column headerText="Equipo">
-                                <h:outputText value="Equipo aqui" />
+                                <h:outputText value="#{jugador.idEquipo.nombre}" />
                             </p:column>
 
-                            <p:column headerText="Goles">
-                                <h:outputText value="Goles aqui" />
+                            <p:column headerText="Goles" sortBy="#{jugador.goles}">
+                                <h:outputText value="#{jugador.goles}" />
                             </p:column>
 
-                            <p:column headerText="Asistencias">
-                                <h:outputText value="Asistencias aqui" />
+                            <p:column headerText="Asistencias" sortBy="#{jugador.asistencias}">
+                                <h:outputText value="#{jugador.asistencias}" />
                             </p:column>
                             
-                            <p:column headerText="Tarjetas Amarillas">
-                                <h:outputText value="Tarj Ama aqui" />
+                            <p:column headerText="Tarjetas Amarillas" sortBy="#{jugador.tarjAma}">
+                                <h:outputText value="#{jugador.tarjAma}" />
                             </p:column>
                             
-                            <p:column headerText="Tarjetas Rojas">
-                                <h:outputText value="Tarj Rojas aqui" />
+                            <p:column headerText="Tarjetas Rojas" sortBy="#{jugador.tarjRojas}">
+                                <h:outputText value="#{jugador.tarjRojas}" />
                             </p:column> 
                         </p:dataTable>
                     </div>

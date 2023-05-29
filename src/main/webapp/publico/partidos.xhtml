@@ -12,29 +12,29 @@
             <ui:define name="content">
                 <h:form>
                     <div class="card">
-                        <p:dataTable var="partidos" value="">
+                        <p:dataTable var="partido" value="#{partidosController.listaPartidos}">
                             <p:column headerText="Partido">
-                                <h:outputText value="Partidos aqui" />
+                                <h:outputText value="#{partido.idEquipoLocal.nombre} #{partido.idEquipoVis.nombre}" />
                             </p:column>
 
                             <p:column headerText="Goles Local">
-                                <h:outputText value="goles local aqui" />
+                                <h:outputText value="#{partido.golesLocal}" />
                             </p:column>
 
                             <p:column headerText="Goles Visitante">
-                                <h:outputText value="goles vis aqui" />
+                                <h:outputText value="#{partido.golesVis}" />
                             </p:column>
 
                             <p:column headerText="Árbitro">
-                                <h:outputText value="arbitro aqui" />
+                                <h:outputText value="#{partido.idArbitro.nombre} #{partido.idArbitro.apellidos}" />
                             </p:column>
                             
                             <p:column headerText="Fecha">
-                                <h:outputText value="fecha aqui" />
+                                <h:outputText value="#{partido.fecha}" />
                             </p:column> 
                             
                             <p:column headerText="Hora">
-                                <h:outputText value="hora aqui" />
+                                <h:outputText value="#{partido.hora}" />
                             </p:column> 
                         </p:dataTable>
                     </div>

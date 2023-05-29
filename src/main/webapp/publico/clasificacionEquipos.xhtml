@@ -12,27 +12,29 @@
             <ui:define name="content">
                 <h:form>
                     <div class="card">
-                        <p:dataTable var="clasificacion" value="">
+                        <p:dataTable var="equipo" value="#{clasificacionEquiposController.listaEquipos}" 
+                                     rowIndexVar="posicion" >
                             <p:column headerText="Posicion">
-                                <h:outputText value="1" />
+                                <h:outputText value="#{posicion + 1}" />
                             </p:column>
 
                             <p:column headerText="Equipo">
-                                <h:outputText value="Equipos aqui" />
+                                <h:outputText value="#{equipo.nombre}" />
                             </p:column>
 
-                            <p:column headerText="Puntos">
-                                <h:outputText value="Puntos aqui" />
+                            <p:column headerText="Puntos" sortBy="#{equipo.puntos}" sortOrder="descending">
+                                <h:outputText value="#{equipo.puntos}" />
                             </p:column>
 
                             <p:column headerText="Goles a Favor">
-                                <h:outputText value="Goles a favor aqui" />
+                                <h:outputText value="#{equipo.golesFav}" />
                             </p:column>
-                            
+
                             <p:column headerText="Goles en Contra">
-                                <h:outputText value="Goles en contra aqui" />
+                                <h:outputText value="#{equipo.golesContra}" />
                             </p:column> 
                         </p:dataTable>
+
                     </div>
                 </h:form>
             </ui:define>
