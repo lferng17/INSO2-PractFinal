@@ -11,8 +11,6 @@ public class VistaAdministradorController implements Serializable{
     public void verificarAdministrador() throws Exception{
         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "admin"){
             FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
-        }else{
-            System.out.println("Vista Administrador");
         }
     }
 
