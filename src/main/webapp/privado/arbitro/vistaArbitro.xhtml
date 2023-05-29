@@ -19,14 +19,14 @@
                     <h1 class="title">Seleccione el partido</h1>
 
                     <h:form class="form">
-                        <p:selectOneMenu id="partidosMenu" value="#{vistaArbitroController.partidoSeleccionado}" styleClass="select-menu">
+                        <p:selectOneMenu id="partidosMenu" value="Poner Partidos seleccionados" styleClass="select-menu">
                             <f:selectItem itemLabel="Seleccione un partido" itemValue="" />
-                            <f:selectItems value="#{vistaArbitroController.partidosSinDisputar}" var="partido" itemLabel="#{partido.nombre}" itemValue="#{partido}" />
+                            <f:selectItems value="Poner Partidos sin disputar" var="partido" itemLabel="Poner partido nombre" itemValue="Poner partido" />
                         </p:selectOneMenu>
 
                         <div class="button-wrapper">
-                            <p:commandButton value="Anotar resultados" action="#{vistaArbitroController.anotarResultados}" 
-                                             disabled="#{empty vistaArbitroController.partidoSeleccionado}" />
+                            <p:commandButton value="Anotar resultados" action="Anotar resultados" 
+                                             disabled="Poner empty la lista" />
                         </div>
                     </h:form>
                 </div>

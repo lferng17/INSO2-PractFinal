@@ -11,10 +11,19 @@ import javax.inject.Named;
 public class VistaArbitroController implements Serializable{
 
     public void verificarArbitro() throws Exception{
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") == null){
-            FacesContext.getCurrentInstance().getExternalContext().redirect("publico/sinAcceso.xhtml");
+        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "arbitro"){
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
+        }else{
+            System.out.println("Vista Arbitro");
+        }
+    }
+
+    //metodo boolean que devuelve true si el usuario es arbitro
+    public boolean esArbitro(){
+        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") == "arbitro"){
+            return true;
         } else{
-            System.out.println("entra");
+            return false;
         }
     }
 
