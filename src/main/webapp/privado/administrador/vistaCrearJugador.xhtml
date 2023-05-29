@@ -1,13 +1,129 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:body class="surface-300">
+    <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
+      <ui:define name="content" >
+        <div>
+          <h:form>
+            <p:outputLabel
+              for="txtNombre"
+              value="Nombre"
+              class="block text-900 font-medium mb-2"
+            ></p:outputLabel>
+            <p:inputText
+              id="txtNombre"
+              value="#{vistaCrearJugador.usuario}"
+              required="true"
+              requiredMessage="Campo Obligatorio"
+              styleClass="w-full mb-3"
+            />
+            <p:message for="txtNombre" />
 
-    <h:body>
-        <h>Crear Jugador</h>
-    </h:body>
+            <p:outputLabel
+              for="txtApellidos"
+              value="Apellidos"
+              class="block text-900 font-medium mb-2"
+            ></p:outputLabel>
+            <p:inputText
+              id="txtApellidos"
+              value="#{vistaCrearJugador.apellidos}"
+              required="true"
+              requiredMessage="Campo Obligatorio"
+              styleClass="w-full mb-3"
+            />
+            <p:message for="txtApellidos" />
+
+            <p:outputLabel
+              for="txtDorsal"
+              value="Dorsal"
+              class="block text-900 font-medium mb-2"
+            ></p:outputLabel>
+            <p:inputText
+              id="txtDorsal"
+              value="#{vistaCrearJugador.dorsal}"
+              required="true"
+              requiredMessage="Campo Obligatorio"
+              styleClass="w-full mb-3"
+            />
+            <p:message for="txtDorsal" />
+
+            <p:outputLabel
+              for="txtFechaNac"
+              value="Fecha de nacimiento"
+              class="block text-900 font-medium mb-2"
+            ></p:outputLabel>
+            <p:calendar
+              id="txtFechaNac"
+              value="#{vistaCrearJugador.fechaNac}"
+              required="true"
+              requiredMessage="Campo Obligatorio"
+              styleClass="w-full mb-3" />
+            <p:message for="txtFechaNac" />
+
+            <p:outputLabel
+              for="txtIdEquipo"
+              value="Equipo"
+              class="block text-900 font-medium mb-2"
+            ></p:outputLabel>
+            <p:selectOneMenu
+              id="txtIdEquipo"
+              value="#{vistaCrearJugador.idEquipo}"
+              required="true"
+              requiredMessage="Campo Obligatorio"
+              styleClass="w-full mb-3"
+            >
+              <f:selectItem itemLabel="Seleccione un equipo" itemValue="" />
+              <f:selectItems
+                value="#{vistaCrearJugador.listaEquipos()}"
+                var="equipo"
+                itemLabel="#{equipo.nombre}"
+                itemValue="#{equipo.idEquipo}"
+              />
+            </p:selectOneMenu>
+            <p:message for="txtIdEquipo" />
+
+            <p:outputLabel for="checkCapitan" value="Capitán" />
+            <p:selectBooleanCheckbox
+              id="checkCapitan"
+              value="#{vistaCrearJugador.capitan}"
+            >
+              <p:ajax update="txtEmail txtContrasena" />
+            </p:selectBooleanCheckbox>
+
+            <p:outputLabel for="txtEmail" value="email" />
+            <p:inputText
+              id="txtEmail"
+              value="#{vistaCrearJugador.email}"
+              required="true"
+              rendered="#{!vistaCrearJugador.capitan}"
+            />
+            <p:message for="txtEmail" />
+
+            <p:outputLabel for="txtContrasena" value="Contraseña" />
+            <p:password
+              id="txtContrasena"
+              value="#{vistaCrearJugador.contrasena}"
+              required="true"
+              rendered="#{vistaCrearJugador.capitan}"
+            />
+            <p:message for="txtContrasena" />
+
+            <p:commandButton
+              value="Crear jugador"
+              action="#{vistaCrearJugador.crearJugador()}"
+              styleClass="w-full"
+            />
+          </h:form>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </h:body>
 </html>
