@@ -14,7 +14,7 @@
                     <div class="card">
                         <p:dataTable var="partido" value="#{partidosController.listaPartidos}">
                             <p:column headerText="Partido">
-                                <h:outputText value="#{partido.idEquipoLocal.nombre} #{partido.idEquipoVis.nombre}" />
+                                <h:outputText value="#{partido.idEquipoLocal.nombre} vs #{partido.idEquipoVis.nombre}" />
                             </p:column>
 
                             <p:column headerText="Goles Local">
