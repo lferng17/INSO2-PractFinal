@@ -1,28 +1,37 @@
 package inso2023.controller;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.util.List;
 import java.util.Date;
 
-import inso2023.ejb.EquipoFacade;
+import inso2023.ejb.EquipoFacadeLocal;
+import inso2023.ejb.JugadorFacadeLocal;
 import inso2023.model.Equipo;
 import inso2023.model.Jugador;
 
 @ManagedBean
 public class VistaCrearJugadorController {
 
-    private String nombre;
-    private String apellidos;
-    private int dorsal;
-    private Date fechaNac;
-    private int goles;
-    private int asistencias;
-    private int tarjAma;
-    private int tarjRojas;
-    private int idEquipo;
-    private int capitan;
-    private String email;
-    private String contrasena;
+    public String nombre;
+    public String apellidos;
+    public int dorsal;
+    public String dni;
+    public Date fechaNac;
+    public int goles;
+    public int asistencias;
+    public int tarjAma;
+    public int tarjRojas;
+    public int idEquipo;
+    public boolean capitan;
+    public String email;
+    public String contrasena;
+
+    @EJB
+    EquipoFacadeLocal equipoFacadeLocal;
+
+    @EJB
+    JugadorFacadeLocal jugadorFacadeLocal;
     
     
     public void verificarAdministrador() throws Exception{
@@ -33,25 +42,31 @@ public class VistaCrearJugadorController {
 
     public void crearJugador(){
         Jugador jugador = new Jugador();
-        jugador.setNombre("Luis");
-        jugador.setApellidos("Fernandez");
-        jugador.setDorsal(0);
-        jugador.setFechaNac(null);
+        jugador.setNombre(this.nombre);
+        jugador.setApellidos(this.apellidos);
+        jugador.setDorsal(this.dorsal);
+        jugador.setDni(this.dni);
+        jugador.setFechaNac(this.fechaNac);
         jugador.setGoles(0);
         jugador.setAsistencias(0);
         jugador.setTarjAma(0);
         jugador.setTarjRojas(0);
-        jugador.setIdEquipo(null);
-        jugador.setCapitan(0);
-        jugador.setEmail("");
-        jugador.setContrasena("1234");
+        jugador.setIdEquipo(equipoFacadeLocal.find(this.idEquipo));
+        if(capitan == true){
+            jugador.setCapitan(1);
+        }else{
+            jugador.setCapitan(0);
+        }
+        jugador.setEmail(this.email);
+        jugador.setContrasena(this.contrasena);
+
+        jugadorFacadeLocal.create(jugador);
 
         System.out.println("Jugador creado");
     }
 
     public List<Equipo> listaEquipos(){
-        EquipoFacade equipoFacade = new EquipoFacade();
-        return equipoFacade.findAll();
+        return equipoFacadeLocal.findAll();
     }
 
     public String getNombre() {
@@ -77,6 +92,14 @@ public class VistaCrearJugadorController {
     public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
     }
+
+    public void setDni(String dni){
+        this.dni = dni;
+    }
+
+    public String getDni(){
+        return dni;
+    }   
 
     public Date getFechaNac() {
         return fechaNac;
@@ -126,11 +149,11 @@ public class VistaCrearJugadorController {
         this.idEquipo = idEquipo;
     }
 
-    public int getCapitan() {
+    public boolean getCapitan() {
         return capitan;
     }
 
-    public void setCapitan(int capitan) {
+    public void setCapitan(boolean capitan) {
         this.capitan = capitan;
     }
 
@@ -150,5 +173,5 @@ public class VistaCrearJugadorController {
         this.contrasena = contrasena;
     }
 
-    
+
 }
