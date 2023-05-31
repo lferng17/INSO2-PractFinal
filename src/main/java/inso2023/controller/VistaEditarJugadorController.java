@@ -3,6 +3,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
 import inso2023.ejb.EquipoFacadeLocal;
@@ -11,8 +12,9 @@ import inso2023.model.Equipo;
 import inso2023.model.Jugador;
 
 @ManagedBean
-public class VistaCrearJugadorController {
-
+public class VistaEditarJugadorController {
+    private int idEquipoMod;
+    private int idJugadorMod;
     private String nombre;
     private String apellidos;
     private int dorsal;
@@ -26,6 +28,7 @@ public class VistaCrearJugadorController {
     private boolean capitan = false;
     private String email;
     private String contrasena;
+    private List<Jugador> jugadoresEquipo = new ArrayList<>();
 
     @EJB
     EquipoFacadeLocal equipoFacadeLocal;
@@ -40,33 +43,95 @@ public class VistaCrearJugadorController {
         }
     }
 
-    public void crearJugador(){
+    public void editarJugador(){
         Jugador jugador = new Jugador();
+        jugador.setIdJugador(this.idJugadorMod);
         jugador.setNombre(this.nombre);
         jugador.setApellidos(this.apellidos);
         jugador.setDorsal(this.dorsal);
         jugador.setDni(this.dni);
         jugador.setFechaNac(this.fechaNac);
-        jugador.setGoles(0);
-        jugador.setAsistencias(0);
-        jugador.setTarjAma(0);
-        jugador.setTarjRojas(0);
+        jugador.setGoles(this.goles);
+        jugador.setAsistencias(this.asistencias);
+        jugador.setTarjAma(this.tarjAma);
+        jugador.setTarjRojas(this.tarjRojas);
         jugador.setIdEquipo(equipoFacadeLocal.find(this.idEquipo));
-        if(capitan == true){
+        if(this.capitan == true){
             jugador.setCapitan(1);
+            jugador.setEmail(this.email);
+            jugador.setContrasena(this.contrasena);
         }else{
             jugador.setCapitan(0);
+            jugador.setEmail(null);
+            jugador.setContrasena(null);
+
         }
-        jugador.setEmail(this.email);
-        jugador.setContrasena(this.contrasena);
 
-        jugadorFacadeLocal.create(jugador);
+        jugadorFacadeLocal.edit(jugador);
 
-        System.out.println("Jugador creado");
+        System.out.println("Jugador editado");
     }
 
-    public List<Equipo> listaEquipos(){
+    public List<Equipo> getEquipos(){
         return equipoFacadeLocal.findAll();
+    }
+
+    public void setJugadoresEquipo(){
+        List<Jugador> jugadores = jugadorFacadeLocal.findAll();
+        for(Jugador jugador : jugadores){
+            if(jugador.getIdEquipo().getIdEquipo() == this.idEquipoMod){
+                jugadoresEquipo.add(jugador);
+            }
+        }
+
+    }
+
+    public List<Jugador> getJugadoresEquipo(){
+        if(jugadoresEquipo.isEmpty()){
+            jugadoresEquipo = jugadorFacadeLocal.findAll();
+        }
+        return jugadoresEquipo;
+    }
+
+    public void setDatosJugador(){
+        Jugador jugadorMod = jugadorFacadeLocal.find(this.idJugadorMod);
+        this.nombre = jugadorMod.getNombre();
+        this.apellidos= jugadorMod.getApellidos();
+        this.dorsal = jugadorMod.getDorsal();
+        this.dni = jugadorMod.getDni();
+        this.fechaNac = jugadorMod.getFechaNac();
+        this.goles = jugadorMod.getGoles();
+        this.asistencias = jugadorMod.getAsistencias();
+        this.tarjAma = jugadorMod.getTarjAma();
+        this.tarjRojas = jugadorMod.getTarjRojas();
+        this.idEquipo = jugadorMod.getIdEquipo().getIdEquipo();
+        if(jugadorMod.getCapitan() == 1){
+            this.capitan = true;
+            this.email = jugadorMod.getEmail();
+            this.contrasena = jugadorMod.getContrasena();
+        }else{
+            this.capitan = false;
+        }
+    }
+
+    public void isCapitan(){
+        this.capitan = true;
+    }
+
+    public int getIdEquipoMod() {
+        return idEquipoMod;
+    }
+    
+    public void setIdEquipoMod(int idEquipoMod) {
+        this.idEquipoMod = idEquipoMod;
+    }
+
+    public int getIdJugadorMod() {
+        return idJugadorMod;
+    }
+    
+    public void setIdJugadorMod(int idJugadorMod){
+        this.idJugadorMod = idJugadorMod;
     }
 
     public String getNombre() {
