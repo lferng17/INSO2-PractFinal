@@ -26,6 +26,8 @@ public interface JugadorFacadeLocal {
 
     List<Jugador> findAll();
 
+    List<Jugador> findForTeam(int idEquipo);
+
     List<Jugador> findRange(int[] range);
 
     int count();

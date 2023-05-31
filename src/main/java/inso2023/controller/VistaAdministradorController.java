@@ -47,7 +47,8 @@ public class VistaAdministradorController implements Serializable{
     }
 
     public void eliminarPartido() throws Exception{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarPartido.xhtml");
+        //FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarPartido.xhtml");
+        System.out.println("Eliminar Partido neno");
     }
 
     public void crearArbitro() throws Exception{

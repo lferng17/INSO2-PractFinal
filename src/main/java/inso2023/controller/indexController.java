@@ -57,6 +57,7 @@ public class indexController implements Serializable {
         else if(jugadorFacade.buscarUsuario(usuario, password) != null){
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "jugador");
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idUsuario", jugadorFacade.buscarUsuario(usuario, password).getIdJugador());
             tipoUsuario = "privado/jugador/vistaJugador.xhtml?faces-redirect=true";
             System.out.println("Jugador");
         }
@@ -67,6 +68,14 @@ public class indexController implements Serializable {
 
         return tipoUsuario;
 
+    }
+
+    public void cerrarSesion() throws Exception{
+        // Lógica para cerrar la sesión
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        
+        // Redirige a la página de inicio de sesión
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../../index.xhtml");
     }
 
     public String getUsuario() {
