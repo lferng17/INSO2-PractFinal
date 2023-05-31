@@ -9,9 +9,9 @@
     <head>
         <f:event type="preRenderView" listener="#{vistaArbitroController.verificarArbitro()}"/>
     </head>
-    
+
     <body>
-        
+
         <ui:composition template="./../../WEB-INF/template/plantillaGeneral.xhtml" >
 
             <ui:define name="content"> 
@@ -19,10 +19,41 @@
                     <h1 class="title">Seleccione el partido</h1>
 
                     <h:form class="form">
-                        <p:selectOneMenu id="partidosMenu" value="Poner Partidos seleccionados" styleClass="select-menu">
-                            <f:selectItem itemLabel="Seleccione un partido" itemValue="" />
-                            <f:selectItems value="Poner Partidos sin disputar" var="partido" itemLabel="Poner partido nombre" itemValue="Poner partido" />
+                        <p:selectOneMenu
+                            id="txtIdPartido"
+                            value="#{vistaArbitroController.idPartido}"
+                            required="true"
+                            requiredMessage="Campo Obligatorio"
+                            styleClass="w-full mb-3"
+                            >
+                            <f:selectItem itemLabel="Seleccione un Partido" itemValue="" />
+                            <f:selectItems
+                                value="#{vistaArbitroController.listaPartidosArbitro}"
+                                var="partido"
+                                itemLabel="#{partido.idEquipoLocal.nombre} vs #{partido.idEquipoVis.nombre}"
+                                itemValue="#{partido.idPartido}"
+                                />
+                            <p:ajax listener="#{vistaArbitroController.cargarJugadoresEquipos()}" update="comboBox" />
                         </p:selectOneMenu>
+
+                        <h:panelGroup id="comboBox" rendered="#{vistaArbitroController.mostrarActas == true}">
+
+                            <h1 class="title" rendered="#{vistaArbitroController.mostrarActas == true}">Acta Partido #{vistaArbitroController.idPartido}</h1>
+
+                            <div class="card">
+                                <p:dataTable var="jugador" value="#{vistaArbitroController.listaJugadoresEquipoLocal}" rendered="#{vistaArbitroController.idPartido != null}">
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{jugador.nombre}" />
+                                    </p:column>
+
+                                    <p:column headerText="Goles">
+                                        <h:outputText value="#{jugador.goles}" />
+                                    </p:column>
+ 
+                                </p:dataTable>
+                            </div>
+                        </h:panelGroup>
+
 
                         <div class="button-wrapper">
                             <p:commandButton value="Anotar resultados" action="Anotar resultados" 

@@ -31,12 +31,6 @@
                             <p:menuitem value="Partidos" icon="pi pi-fw pi-sitemap" url="#{request.contextPath}/faces/publico/partidos.xhtml"  styleClass="ui-button-info"/>
                         </p:submenu>
                         
-                        <c:if test="#{vistaArbitroController.esArbitro()}">
-                            <p:submenu label="Arbitro" icon="pi pi-fw pi-user">
-                                <p:menuitem value="Acta Partido" icon="pi pi-fw pi-file-edit" url="#{request.contextPath}/faces/privado/arbitro/vistaArbitro.xhtml" styleClass="ui-button-info"/>
-                            </p:submenu>
-                        </c:if>
-
                         <f:facet name="options">
                             <p:commandButton value="Cerrar Sesion" icon="pi pi-fw pi-sign-in" styleClass="ui-button-info" action="#{indexController.cerrarSesion()}"/>
                         </f:facet>
