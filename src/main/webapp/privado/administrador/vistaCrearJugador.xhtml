@@ -116,27 +116,28 @@
                 id="checkCapitan"
                 value="#{vistaCrearJugadorController.capitan}"
               >
-                <p:ajax update="txtEmail txtContrasena" />
+                <p:ajax listener = "#{vistaCrearJugadorController.getCapitan()}" update="login" />
               </p:selectBooleanCheckbox>
 
-              <p:outputLabel for="txtEmail" value="email" />
-              <p:inputText
-                id="txtEmail"
-                value="#{vistaCrearJugadorController.email}"
-                required="true"
-                rendered="#{!vistaCrearJugadorController.email}"
-              />
-              <p:message for="txtEmail" />
-
-              <p:outputLabel for="txtContrasena" value="Contraseña" />
-              <p:password
-                id="txtContrasena"
-                value="#{vistaCrearJugadorController.contrasena}"
-                required="true"
-                rendered="#{!vistaCrearJugadorController.capitan}"
-              />
-              <p:message for="txtContrasena" />
-
+              <p:outputPanel id="login">
+                <p:outputLabel for="txtEmail" value="email" rendered="#{vistaCrearJugadorController.capitan==true}"/>
+                <p:inputText
+                  id="txtEmail"
+                  value="#{vistaCrearJugadorController.email}"
+                  required="true"
+                  rendered="#{vistaCrearJugadorController.capitan==true}"
+                />
+                <p:message for="txtEmail" />
+  
+                <p:outputLabel for="txtContrasena" value="Contraseña" rendered="#{vistaCrearJugadorController.capitan==true}"/>
+                <p:password
+                  id="txtContrasena"
+                  value="#{vistaCrearJugadorController.contrasena}"
+                  required="true"
+                  rendered="#{vistaCrearJugadorController.capitan==true}"
+                />
+                <p:message for="txtContrasena" />
+              </p:outputPanel>
               <p:commandButton
                 value="Crear jugador"
                 action="#{vistaCrearJugadorController.crearJugador()}"

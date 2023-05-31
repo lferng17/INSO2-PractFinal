@@ -13,19 +13,19 @@ import inso2023.model.Jugador;
 @ManagedBean
 public class VistaCrearJugadorController {
 
-    public String nombre;
-    public String apellidos;
-    public int dorsal;
-    public String dni;
-    public Date fechaNac;
-    public int goles;
-    public int asistencias;
-    public int tarjAma;
-    public int tarjRojas;
-    public int idEquipo;
-    public boolean capitan;
-    public String email;
-    public String contrasena;
+    private String nombre;
+    private String apellidos;
+    private int dorsal;
+    private String dni;
+    private Date fechaNac;
+    private int goles;
+    private int asistencias;
+    private int tarjAma;
+    private int tarjRojas;
+    private int idEquipo;
+    private boolean capitan = false;
+    private String email;
+    private String contrasena;
 
     @EJB
     EquipoFacadeLocal equipoFacadeLocal;

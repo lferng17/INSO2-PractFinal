@@ -232,28 +232,28 @@
                 id="checkCapitan"
                 value="#{vistaEditarJugadorController.capitan}"
               >
-                <p:ajax
-                  listener="#{vistaEditarJugadorController.isCapitan()}"
-                  update="txtEmail txtContrasena"
-                />
+                <p:ajax listener="#{vistaEditarJugadorController.getCapitan()}" update="login"/>
               </p:selectBooleanCheckbox>
-              <p:outputLabel for="txtEmail" value="email" />
-              <p:inputText
-                id="txtEmail"
-                value="#{vistaEditarJugadorController.email}"
-                required="true"
-                rendered="#{vistaEditarJugadorController.capitan}"
-              />
-              <p:message for="txtEmail" />
 
-              <p:outputLabel for="txtContrasena" value="Contraseña" />
-              <p:password
-                id="txtContrasena"
-                value="#{vistaEditarJugadorController.contrasena}"
-                required="true"
-                rendered="#{vistaEditarJugadorController.capitan}"
-              />
-              <p:message for="txtContrasena" />
+              <p:outputPanel id="login">
+                <p:outputLabel for="txtEmail" value="email" rendered="#{vistaEditarJugadorController.capitan==true}"/>
+                <p:inputText
+                  id="txtEmail"
+                  value="#{vistaEditarJugadorController.email}"
+                  required="true"
+                  rendered="#{vistaEditarJugadorController.capitan==true}"
+                />
+                <p:message for="txtEmail" />
+  
+                <p:outputLabel for="txtContrasena" value="Contraseña" rendered="#{vistaEditarJugadorController.capitan==true}"/>
+                <p:password
+                  id="txtContrasena"
+                  value="#{vistaEditarJugadorController.contrasena}"
+                  required="true"
+                  rendered="#{vistaEditarJugadorController.capitan==true}"
+                />
+                <p:message for="txtContrasena" />
+              </p:outputPanel>
 
               <p:commandButton
                 value="Editar jugador"
