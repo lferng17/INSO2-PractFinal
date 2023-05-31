@@ -51,6 +51,7 @@ public class indexController implements Serializable {
         else if(arbitroFacade.buscarUsuario(usuario, password) != null){
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "arbitro");
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idArbitro", arbitroFacade.buscarUsuario(usuario, password).getIdArbitro());
             tipoUsuario = "privado/arbitro/vistaArbitro.xhtml?faces-redirect=true";
             System.out.println("Arbitro");
         }
