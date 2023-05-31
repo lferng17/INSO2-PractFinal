@@ -5,6 +5,7 @@
  */
 package inso2023.ejb;
 
+import inso2023.model.Arbitro;
 import inso2023.model.Partido;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,5 +30,7 @@ public interface PartidoFacadeLocal {
     List<Partido> findRange(int[] range);
 
     int count();
+
+    List<Partido> findPartidoByArbitro(Arbitro arbitro);
     
 }

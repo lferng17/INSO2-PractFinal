@@ -51,7 +51,7 @@
                   <f:selectItems
                     value="#{vistaEliminarJugadorController.listaJugadoresEquipo}"
                     var="jugador"
-                    itemLabel="#{jugador.nombre}"
+                    itemLabel="#{jugador.nombre} #{jugador.apellidos}"
                     itemValue="#{jugador.idJugador}"
                   />
                 </p:selectOneMenu>
