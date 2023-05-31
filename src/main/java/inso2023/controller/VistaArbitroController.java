@@ -1,7 +1,6 @@
 package inso2023.controller;
 
 import inso2023.ejb.ArbitroFacadeLocal;
-import inso2023.ejb.EquipoFacadeLocal;
 import inso2023.ejb.JugadorFacadeLocal;
 import inso2023.ejb.PartidoFacadeLocal;
 import inso2023.model.Jugador;
@@ -23,9 +22,6 @@ public class VistaArbitroController implements Serializable{
     
     public int idPartido;
     public int idArbitro;
-    public int idEquipoLocal;
-    public int idEquipoVis;
-    public Partido partidoSeleccionado;
     public List<Partido> listaPartidos;  
     public List<Partido> listaPartidosArbitro = new ArrayList<>();
     public List<Jugador> listaJugadores;
@@ -91,26 +87,23 @@ public class VistaArbitroController implements Serializable{
     public void cargarJugadoresEquipos(){
        
         mostrarActas = true;
+
+        Partido partido = partidoEJB.find(idPartido);
         
         listaJugadoresEquipoLocal.clear();
         for (Jugador j : listaJugadores){
-            if(j.getIdEquipo().getIdEquipo() == idEquipoLocal){
+            if(j.getIdEquipo().getIdEquipo() == partido.getIdEquipoLocal().getIdEquipo()){
                 listaJugadoresEquipoLocal.add(j);
             }
         }
         
         listaJugadoresEquipoVis.clear();
         for (Jugador j : listaJugadores){
-            if(j.getIdEquipo().getIdEquipo() == idEquipoVis){
+            if(j.getIdEquipo().getIdEquipo() == partido.getIdEquipoVis().getIdEquipo()){
                 listaJugadoresEquipoVis.add(j);
             }
         }
-        
-        //imprimir lista de jugadores
-        for(Jugador j : listaJugadoresEquipoLocal){
-            System.out.println(j.getNombre());
-        }
-
+    
     } 
 
     
@@ -129,23 +122,6 @@ public class VistaArbitroController implements Serializable{
     public void setIdPartido(int idPartido) {
         this.idPartido = idPartido;
     }
-
-    public int getIdEquipoLocal() {
-        return idEquipoLocal;
-    }
-
-    public void setIdEquipoLocal(int idEquipoLocal) {
-        this.idEquipoLocal = idEquipoLocal;
-    }
-
-    public int getIdEquipoVis() {
-        return idEquipoVis;
-    }
-
-    public void setIdEquipoVis(int idEquipoVis) {
-        this.idEquipoVis = idEquipoVis;
-    }
-
 
     public List<Partido> getListaPartidos() {
         return listaPartidos;
@@ -186,14 +162,6 @@ public class VistaArbitroController implements Serializable{
 
     public void setListaJugadoresEquipoVis(List<Jugador> listaJugadoresEquipoVis) {
         this.listaJugadoresEquipoVis = listaJugadoresEquipoVis;
-    }
-
-    public Partido getPartidoSeleccionado() {
-        return partidoSeleccionado;
-    }
-
-    public void setPartidoSeleccionado(Partido partidoSeleccionado) {
-        this.partidoSeleccionado = partidoSeleccionado;
     }
     
     public boolean isMostrarActas() {
