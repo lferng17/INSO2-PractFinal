@@ -76,7 +76,9 @@ public class indexController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         
         // Redirige a la página de inicio de sesión
-        FacesContext.getCurrentInstance().getExternalContext().redirect("../../index.xhtml");
+        String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+        String url = contextPath + "/faces/index.xhtml";
+        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
     }
 
     public String getUsuario() {
