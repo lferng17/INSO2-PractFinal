@@ -12,8 +12,10 @@ import javax.faces.context.FacesContext;
 
 import inso2023.ejb.EquipoFacadeLocal;
 import inso2023.ejb.JugadorFacadeLocal;
+import inso2023.ejb.PartidoFacadeLocal;
 import inso2023.model.Equipo;
 import inso2023.model.Jugador;
+import inso2023.model.Partido;
 
 @ManagedBean
 @ViewScoped
@@ -24,6 +26,8 @@ public class VistaEliminarEquipoController implements Serializable{
     private EquipoFacadeLocal equipoEJB;
     @EJB
     private JugadorFacadeLocal jugadorEJB;
+    @EJB
+    private PartidoFacadeLocal partidoEJB;
 
 
     @PostConstruct
@@ -44,6 +48,12 @@ public class VistaEliminarEquipoController implements Serializable{
     public void eliminarEquipo() throws IOException{
         Equipo equipo = equipoEJB.find(idEquipo);
         List<Jugador> listaJugadores = jugadorEJB.findAll();
+        List<Partido> listaPartidos = partidoEJB.findAll();
+        for(Partido partido : listaPartidos){
+            if(partido.getIdEquipoLocal().getIdEquipo() == equipo.getIdEquipo() || partido.getIdEquipoVis().getIdEquipo() == equipo.getIdEquipo()){
+                partidoEJB.remove(partido);
+            }
+        }
         for(Jugador jugador : listaJugadores){
             if(jugador.getIdEquipo().getIdEquipo() == equipo.getIdEquipo()){
                 jugadorEJB.remove(jugador);
@@ -51,7 +61,7 @@ public class VistaEliminarEquipoController implements Serializable{
         }
         equipoEJB.remove(equipo);
         listaEquipos.clear();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaAdministrador.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarEquipo.xhtml");
     }
 
     public int getIdEquipo() {
