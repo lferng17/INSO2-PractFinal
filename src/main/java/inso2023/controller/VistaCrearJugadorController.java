@@ -3,6 +3,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.util.List;
+import java.io.Serializable;
 import java.util.Date;
 
 import inso2023.ejb.EquipoFacadeLocal;
@@ -11,7 +12,7 @@ import inso2023.model.Equipo;
 import inso2023.model.Jugador;
 
 @ManagedBean
-public class VistaCrearJugadorController {
+public class VistaCrearJugadorController implements Serializable{
 
     private String nombre;
     private String apellidos;
@@ -23,9 +24,7 @@ public class VistaCrearJugadorController {
     private int tarjAma;
     private int tarjRojas;
     private int idEquipo;
-    private boolean capitan = false;
-    private String email;
-    private String contrasena;
+    private boolean capitan;
 
     @EJB
     EquipoFacadeLocal equipoFacadeLocal;
@@ -35,8 +34,12 @@ public class VistaCrearJugadorController {
     
     
     public void verificarAdministrador() throws Exception{
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "admin"){
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         }
     }
 
@@ -54,11 +57,13 @@ public class VistaCrearJugadorController {
         jugador.setIdEquipo(equipoFacadeLocal.find(this.idEquipo));
         if(capitan == true){
             jugador.setCapitan(1);
+            jugador.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
+            jugador.setContrasena(this.dni);
         }else{
             jugador.setCapitan(0);
+            jugador.setEmail(null);
+            jugador.setContrasena(null);
         }
-        jugador.setEmail(this.email);
-        jugador.setContrasena(this.contrasena);
 
         jugadorFacadeLocal.create(jugador);
 
@@ -156,22 +161,5 @@ public class VistaCrearJugadorController {
     public void setCapitan(boolean capitan) {
         this.capitan = capitan;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
 
 }

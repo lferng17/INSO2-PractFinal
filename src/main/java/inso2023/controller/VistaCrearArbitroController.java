@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 
 import inso2023.ejb.ArbitroFacadeLocal;
 import inso2023.model.Arbitro;
+import javax.faces.context.FacesContext;
 
 import java.util.Date;
 
@@ -14,11 +15,19 @@ public class VistaCrearArbitroController {
     private Date fechaNac;
     private int licencia;
     private String dni;
-    private String email;
-    private String contrasena;
 
     @EJB
     ArbitroFacadeLocal arbitroFacadeLocal;
+
+    public void verificarAdministrador() throws Exception{
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        }
+    }
 
     public void crearArbitro(){
         Arbitro arbitro = new Arbitro();
@@ -27,8 +36,8 @@ public class VistaCrearArbitroController {
         arbitro.setFechaNac(this.fechaNac);
         arbitro.setLicencia(this.licencia);
         arbitro.setDni(this.dni);
-        arbitro.setEmail(this.email);
-        arbitro.setContrasena(this.contrasena);
+        arbitro.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
+        arbitro.setContrasena(this.dni);
 
         arbitroFacadeLocal.create(arbitro);
         System.out.println("Arbitro creado");
@@ -74,22 +83,6 @@ public class VistaCrearArbitroController {
         this.dni = dni;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
     public ArbitroFacadeLocal getArbitroFacadeLocal() {
         return arbitroFacadeLocal;
     }
@@ -97,7 +90,5 @@ public class VistaCrearArbitroController {
     public void setArbitroFacadeLocal(ArbitroFacadeLocal arbitroFacadeLocal) {
         this.arbitroFacadeLocal = arbitroFacadeLocal;
     }
-
-
 
 }

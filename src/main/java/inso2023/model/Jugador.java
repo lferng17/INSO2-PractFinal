@@ -49,8 +49,8 @@ public class Jugador implements Serializable {
     
     @Column(name = "tarjRojas")
     private int tarjRojas;
-    
-    @ManyToOne(cascade = CascadeType.PERSIST)
+
+    @ManyToOne
     @JoinColumn(name = "idEquipo")
     private Equipo idEquipo;
     

@@ -5,6 +5,7 @@ import java.util.List;
 
 import inso2023.ejb.EquipoFacadeLocal;
 import inso2023.model.Equipo;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class VistaEditarEquipoController {
@@ -16,6 +17,16 @@ public class VistaEditarEquipoController {
 
     @EJB
     EquipoFacadeLocal equipoFacadeLocal;
+
+    public void verificarAdministrador() throws Exception{
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        }
+    }
 
     public void editarEquipo(){
         Equipo equipo = new Equipo();

@@ -27,6 +27,16 @@ public class VistaEliminarPartidoController implements Serializable{
         listaPartidos = partidoEJB.findAll();
     }
 
+    public void verificarAdministrador() throws Exception{
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        }
+    }
+
     public void eliminarPartido() throws IOException{
         Partido partido = partidoEJB.find(idPartido);
         partidoEJB.remove(partido);

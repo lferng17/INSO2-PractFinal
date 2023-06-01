@@ -11,6 +11,7 @@ import inso2023.ejb.PartidoFacadeLocal;
 import inso2023.ejb.EquipoFacadeLocal;
 import inso2023.ejb.ArbitroFacadeLocal; 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class VistaPartidoCrearController {
@@ -28,18 +29,35 @@ public class VistaPartidoCrearController {
     EquipoFacadeLocal equipoFacadeLocal;
 
 
+    public void verificarAdministrador() throws Exception{
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        }
+    }
+
+
+
     public void crearPartido(){
-        Partido partido = new Partido();
-        partido.setIdEquipoLocal(equipoFacadeLocal.find(this.idEquipoLocal));
-        partido.setIdEquipoVis(equipoFacadeLocal.find(this.idEquipoVisitante));
-        partido.setIdArbitro(arbitroFacadeLocal.find(idArbitro));
-        partido.setGolesLocal(0);
-        partido.setGolesVis(0);
-        partido.setFecha(this.fecha);
-        partido.setHora(this.hora);
-        partido.setTarjAma(0);
-        partido.setTarjRojas(0);
-        partidoFacadeLocal.create(partido);
+        try{
+            Partido partido = new Partido();
+            partido.setIdEquipoLocal(equipoFacadeLocal.find(this.idEquipoLocal));
+            partido.setIdEquipoVis(equipoFacadeLocal.find(this.idEquipoVisitante));
+            partido.setIdArbitro(arbitroFacadeLocal.find(idArbitro));
+            partido.setGolesLocal(0);
+            partido.setGolesVis(0);
+            partido.setFecha(this.fecha);
+            partido.setHora(this.hora);
+            partido.setTarjAma(0);
+            partido.setTarjRojas(0);
+            partidoFacadeLocal.create(partido);
+        }catch(Exception e){
+            
+        }
+
     }
 
     public List<Equipo> getEquipos(){

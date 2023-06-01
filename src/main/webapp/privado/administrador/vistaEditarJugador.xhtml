@@ -11,6 +11,9 @@
   <h:head>
     <title>Editar Jugador</title>
     <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaEditarJugadorController.verificarAdministrador()}"/>
+    </f:metadata>
   </h:head>
   <h:body class="surface-300">
     <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
@@ -60,7 +63,7 @@
               >
                 <p:ajax
                   listener="#{vistaEditarJugadorController.setDatosJugador()}"
-                  update="txtNombre txtApellidos txtDni txtDorsal txtFechaNac checkCapitan txtIdEquipo txtGoles txtAsistencias txtTarjAma txtTarjRojas login txtEmail txtContrasena"
+                  update="txtNombre txtApellidos txtDni txtDorsal txtFechaNac checkCapitan txtIdEquipo txtGoles txtAsistencias txtTarjAma txtTarjRojas"
                 />
                 <f:selectItem
                   itemLabel="Seleccione un jugador"
@@ -232,28 +235,7 @@
                 id="checkCapitan"
                 value="#{vistaEditarJugadorController.capitan}"
               >
-                <p:ajax listener="#{vistaEditarJugadorController.getCapitan()}" update="login"/>
               </p:selectBooleanCheckbox>
-
-              <p:outputPanel id="login">
-                <p:outputLabel for="txtEmail" value="email" rendered="#{vistaEditarJugadorController.capitan==true}"/>
-                <p:inputText
-                  id="txtEmail"
-                  value="#{vistaEditarJugadorController.email}"
-                  required="true"
-                  rendered="#{vistaEditarJugadorController.capitan==true}"
-                />
-                <p:message for="txtEmail" />
-  
-                <p:outputLabel for="txtContrasena" value="Contraseña" rendered="#{vistaEditarJugadorController.capitan==true}"/>
-                <p:password
-                  id="txtContrasena"
-                  value="#{vistaEditarJugadorController.contrasena}"
-                  required="true"
-                  rendered="#{vistaEditarJugadorController.capitan==true}"
-                />
-                <p:message for="txtContrasena" />
-              </p:outputPanel>
 
               <p:commandButton
                 value="Editar jugador"
