@@ -8,10 +8,9 @@
   xmlns:h="http://xmlns.jcp.org/jsf/html"
 >
   <head>
-    <f:event
-      type="preRenderView"
-      listener="#{vistaArbitroController.verificarArbitro()}"
-    />
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaArbitroController.verificarArbitro()}"/>
+    </f:metadata>
   </head>
 
   <body>
@@ -21,6 +20,7 @@
           <h1 class="title">Seleccione el partido</h1>
 
           <h:form class="form">
+            <p:growl id="growl" showDetail="true" />
             <p:selectOneMenu
               id="txtIdPartido"
               value="#{vistaArbitroController.idPartido}"
@@ -142,6 +142,7 @@
                 <p:commandButton
                   value="Anotar resultados"
                   action="#{vistaArbitroController.anotarResultados()}"
+                  update="growl"
                 />
               </div>
             </p:outputPanel>

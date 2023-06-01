@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
@@ -33,6 +34,7 @@ public class VistaCapitanController implements Serializable {
         try {
             idJugador = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idJugador");
         } catch (Exception e) {
+            System.out.println("Error al obtener el id del jugador");
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";         
             try {
@@ -52,18 +54,20 @@ public class VistaCapitanController implements Serializable {
         objMensaje.setIdJugador(jugador);
         try {
             mensajeEJB.create(objMensaje);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado", "Mensaje enviado con éxito!"));
         } catch (Exception e) {
-            System.out.println("Error al crear mensaje");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El mensaje no ha sido enviado."));
             e.printStackTrace();
         }
     }
 
     public void verificarCapitan() throws Exception {
-        if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "jugador") {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
-        } else {
-            System.out.println("Vista Capitan");
-        }
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        if (!usuario.equals("jugador")) {
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        } 
     }
 
     public String getMensaje() {
