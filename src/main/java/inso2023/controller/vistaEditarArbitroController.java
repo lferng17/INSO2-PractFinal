@@ -1,6 +1,7 @@
 package inso2023.controller;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
 import inso2023.ejb.ArbitroFacadeLocal;
@@ -23,7 +24,6 @@ public class vistaEditarArbitroController {
 
     public void verificarAdministrador() throws Exception{
         String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        System.out.println(usuario);
         if(!usuario.equals("admin")){
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -32,18 +32,23 @@ public class vistaEditarArbitroController {
     }
 
     public void editarArbitro(){
-        Arbitro arbitro = new Arbitro();
-        arbitro.setIdArbitro(this.idArbitroMod);
-        arbitro.setNombre(this.nombre);
-        arbitro.setApellidos(this.apellidos);
-        arbitro.setFechaNac(this.fechaNac);
-        arbitro.setLicencia(this.licencia);
-        arbitro.setDni(this.dni);
-        arbitro.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
-        arbitro.setContrasena(this.dni);
+        try{
+            Arbitro arbitro = new Arbitro();
+            arbitro.setIdArbitro(this.idArbitroMod);
+            arbitro.setNombre(this.nombre);
+            arbitro.setApellidos(this.apellidos);
+            arbitro.setFechaNac(this.fechaNac);
+            arbitro.setLicencia(this.licencia);
+            arbitro.setDni(this.dni);
+            arbitro.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
+            arbitro.setContrasena(this.dni);
+    
+            arbitroFacadeLocal.edit(arbitro);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro editado", "Arbitro editado correctamente!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Arbitro no editado", "Arbitro no editado, compruebe los datos introducidos."));
+        }
 
-        arbitroFacadeLocal.edit(arbitro);
-        System.out.println("Arbitro editado");
     }
 
     public void setDatosArbitro(){

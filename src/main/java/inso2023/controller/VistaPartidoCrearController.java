@@ -9,7 +9,9 @@ import inso2023.model.Equipo;
 import inso2023.model.Partido;
 import inso2023.ejb.PartidoFacadeLocal;
 import inso2023.ejb.EquipoFacadeLocal;
-import inso2023.ejb.ArbitroFacadeLocal; 
+import inso2023.ejb.ArbitroFacadeLocal;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
@@ -31,7 +33,6 @@ public class VistaPartidoCrearController {
 
     public void verificarAdministrador() throws Exception{
         String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        System.out.println(usuario);
         if(!usuario.equals("admin")){
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -50,8 +51,9 @@ public class VistaPartidoCrearController {
             partido.setFecha(this.fecha);
             partido.setHora(this.hora);
             partidoFacadeLocal.create(partido);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Partido creado", "Partido creado con éxito!"));
         }catch(Exception e){
-            
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Partido no creado", "El partido no ha sido creado. Compruebe los datos de nuevo."));
         }
 
     }

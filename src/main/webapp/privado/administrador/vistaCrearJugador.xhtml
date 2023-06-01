@@ -20,6 +20,7 @@
         <div class="container">
           <div class="card">
             <h:form>
+              <p:growl id="growl" showDetail="true" />
               <div class="field grid">
                 <p:outputLabel
                   for="txtNombre"
@@ -166,6 +167,7 @@
                   value="Crear jugador"
                   action="#{vistaCrearJugadorController.crearJugador()}"
                   styleClass="w-full"
+                  update="growl"
                 />
               </div>
             </h:form>

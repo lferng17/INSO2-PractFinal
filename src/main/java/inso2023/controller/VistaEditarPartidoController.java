@@ -1,6 +1,7 @@
 package inso2023.controller;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.application.FacesMessage;
 import java.util.List;
 
 import inso2023.ejb.ArbitroFacadeLocal;
@@ -29,7 +30,6 @@ public class VistaEditarPartidoController {
 
     public void verificarAdministrador() throws Exception{
         String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        System.out.println(usuario);
         if(!usuario.equals("admin")){
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -38,20 +38,25 @@ public class VistaEditarPartidoController {
     }
 
     public void editarPartido(){
-        Partido partido = new Partido();
-        partido.setIdPartido(this.idPartidoMod);
-        partido.setIdEquipoLocal(equipoFacadeLocal.find(this.idEquipoLocal));
-        partido.setIdEquipoVis(equipoFacadeLocal.find(this.idEquipoVis));
-        partido.setIdArbitro(arbitroFacadeLocal.find(this.idArbitro));
-        partido.setFecha(this.fecha);
-        partido.setHora(this.hora);
-        partido.setGolesLocal(0);
-        partido.setGolesVis(0);
-        partido.setTarjAma(0);
-        partido.setTarjRojas(0);
+        try{
+            Partido partido = new Partido();
+            partido.setIdPartido(this.idPartidoMod);
+            partido.setIdEquipoLocal(equipoFacadeLocal.find(this.idEquipoLocal));
+            partido.setIdEquipoVis(equipoFacadeLocal.find(this.idEquipoVis));
+            partido.setIdArbitro(arbitroFacadeLocal.find(this.idArbitro));
+            partido.setFecha(this.fecha);
+            partido.setHora(this.hora);
+            partido.setGolesLocal(0);
+            partido.setGolesVis(0);
+            partido.setTarjAma(0);
+            partido.setTarjRojas(0);
+    
+            partidoFacadeLocal.edit(partido);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Partido editado", "Partido editado con éxito!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Partido no editado", "Error al editar el partido, compruebe los datos introducidos."));
+        }
 
-        partidoFacadeLocal.edit(partido);
-        System.out.println("Partido editado");
     }
 
     public void setDatosPartido(){

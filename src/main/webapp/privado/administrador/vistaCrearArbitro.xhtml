@@ -22,6 +22,7 @@
         <div class="flex align-items-center justify-content-center">
           <div>
             <h:form>
+              <p:growl id="growl" showDetail="true" />
               <p:outputLabel
                 for="txtNombre"
                 value="Nombre"
@@ -96,6 +97,7 @@
                 value="Crear Arbitro"
                 action="#{vistaCrearArbitroController.crearArbitro()}"
                 styleClass="w-full"
+                update="growl"
               />
             </h:form>
           </div>

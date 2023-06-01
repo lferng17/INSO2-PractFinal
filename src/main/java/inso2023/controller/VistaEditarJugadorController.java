@@ -2,6 +2,7 @@ package inso2023.controller;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +38,6 @@ public class VistaEditarJugadorController {
     
     public void verificarAdministrador() throws Exception{
         String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        System.out.println(usuario);
         if(!usuario.equals("admin")){
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -46,31 +46,36 @@ public class VistaEditarJugadorController {
     }
 
     public void editarJugador(){
-        Jugador jugador = new Jugador();
-        jugador.setIdJugador(this.idJugadorMod);
-        jugador.setNombre(this.nombre);
-        jugador.setApellidos(this.apellidos);
-        jugador.setDorsal(this.dorsal);
-        jugador.setDni(this.dni);
-        jugador.setFechaNac(this.fechaNac);
-        jugador.setGoles(this.goles);
-        jugador.setAsistencias(this.asistencias);
-        jugador.setTarjAma(this.tarjAma);
-        jugador.setTarjRojas(this.tarjRojas);
-        jugador.setIdEquipo(equipoFacadeLocal.find(this.idEquipo));
-        if(this.capitan == true){
-            jugador.setCapitan(1);
-            jugador.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
-            jugador.setContrasena(this.dni);
-        }else{
-            jugador.setCapitan(0);
-            jugador.setEmail(null);
-            jugador.setContrasena(null);
-        }
+        try{
+            Jugador jugador = new Jugador();
+            jugador.setIdJugador(this.idJugadorMod);
+            jugador.setNombre(this.nombre);
+            jugador.setApellidos(this.apellidos);
+            jugador.setDorsal(this.dorsal);
+            jugador.setDni(this.dni);
+            jugador.setFechaNac(this.fechaNac);
+            jugador.setGoles(this.goles);
+            jugador.setAsistencias(this.asistencias);
+            jugador.setTarjAma(this.tarjAma);
+            jugador.setTarjRojas(this.tarjRojas);
+            jugador.setIdEquipo(equipoFacadeLocal.find(this.idEquipo));
+            if(this.capitan == true){
+                jugador.setCapitan(1);
+                jugador.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
+                jugador.setContrasena(this.dni);
+            }else{
+                jugador.setCapitan(0);
+                jugador.setEmail(null);
+                jugador.setContrasena(null);
+            }
+    
+            jugadorFacadeLocal.edit(jugador);
+    
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador editado", "Jugador editado correctamente!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "El jugador no ha sido editado, compruebe los datos introducidos."));
+        }   
 
-        jugadorFacadeLocal.edit(jugador);
-
-        System.out.println("Jugador editado");
     }
 
     public List<Equipo> getEquipos(){

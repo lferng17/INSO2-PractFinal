@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import inso2023.ejb.ArbitroFacadeLocal;
 import inso2023.model.Arbitro;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 import java.util.Date;
 
@@ -30,17 +31,21 @@ public class VistaCrearArbitroController {
     }
 
     public void crearArbitro(){
-        Arbitro arbitro = new Arbitro();
-        arbitro.setNombre(this.nombre);
-        arbitro.setApellidos(this.apellidos);
-        arbitro.setFechaNac(this.fechaNac);
-        arbitro.setLicencia(this.licencia);
-        arbitro.setDni(this.dni);
-        arbitro.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
-        arbitro.setContrasena(this.dni);
-
-        arbitroFacadeLocal.create(arbitro);
-        System.out.println("Arbitro creado");
+        try{
+            Arbitro arbitro = new Arbitro();
+            arbitro.setNombre(this.nombre);
+            arbitro.setApellidos(this.apellidos);
+            arbitro.setFechaNac(this.fechaNac);
+            arbitro.setLicencia(this.licencia);
+            arbitro.setDni(this.dni);
+            arbitro.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
+            arbitro.setContrasena(this.dni);
+    
+            arbitroFacadeLocal.create(arbitro);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro creado", "Arbitro creado con éxito!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Arbitro no creado", "Error al crear el jugador."));
+        }
     }
 
     public String getNombre() {

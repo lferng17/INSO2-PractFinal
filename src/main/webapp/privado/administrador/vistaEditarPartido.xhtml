@@ -21,6 +21,7 @@
         <div class="flex align-items-center justify-content-center">
           <div>
             <h:form>
+              <p:growl id="growl" showDetail="true" />
               <p:outputLabel
                 for="txtIdPartidoMod"
                 value="Seleccione un partido"
@@ -153,6 +154,7 @@
                 value="Editar partido"
                 action="#{vistaEditarPartidoController.editarPartido()}"
                 styleClass="w-full"
+                update="growl"
               />
             </h:form>
           </div>
