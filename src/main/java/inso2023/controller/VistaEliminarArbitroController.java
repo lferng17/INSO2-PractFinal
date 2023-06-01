@@ -31,6 +31,16 @@ public class VistaEliminarArbitroController implements Serializable{
         listaArbitros = arbitroEJB.findAll();
     }
 
+    public void verificarAdministrador() throws Exception{
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        }
+    }
+
     public void eliminarArbitro() throws IOException{
         Arbitro arbitro = arbitroEJB.find(idArbitro);
         List<Partido> partidos = partidoEJB.findPartidoByArbitro(arbitro);

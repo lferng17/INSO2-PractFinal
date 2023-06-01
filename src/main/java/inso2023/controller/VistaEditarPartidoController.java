@@ -9,6 +9,7 @@ import inso2023.ejb.PartidoFacadeLocal;
 import inso2023.model.Arbitro;
 import inso2023.model.Equipo;
 import inso2023.model.Partido;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class VistaEditarPartidoController {
@@ -25,6 +26,16 @@ public class VistaEditarPartidoController {
     EquipoFacadeLocal equipoFacadeLocal;
     @EJB
     ArbitroFacadeLocal arbitroFacadeLocal;
+
+    public void verificarAdministrador() throws Exception{
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        }
+    }
 
     public void editarPartido(){
         Partido partido = new Partido();

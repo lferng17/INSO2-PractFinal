@@ -25,9 +25,7 @@ public class VistaEditarJugadorController {
     private int tarjAma;
     private int tarjRojas;
     private int idEquipo;
-    private boolean capitan = false;
-    private String email;
-    private String contrasena;
+    private boolean capitan;
     private List<Jugador> jugadoresEquipo = new ArrayList<>();
 
     @EJB
@@ -38,8 +36,12 @@ public class VistaEditarJugadorController {
     
     
     public void verificarAdministrador() throws Exception{
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "admin"){
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         }
     }
 
@@ -58,8 +60,8 @@ public class VistaEditarJugadorController {
         jugador.setIdEquipo(equipoFacadeLocal.find(this.idEquipo));
         if(this.capitan == true){
             jugador.setCapitan(1);
-            jugador.setEmail(this.email);
-            jugador.setContrasena(this.contrasena);
+            jugador.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
+            jugador.setContrasena(this.dni);
         }else{
             jugador.setCapitan(0);
             jugador.setEmail(null);
@@ -106,8 +108,6 @@ public class VistaEditarJugadorController {
         this.idEquipo = jugadorMod.getIdEquipo().getIdEquipo();
         if(jugadorMod.getCapitan() == 1){
             this.capitan = true;
-            this.email = jugadorMod.getEmail();
-            this.contrasena = jugadorMod.getContrasena();
         }else{
             this.capitan = false;
         }
@@ -220,22 +220,5 @@ public class VistaEditarJugadorController {
     public void setCapitan(boolean capitan) {
         this.capitan = capitan;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
 
 }

@@ -20,15 +20,15 @@ public class Partido implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPartido;
     
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name="idEquipoLocal")
     private Equipo idEquipoLocal;
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name="idEquipoVis")
     private Equipo idEquipoVis;
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name="idArbitro")
     private Arbitro idArbitro;
 

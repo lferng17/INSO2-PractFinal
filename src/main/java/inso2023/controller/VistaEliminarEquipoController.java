@@ -31,6 +31,16 @@ public class VistaEliminarEquipoController implements Serializable{
         listaEquipos = equipoEJB.findAll();
     }
 
+    public void verificarAdministrador() throws Exception{
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        }
+    }
+
     public void eliminarEquipo() throws IOException{
         Equipo equipo = equipoEJB.find(idEquipo);
         List<Jugador> listaJugadores = jugadorEJB.findAll();
