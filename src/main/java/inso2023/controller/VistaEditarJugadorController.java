@@ -64,7 +64,6 @@ public class VistaEditarJugadorController {
             jugador.setCapitan(0);
             jugador.setEmail(null);
             jugador.setContrasena(null);
-
         }
 
         jugadorFacadeLocal.edit(jugador);
