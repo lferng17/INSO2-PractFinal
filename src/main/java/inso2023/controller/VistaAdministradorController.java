@@ -72,4 +72,8 @@ public class VistaAdministradorController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarArbitro.xhtml");
     }
 
+    public void verMensajes() throws Exception {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaMensajes.xhtml");
+    }
+
 }

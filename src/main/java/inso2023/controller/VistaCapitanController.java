@@ -1,7 +1,9 @@
 package inso2023.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -18,6 +20,7 @@ public class VistaCapitanController implements Serializable {
 
     private String mensaje;
     private Mensaje objMensaje;
+    private int idJugador;
 
     @EJB
     private MensajeFacadeLocal mensajeEJB;
@@ -25,22 +28,32 @@ public class VistaCapitanController implements Serializable {
     @EJB
     private JugadorFacadeLocal jugadorEJB;
 
+    @PostConstruct
+    public void init() {
+        try {
+            idJugador = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idJugador");
+        } catch (Exception e) {
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";         
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                System.out.println("Error al redirigir");
+            }
+        }
+    }
+
     public void mandarMensaje() {
         objMensaje = new Mensaje();
         objMensaje.setMensaje(mensaje);
-        int idJugador = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
+
         Jugador jugador = jugadorEJB.find(idJugador);
         objMensaje.setIdJugador(jugador);
         try {
             mensajeEJB.create(objMensaje);
         } catch (Exception e) {
             System.out.println("Error al crear mensaje");
-            e.printStackTrace();
-        }
-        try{
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../../index.xhtml");
-        }catch(Exception e){
-            System.out.println("Error al redirigir");
             e.printStackTrace();
         }
     }
@@ -60,7 +73,5 @@ public class VistaCapitanController implements Serializable {
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
-
-    
 
 }
