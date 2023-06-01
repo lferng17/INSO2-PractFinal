@@ -39,16 +39,16 @@ public class Partido implements Serializable{
     private String hora;
     
     @Column(name="golesLocal")
-    private int golesLocal;
+    private Integer golesLocal;
     
     @Column(name="golesVis")
-    private int golesVis;
+    private Integer golesVis;
     
     @Column(name="tarjAma")
-    private int tarjAma;
+    private Integer tarjAma;
     
     @Column(name="tarjRojas")
-    private int tarjRojas;
+    private Integer tarjRojas;
 
     public int getIdPartido() {
         return idPartido;
@@ -98,7 +98,7 @@ public class Partido implements Serializable{
         this.hora = hora;
     }
 
-    public int getGolesLocal() {
+    public Integer getGolesLocal() {
         return golesLocal;
     }
 
@@ -106,7 +106,7 @@ public class Partido implements Serializable{
         this.golesLocal = golesLocal;
     }
 
-    public int getGolesVis() {
+    public Integer getGolesVis() {
         return golesVis;
     }
 
@@ -130,5 +130,6 @@ public class Partido implements Serializable{
         this.tarjRojas = tarjRojas;
     }
 
+    
     
 }

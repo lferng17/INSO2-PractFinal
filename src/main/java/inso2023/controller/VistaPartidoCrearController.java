@@ -47,12 +47,8 @@ public class VistaPartidoCrearController {
             partido.setIdEquipoLocal(equipoFacadeLocal.find(this.idEquipoLocal));
             partido.setIdEquipoVis(equipoFacadeLocal.find(this.idEquipoVisitante));
             partido.setIdArbitro(arbitroFacadeLocal.find(idArbitro));
-            partido.setGolesLocal(0);
-            partido.setGolesVis(0);
             partido.setFecha(this.fecha);
             partido.setHora(this.hora);
-            partido.setTarjAma(0);
-            partido.setTarjRojas(0);
             partidoFacadeLocal.create(partido);
         }catch(Exception e){
             

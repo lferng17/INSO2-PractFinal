@@ -61,22 +61,34 @@
 
                   <p:column headerText="Goles">
                     <p:inputNumber
-                      styleClass="w-full mb-3" defaultValue="0"/>
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.goles}"
+                    />
                   </p:column>
 
                   <p:column headerText="Asistencias">
                     <p:inputNumber
-                      styleClass="w-full mb-3" defaultValue="0"/>
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.asistencias}"
+                    />
                   </p:column>
 
                   <p:column headerText="Amarillas">
                     <p:inputNumber
-                      styleClass="w-full mb-3" defaultValue="0"/>
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.tarjetasAmarillas}"
+                    />
                   </p:column>
 
                   <p:column headerText="Rojas">
                     <p:inputNumber
-                      styleClass="w-full mb-3" defaultValue="0"/>
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.tarjetasRojas}"
+                    />
                   </p:column>
                 </p:dataTable>
                 <p:dataTable
@@ -95,31 +107,41 @@
 
                   <p:column headerText="Goles">
                     <p:inputNumber
-                      styleClass="w-full mb-3" defaultValue="0"
-                      />
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.goles}"
+                    />
                   </p:column>
 
                   <p:column headerText="Asistencias">
                     <p:inputNumber
-                        styleClass="w-full mb-3" defaultValue="0"/>
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.asistencias}"
+                    />
                   </p:column>
 
                   <p:column headerText="Amarillas">
                     <p:inputNumber
-                      styleClass="w-full mb-3" defaultValue="0"/>
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.tarjetasAmarillas}"
+                    />
                   </p:column>
 
                   <p:column headerText="Rojas">
                     <p:inputNumber
-                      styleClass="w-full mb-3" defaultValue="0"/>
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.tarjetasRojas}"
+                    />
                   </p:column>
                 </p:dataTable>
               </h:panelGroup>
               <div>
                 <p:commandButton
                   value="Anotar resultados"
-                  action="Anotar resultados"
-                  disabled="Poner empty la lista"
+                  action="#{vistaArbitroController.anotarResultados()}"
                 />
               </div>
             </p:outputPanel>

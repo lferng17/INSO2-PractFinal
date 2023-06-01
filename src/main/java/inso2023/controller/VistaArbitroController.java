@@ -1,10 +1,15 @@
 package inso2023.controller;
 
 import inso2023.ejb.ArbitroFacadeLocal;
+import inso2023.ejb.EquipoFacadeLocal;
 import inso2023.ejb.JugadorFacadeLocal;
 import inso2023.ejb.PartidoFacadeLocal;
+import inso2023.model.Arbitro;
+import inso2023.model.Equipo;
 import inso2023.model.Jugador;
 import inso2023.model.Partido;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,102 +23,103 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class VistaArbitroController implements Serializable{
-    
+public class VistaArbitroController implements Serializable {
+
     public int idPartido;
     public int idArbitro;
-    public List<Partido> listaPartidos;  
+    public List<Partido> listaPartidos;
     public List<Partido> listaPartidosArbitro = new ArrayList<>();
     public List<Jugador> listaJugadores;
-    public List<Jugador> listaJugadoresEquipoLocal = new ArrayList<>();
-    public List<Jugador> listaJugadoresEquipoVis = new ArrayList<>();
     public boolean mostrarActas = false;
     public List<JugadorTabla> listaJugadoresPartidoLocal = new ArrayList<>();
     public List<JugadorTabla> listaJugadoresPartidoVis = new ArrayList<>();
-   
+
     @EJB
     private PartidoFacadeLocal partidoEJB;
- 
+
     @EJB
     private ArbitroFacadeLocal arbitroEJB;
- 
+
     @EJB
     private JugadorFacadeLocal jugadorEJB;
-    
-     
-    @PostConstruct
-    public void init(){
-        //filtrar la lista de partidos
-        listaPartidos = partidoEJB.findAll();
-        idArbitro = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idArbitro");
-        //Añado todos los jugadores de la liga a una lista para más tarde
-        listaJugadores = jugadorEJB.findAll();
-        
-        //Añadir a listaPartidosArbitro los partidos de listaPartidos que tengan el idArbitro y no se hayan jugado
-        for(Partido p : listaPartidos){
-            if((p.getIdArbitro().getIdArbitro() == idArbitro)){
-                LocalDate fechaActual = LocalDate.now();
-                String fechaPartido = p.getFecha();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate fecha = LocalDate.parse(fechaPartido, formatter);
-                boolean esAnterior = fecha.isBefore(fechaActual);
-                
-                if(esAnterior){
-                    listaPartidosArbitro.add(p);       
-                }
 
+    @EJB
+    private EquipoFacadeLocal equipoEJB;
+
+    @PostConstruct
+    public void init() {
+        try {
+            idArbitro = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idArbitro");
+        } catch (Exception e) {
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
             }
         }
-        
-        
+        // Añado todos los jugadores de la liga a una lista para más tarde
+        listaJugadores = jugadorEJB.findAll();
+        Arbitro arbitro = arbitroEJB.find(idArbitro);
+        listaPartidos = partidoEJB.findPartidoByArbitro(arbitro);
+        // Añadir a listaPartidosArbitro los partidos de listaPartidos que tengan el
+        // idArbitro y no se hayan jugado
+        for (Partido p : listaPartidos) {
+            LocalDate fechaActual = LocalDate.now();
+            String fechaPartido = p.getFecha();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(fechaPartido, formatter);
+            boolean esAnterior = fecha.isBefore(fechaActual);
+
+            if (esAnterior && p.getGolesLocal()==null && p.getGolesVis()==null) {
+                listaPartidosArbitro.add(p);
+            }
+
+        }
+
     }
 
-    public void verificarArbitro() throws Exception{
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "arbitro"){
+    public void verificarArbitro() throws Exception {
+        if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "arbitro") {
             FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
-        }else{
+        } else {
             System.out.println("Vista Arbitro");
         }
     }
 
-    //metodo boolean que devuelve true si el usuario es arbitro
-    public boolean esArbitro(){
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") == "arbitro"){
+    // metodo boolean que devuelve true si el usuario es arbitro
+    public boolean esArbitro() {
+        if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") == "arbitro") {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
 
- 
-    public void cargarJugadoresEquipos(){
-       
+    public void cargarJugadoresEquipos() {
+
         mostrarActas = true;
 
         Partido partido = partidoEJB.find(idPartido);
-        
+
         listaJugadoresPartidoLocal.clear();
-        for (Jugador j : listaJugadores){
-            if(j.getIdEquipo().getIdEquipo() == partido.getIdEquipoLocal().getIdEquipo()){
+        for (Jugador j : listaJugadores) {
+            if (j.getIdEquipo().getIdEquipo() == partido.getIdEquipoLocal().getIdEquipo()) {
                 listaJugadoresPartidoLocal.add(new JugadorTabla(j, partido, 0, 0, 0, 0));
             }
         }
-        
+
         listaJugadoresPartidoVis.clear();
-        for (Jugador j : listaJugadores){
-            if(j.getIdEquipo().getIdEquipo() == partido.getIdEquipoVis().getIdEquipo()){
+        for (Jugador j : listaJugadores) {
+            if (j.getIdEquipo().getIdEquipo() == partido.getIdEquipoVis().getIdEquipo()) {
                 listaJugadoresPartidoVis.add(new JugadorTabla(j, partido, 0, 0, 0, 0));
             }
         }
 
-        //imprimir listaJugadoresPartidoLocal
-        for(JugadorTabla j : listaJugadoresPartidoLocal){
-            System.out.println(j.getJugador().getNombre());
-        }
-    
-    } 
+    }
 
-    
     public int getIdArbitro() {
         return idArbitro;
     }
@@ -137,8 +143,7 @@ public class VistaArbitroController implements Serializable{
     public void setListaPartidos(List<Partido> listaPartidos) {
         this.listaPartidos = listaPartidos;
     }
-    
-    
+
     public List<Partido> getListaPartidosArbitro() {
         return listaPartidosArbitro;
     }
@@ -155,22 +160,6 @@ public class VistaArbitroController implements Serializable{
         this.listaJugadores = listaJugadores;
     }
 
-    public List<Jugador> getListaJugadoresEquipoLocal() {
-        return listaJugadoresEquipoLocal;
-    }
-
-    public void setListaJugadoresEquipoLocal(List<Jugador> listaJugadoresEquipoLocal) {
-        this.listaJugadoresEquipoLocal = listaJugadoresEquipoLocal;
-    }
-
-    public List<Jugador> getListaJugadoresEquipoVis() {
-        return listaJugadoresEquipoVis;
-    }
-
-    public void setListaJugadoresEquipoVis(List<Jugador> listaJugadoresEquipoVis) {
-        this.listaJugadoresEquipoVis = listaJugadoresEquipoVis;
-    }
-    
     public boolean isMostrarActas() {
         return mostrarActas;
     }
@@ -178,8 +167,8 @@ public class VistaArbitroController implements Serializable{
     public void setMostrarActas(boolean mostrarActas) {
         this.mostrarActas = mostrarActas;
     }
-  
-    public class JugadorTabla{
+
+    public class JugadorTabla {
 
         private Jugador jugador;
         private Partido partido;
@@ -187,9 +176,9 @@ public class VistaArbitroController implements Serializable{
         private int asistencias;
         private int tarjetasAmarillas;
         private int tarjetasRojas;
-        private boolean local;
 
-        public JugadorTabla(Jugador jugador, Partido partido, int goles, int asistencias, int tarjetasAmarillas, int tarjetasRojas) {
+        public JugadorTabla(Jugador jugador, Partido partido, int goles, int asistencias, int tarjetasAmarillas,
+                int tarjetasRojas) {
             this.jugador = jugador;
             this.partido = partido;
             this.goles = goles;
@@ -228,7 +217,7 @@ public class VistaArbitroController implements Serializable{
         }
 
         public void setAsistencias(int asistencias) {
-            this.asistencias = asistencias; 
+            this.asistencias = asistencias;
             jugador.anotarAsistencia(asistencias);
         }
 
@@ -250,15 +239,6 @@ public class VistaArbitroController implements Serializable{
             jugador.anotarTarjetaRoja(tarjetasRojas);
         }
 
-        public boolean isLocal() {
-            return local;
-        }
-
-        public void setLocal(boolean local) {
-            this.local = local;
-        }
-
-        
     }
 
     public List<JugadorTabla> getListaJugadoresPartidoLocal() {
@@ -277,7 +257,40 @@ public class VistaArbitroController implements Serializable{
         this.listaJugadoresPartidoVis = listaJugadoresPartidoVis;
     }
 
-    
-    
+    public void anotarResultados() {
+        int golesLocales = 0;
+        int golesVis = 0;
+        for (JugadorTabla j : listaJugadoresPartidoLocal) {
+            jugadorEJB.edit(j.jugador);
+            golesLocales += j.goles;
+        }
+        for (JugadorTabla j : listaJugadoresPartidoVis) {
+            jugadorEJB.edit(j.jugador);
+            golesVis += j.goles;
+        }
+        Partido partido = partidoEJB.find(idPartido);
+        partido.setGolesLocal(golesLocales);
+        partido.setGolesVis(golesVis);
+        partidoEJB.edit(partido);
+
+        Equipo equipoLocal = equipoEJB.find(partido.getIdEquipoLocal().getIdEquipo());
+
+        Equipo equipoVis = equipoEJB.find(partido.getIdEquipoVis().getIdEquipo());
+
+        if (golesLocales > golesVis) {
+            equipoLocal.setPuntos(equipoLocal.getPuntos() + 3);
+        } else if (golesLocales < golesVis) {
+            equipoVis.setPuntos(equipoVis.getPuntos() + 3);
+        } else {
+            equipoLocal.setPuntos(equipoLocal.getPuntos() + 1);
+            equipoVis.setPuntos(equipoVis.getPuntos() + 1);
+        }
+        equipoLocal.setGolesFav(golesLocales);
+        equipoLocal.setGolesContra(golesVis);
+        equipoVis.setGolesFav(golesVis);
+        equipoVis.setGolesContra(golesLocales);
+        equipoEJB.edit(equipoLocal);
+        equipoEJB.edit(equipoVis);
+    }
 
 }
