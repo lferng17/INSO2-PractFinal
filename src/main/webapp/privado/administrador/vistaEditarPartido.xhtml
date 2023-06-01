@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:head>
+    <title>Editar Partido</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaEditarPartidoController.verificarAdministrador()}"/>
+    </f:metadata>
+  </h:head>
+  <h:body class="surface-300">
+    <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
+      <ui:define name="content">
+        <div class="flex align-items-center justify-content-center">
+          <div>
+            <h:form>
+              <p:outputLabel
+                for="txtIdPartidoMod"
+                value="Seleccione un partido"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdPartidoMod"
+                value="#{vistaEditarPartidoController.idPartidoMod}"
+                styleClass="w-full mb-3"
+              >
+                <p:ajax
+                  listener="#{vistaEditarPartidoController.setDatosPartido()}"
+                  update="txtIdEquipoLocal txtIdEquipoVis txtIdArbitro txtFecha txtHora"
+                />
+                <f:selectItem
+                  itemLabel="Seleccione un partido"
+                  itemValue=""
+                  noSelectionOption="true"
+                />
+                <f:selectItems
+                  value="#{vistaEditarPartidoController.getPartidos()}"
+                  var="partido"
+                  itemLabel="#{partido.idEquipoLocal.nombre} vs #{partido.idEquipoVis.nombre}"
+                  itemValue="#{partido.idPartido}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdPartidoMod" />
+
+              <p:outputLabel
+                for="txtIdEquipoLocal"
+                value="Equipo"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdEquipoLocal"
+                value="#{vistaEditarPartidoController.idEquipoLocal}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              >
+                <f:selectItem
+                  itemLabel="Seleccione equipo local"
+                  itemValue=""
+                />
+                <f:selectItems
+                  value="#{vistaEditarPartidoController.getEquipos()}"
+                  var="equipo"
+                  itemLabel="#{equipo.nombre}"
+                  itemValue="#{equipo.idEquipo}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdEquipoLocal" />
+
+              <p:outputLabel
+                for="txtIdEquipoVis"
+                value="Equipo"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdEquipoVis"
+                value="#{vistaEditarPartidoController.idEquipoVis}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              >
+                <f:selectItem
+                  itemLabel="Seleccione equipo visitante"
+                  itemValue=""
+                />
+                <f:selectItems
+                  value="#{vistaEditarPartidoController.getEquipos()}"
+                  var="equipo"
+                  itemLabel="#{equipo.nombre}"
+                  itemValue="#{equipo.idEquipo}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdEquipoVis" />
+
+              <p:outputLabel
+                for="txtIdArbitro"
+                value="Arbitro"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdArbitro"
+                value="#{vistaEditarPartidoController.idArbitro}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              >
+                <f:selectItem itemLabel="Seleccione arbitro" itemValue="" />
+                <f:selectItems
+                  value="#{vistaEditarPartidoController.getArbitros()}"
+                  var="arbitro"
+                  itemLabel="#{arbitro.nombre}"
+                  itemValue="#{arbitro.idArbitro}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdArbitro" />
+
+              <p:outputLabel
+                for="txtFecha"
+                value="Fecha"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtFecha"
+                value="#{vistaEditarPartidoController.fecha}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtFecha" />
+
+              <p:outputLabel
+                for="txtHora"
+                value="Hora"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtHora"
+                value="#{vistaEditarPartidoController.hora}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtHora" />
+
+              <p:commandButton
+                value="Editar partido"
+                action="#{vistaEditarPartidoController.editarPartido()}"
+                styleClass="w-full"
+              />
+            </h:form>
+          </div>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+  <title>Crear Equipo</title>
+  <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
+  <f:metadata>
+    <f:event type="preRenderView" listener="#{vistaEquipoCrearController.verificarAdministrador()}"/>
+  </f:metadata>
+</h:head>
+  <h:body class="surface-300">
+    <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
+      <ui:define name="content">
+        <div class="flex align-items-center justify-content-center">
+          <div>
+            <h:form>
+              <p:outputLabel
+                for="txtNombre"
+                value="Nombre"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtNombre"
+                value="#{vistaEquipoCrearController.nombre}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtNombre" />
+
+              <p:commandButton
+                value="Crear equipo"
+                action="#{vistaEquipoCrearController.crearEquipo()}"
+                styleClass="w-full"
+              />
+            </h:form>
+          </div>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>

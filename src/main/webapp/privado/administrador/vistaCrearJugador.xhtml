@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:head>
+    <title>Crear Jugador</title>
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaCrearJugadorController.verificarAdministrador()}"/>
+    </f:metadata>
+  </h:head>
+  <h:body>
+    <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
+      <ui:define name="content">
+        <div class="container">
+          <div class="card">
+            <h:form>
+              <div class="field grid">
+                <p:outputLabel
+                  for="txtNombre"
+                  value="Nombre"
+                  class="col-fixed"
+                  style="width: 100px"
+                ></p:outputLabel>
+
+                <div class="col">
+                  <p:inputText
+                    id="txtNombre"
+                    value="#{vistaCrearJugadorController.nombre}"
+                    required="true"
+                    requiredMessage="Campo Obligatorio"
+                    styleClass="p-col-12 p-md-9"
+                  />
+                </div>
+              </div>
+              <p:message for="txtNombre" />
+
+              <div class="field grid">
+                <p:outputLabel
+                  for="txtApellidos"
+                  value="Apellidos"
+                  class="col-fixed"
+                  style="width: 100px"
+                ></p:outputLabel>
+                <div class="col">
+                  <p:inputText
+                    id="txtApellidos"
+                    value="#{vistaCrearJugadorController.apellidos}"
+                    required="true"
+                    requiredMessage="Campo Obligatorio"
+                    styleClass="p-col-12 p-md-9"
+                  />
+                </div>
+              </div>
+              <p:message for="txtApellidos" />
+
+              <div class="field grid">
+                <p:outputLabel
+                  for="txtDni"
+                  value="DNI"
+                  class="col-fixed"
+                  style="width: 100px"
+                ></p:outputLabel>
+                <div class="col">
+                  <p:inputText
+                    id="txtDni"
+                    value="#{vistaCrearJugadorController.dni}"
+                    required="true"
+                    requiredMessage="Campo Obligatorio"
+                    styleClass="p-col-12 p-md-9"
+                  />
+                </div>
+              </div>
+              <p:message for="txtApellidos" />
+
+              <div class="field grid">
+                <p:outputLabel
+                  for="txtDorsal"
+                  value="Dorsal"
+                  class="col-fixed"
+                  style="width: 100px"
+                ></p:outputLabel>
+                <div class="col">
+                  <p:inputText
+                    id="txtDorsal"
+                    value="#{vistaCrearJugadorController.dorsal}"
+                    required="true"
+                    requiredMessage="Campo Obligatorio"
+                    styleClass="p-col-12 p-md-9"
+                  />
+                </div>
+              </div>
+              <p:message for="txtDorsal" />
+
+              <div class="field grid">
+                <p:outputLabel
+                  for="txtFechaNac"
+                  value="Fecha de nacimiento"
+                  class="col-fixed"
+                  style="width: 100px"
+                ></p:outputLabel>
+                <div class="col">
+                  <p:calendar
+                    id="txtFechaNac"
+                    value="#{vistaCrearJugadorController.fechaNac}"
+                    required="true"
+                    requiredMessage="Campo Obligatorio"
+                    styleClass="p-col-12 p-md-9"
+                  />
+                </div>
+              </div>
+              <p:message for="txtFechaNac" />
+
+              <div class="field grid">
+                <p:outputLabel
+                  for="txtIdEquipo"
+                  value="Equipo"
+                  class="col-fixed"
+                  style="width: 100px"
+                ></p:outputLabel>
+                <div class="col">
+                  <p:selectOneMenu
+                    id="txtIdEquipo"
+                    value="#{vistaCrearJugadorController.idEquipo}"
+                    required="true"
+                    requiredMessage="Campo Obligatorio"
+                    styleClass="p-col-12 p-md-9"
+                  >
+                    <f:selectItem
+                      itemLabel="Seleccione un equipo"
+                      itemValue=""
+                    />
+                    <f:selectItems
+                      value="#{vistaCrearJugadorController.listaEquipos()}"
+                      var="equipo"
+                      itemLabel="#{equipo.nombre}"
+                      itemValue="#{equipo.idEquipo}"
+                    />
+                  </p:selectOneMenu>
+                </div>
+              </div>
+              <p:message for="txtIdEquipo" />
+
+              <div class="field grid">
+                <p:outputLabel
+                  for="checkCapitan"
+                  value="Capitán"
+                  class="col-fixed"
+                  style="width: 100px"
+                />
+                <div class="col">
+                  <p:selectBooleanCheckbox
+                    id="checkCapitan"
+                    value="#{vistaCrearJugadorController.capitan}"
+                  >
+                  </p:selectBooleanCheckbox>
+                </div>
+              </div>
+              <div class="field grid">
+                <p:commandButton
+                  value="Crear jugador"
+                  action="#{vistaCrearJugadorController.crearJugador()}"
+                  styleClass="w-full"
+                />
+              </div>
+            </h:form>
+          </div>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>

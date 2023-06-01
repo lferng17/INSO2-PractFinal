@@ -2,27 +2,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet  library="css" name="cssLayout.css"/>
+        <h:outputStylesheet  library="css" name="primeflex.css"/>
+        <title>ULEScore</title> 
     </h:head>
 
     <h:body>
-
         <div id="top">
-            <ui:insert name="top">Top</ui:insert>
+            <div class="logo-container">
+                <a href="../../faces/publico/clasificacionEquipos.xhtml"><img src="#{request.contextPath}/resources/images/LogoULE.png" alt="Logo ULE" class="logo-image logo-left" /></a>
+                <img src="#{request.contextPath}/resources/images/Logo.PNG" alt="Logo ULEScore" class="logo-image logo-center" />
+            </div>
+            <div class="card">
+                <h:form>
+                    <p:growl id="messages"/>
+
+                    <p:menubar>
+
+                        <p:submenu label="Tablas" icon="pi pi-fw pi-table">
+                            <p:menuitem value="Clasificacion" icon="pi pi-fw pi-arrows-v" url="#{request.contextPath}/faces/publico/clasificacionEquipos.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Estadisticas Jugadores" icon="pi pi-fw pi-chart-bar" url="#{request.contextPath}/faces/publico/estadisticaJugadores.xhtml"  styleClass="ui-button-info"/>
+                        </p:submenu>
+
+                        <p:submenu label="Eventos" icon="pi pi-fw pi-calendar">
+                            <p:menuitem value="Partidos" icon="pi pi-fw pi-sitemap" url="#{request.contextPath}/faces/publico/partidos.xhtml"  styleClass="ui-button-info"/>
+                        </p:submenu>
+
+                        <p:submenu label="Acciones Usuario" icon="pi pi-fw pi-users" class="absolute top-0 right-0 bottom-0 flex align-items-center">
+                            <p:menuitem value="Administrador" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/administrador/vistaAdministrador.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Árbitro" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/arbitro/vistaArbitro.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Capitán" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/jugador/vistaJugador.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Cerrar Sesión" action="#{indexController.cerrarSesion()}"  styleClass="ui-button-info"/>
+                        </p:submenu>
+                       
+                    </p:menubar>
+                </h:form>
+            </div>
         </div>
 
         <div id="content" class="center_content">
             <ui:insert name="content">Content</ui:insert>
         </div>
 
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
+        <div id="bottom" class="center_content">
+            <ui:insert name="bottom">
+                <div class="footer_content"> 
+                    <p class="footer_text">Universidad de León - ULEScore</p>
+                </div>
+            </ui:insert>
         </div>
 
     </h:body>

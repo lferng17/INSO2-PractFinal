@@ -6,6 +6,9 @@
 package inso2023.ejb;
 
 import inso2023.model.Jugador;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.persistence.Query;
@@ -41,6 +44,19 @@ public class JugadorFacade extends AbstractFacade<Jugador> implements JugadorFac
             jugador = (Jugador) query.getSingleResult();
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", jugador);
             return jugador;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    @Override
+    public List<Jugador> findForTeam(int idEquipo) {
+        List<Jugador> jugadores = null;
+        try {
+            Query query = em.createQuery("SELECT j FROM Jugador j WHERE j.idEquipo = :idEquipo");
+            query.setParameter("idEquipo", idEquipo);
+            jugadores = query.getResultList();
+            return jugadores;
         } catch (Exception e) {
         }
         return null;
