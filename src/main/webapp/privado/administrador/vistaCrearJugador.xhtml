@@ -11,29 +11,31 @@
 
     <h:head>
         <title>Crear Jugador</title>
-        <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
     </h:head>
-    <h:body class="surface-300">
+    <h:body>
         <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
             <ui:define name="content">
-                <div class="card">
-                    <div>
+                <div class="container">
+                    <div class="card">
                         <h:form>  
                             <div class="field grid">
                                 <p:outputLabel
                                     for="txtNombre"
                                     value="Nombre"
                                     class="col-fixed"
+                                    style="width:100px"
                                     ></p:outputLabel>
 
-                                <p:inputText
-                                    id="txtNombre"
-                                    value="#{vistaCrearJugadorController.nombre}"
-                                    required="true"
-                                    requiredMessage="Campo Obligatorio"
-                                    styleClass="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-                                    />
+                                <div class="col">
+                                    <p:inputText
+                                        id="txtNombre"
+                                        value="#{vistaCrearJugadorController.nombre}"
+                                        required="true"
+                                        requiredMessage="Campo Obligatorio"
+                                        styleClass="p-col-12 p-md-9"
+                                        />
 
+                                </div>
                             </div>
                             <p:message for="txtNombre" />
 
@@ -41,15 +43,18 @@
                                 <p:outputLabel
                                     for="txtApellidos"
                                     value="Apellidos"
-                                    class="block text-900 font-medium mb-2"
+                                    class="col-fixed"
+                                    style="width:100px"
                                     ></p:outputLabel>
-                                <p:inputText
-                                    id="txtApellidos"
-                                    value="#{vistaCrearJugadorController.apellidos}"
-                                    required="true"
-                                    requiredMessage="Campo Obligatorio"
-                                    styleClass="w-full mb-3"
-                                    />
+                                <div class="col">
+                                    <p:inputText
+                                        id="txtApellidos"
+                                        value="#{vistaCrearJugadorController.apellidos}"
+                                        required="true"
+                                        requiredMessage="Campo Obligatorio"
+                                        styleClass="p-col-12 p-md-9"
+                                        />
+                                </div>
                             </div>
                             <p:message for="txtApellidos" />
 
@@ -57,15 +62,18 @@
                                 <p:outputLabel
                                     for="txtDni"
                                     value="DNI"
-                                    class="block text-900 font-medium mb-2"
+                                    class="col-fixed"
+                                    style="width:100px"
                                     ></p:outputLabel>
-                                <p:inputText
-                                    id="txtDni"
-                                    value="#{vistaCrearJugadorController.dni}"
-                                    required="true"
-                                    requiredMessage="Campo Obligatorio"
-                                    styleClass="w-full mb-3"
-                                    />
+                                <div class="col">
+                                    <p:inputText
+                                        id="txtDni"
+                                        value="#{vistaCrearJugadorController.dni}"
+                                        required="true"
+                                        requiredMessage="Campo Obligatorio"
+                                        styleClass="p-col-12 p-md-9"
+                                        />
+                                </div>
                             </div>
                             <p:message for="txtApellidos" />
 
@@ -73,15 +81,18 @@
                                 <p:outputLabel
                                     for="txtDorsal"
                                     value="Dorsal"
-                                    class="block text-900 font-medium mb-2"
+                                    class="col-fixed"
+                                    style="width:100px"
                                     ></p:outputLabel>
-                                <p:inputText
-                                    id="txtDorsal"
-                                    value="#{vistaCrearJugadorController.dorsal}"
-                                    required="true"
-                                    requiredMessage="Campo Obligatorio"
-                                    styleClass="w-full mb-3"
-                                    />
+                                <div class="col">
+                                    <p:inputText
+                                        id="txtDorsal"
+                                        value="#{vistaCrearJugadorController.dorsal}"
+                                        required="true"
+                                        requiredMessage="Campo Obligatorio"
+                                        styleClass="p-col-12 p-md-9"
+                                        />
+                                </div>
                             </div>
                             <p:message for="txtDorsal" />
 
@@ -89,15 +100,18 @@
                                 <p:outputLabel
                                     for="txtFechaNac"
                                     value="Fecha de nacimiento"
-                                    class="block text-900 font-medium mb-2"
+                                    class="col-fixed"
+                                    style="width:100px"
                                     ></p:outputLabel>
-                                <p:calendar
-                                    id="txtFechaNac"
-                                    value="#{vistaCrearJugadorController.fechaNac}"
-                                    required="true"
-                                    requiredMessage="Campo Obligatorio"
-                                    styleClass="w-full mb-3"
-                                    />
+                                <div class="col">
+                                    <p:calendar
+                                        id="txtFechaNac"
+                                        value="#{vistaCrearJugadorController.fechaNac}"
+                                        required="true"
+                                        requiredMessage="Campo Obligatorio"
+                                        styleClass="p-col-12 p-md-9"
+                                        />
+                                </div>
                             </div>
                             <p:message for="txtFechaNac" />
 
@@ -105,57 +119,74 @@
                                 <p:outputLabel
                                     for="txtIdEquipo"
                                     value="Equipo"
-                                    class="block text-900 font-medium mb-2"
+                                    class="col-fixed"
+                                    style="width:100px"
                                     ></p:outputLabel>
-                                <p:selectOneMenu
-                                    id="txtIdEquipo"
-                                    value="#{vistaCrearJugadorController.idEquipo}"
-                                    required="true"
-                                    requiredMessage="Campo Obligatorio"
-                                    styleClass="w-full mb-3"
-                                    >
-                                    <f:selectItem itemLabel="Seleccione un equipo" itemValue="" />
-                                    <f:selectItems
-                                        value="#{vistaCrearJugadorController.listaEquipos()}"
-                                        var="equipo"
-                                        itemLabel="#{equipo.nombre}"
-                                        itemValue="#{equipo.idEquipo}"
-                                        />
-                                </p:selectOneMenu>
+                                <div class="col">
+                                    <p:selectOneMenu
+                                        id="txtIdEquipo"
+                                        value="#{vistaCrearJugadorController.idEquipo}"
+                                        required="true"
+                                        requiredMessage="Campo Obligatorio"
+                                        styleClass="p-col-12 p-md-9"
+                                        >
+                                        <f:selectItem itemLabel="Seleccione un equipo" itemValue="" />
+                                        <f:selectItems
+                                            value="#{vistaCrearJugadorController.listaEquipos()}"
+                                            var="equipo"
+                                            itemLabel="#{equipo.nombre}"
+                                            itemValue="#{equipo.idEquipo}"
+                                            />
+                                    </p:selectOneMenu>
+                                </div>
                             </div>
                             <p:message for="txtIdEquipo" />
 
-                            <p:outputLabel for="checkCapitan" value="Capitán" />
-                            <p:selectBooleanCheckbox
-                                id="checkCapitan"
-                                value="#{vistaCrearJugadorController.capitan}"
-                                >
-                                <p:ajax update="txtEmail txtContrasena" />
-                            </p:selectBooleanCheckbox>
+                            <div class="field grid">
+                                <p:outputLabel for="checkCapitan" value="Capitán" class="col-fixed" style="width:100px"/>
+                                <div class="col">
+                                    <p:selectBooleanCheckbox
+                                        id="checkCapitan"
+                                        value="#{vistaCrearJugadorController.capitan}"
+                                        >
+                                        <p:ajax update="txtEmail txtContrasena" />
+                                    </p:selectBooleanCheckbox>
+                                </div>
+                            </div>
 
-                            <p:outputLabel for="txtEmail" value="email" />
-                            <p:inputText
-                                id="txtEmail"
-                                value="#{vistaCrearJugadorController.email}"
-                                required="true"
-                                rendered="#{!vistaCrearJugadorController.email}"
-                                />
+                            <div class="field grid">
+                                <p:outputLabel for="txtEmail" value="Email" class="col-fixed" style="width:100px"/>
+                                <div class="col">
+                                    <p:inputText
+                                        id="txtEmail"
+                                        value="#{vistaCrearJugadorController.email}"
+                                        required="true"
+                                        rendered="#{!vistaCrearJugadorController.email}"
+                                        />
+                                </div>
+                            </div>
                             <p:message for="txtEmail" />
 
-                            <p:outputLabel for="txtContrasena" value="Contraseña" />
-                            <p:password
-                                id="txtContrasena"
-                                value="#{vistaCrearJugadorController.contrasena}"
-                                required="true"
-                                rendered="#{!vistaCrearJugadorController.capitan}"
-                                />
+                            <div class="field grid">
+                                <p:outputLabel for="txtContrasena" value="Contraseña" class="col-fixed" style="width:100px"/>
+                                <div class="col">
+                                    <p:password
+                                        id="txtContrasena"
+                                        value="#{vistaCrearJugadorController.contrasena}"
+                                        required="true"
+                                        rendered="#{!vistaCrearJugadorController.capitan}"
+                                        />
+                                </div>
+                            </div>
                             <p:message for="txtContrasena" />
 
-                            <p:commandButton
-                                value="Crear jugador"
-                                action="#{vistaCrearJugadorController.crearJugador()}"
-                                styleClass="w-full"
-                                />
+                            <div class="field grid">
+                                <p:commandButton
+                                    value="Crear jugador"
+                                    action="#{vistaCrearJugadorController.crearJugador()}"
+                                    styleClass="w-full"
+                                    />
+                            </div>
                         </h:form>
                     </div>
                 </div>
