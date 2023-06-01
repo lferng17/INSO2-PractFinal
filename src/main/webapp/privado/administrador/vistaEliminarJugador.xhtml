@@ -11,6 +11,9 @@
   <h:head>
     <title>Eliminar Jugador</title>
     <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaEliminarJugadorController.verificarAdministrador()}"/>
+    </f:metadata>
   </h:head>
   <h:body class="surface-300">
     <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">

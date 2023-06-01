@@ -13,12 +13,17 @@ public class VistaEquipoCrearController {
 
     @EJB
     EquipoFacadeLocal equipoFacadeLocal;
- 
+    
     public void verificarAdministrador() throws Exception{
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "admin"){
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         }
     }
+
 
     public void crearEquipo(){
         Equipo equipo = new Equipo();

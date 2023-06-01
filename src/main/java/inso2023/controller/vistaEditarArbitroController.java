@@ -5,7 +5,7 @@ import javax.faces.bean.ManagedBean;
 
 import inso2023.ejb.ArbitroFacadeLocal;
 import inso2023.model.Arbitro;
-
+import javax.faces.context.FacesContext;
 import java.util.Date;
 import java.util.List;
 
@@ -17,11 +17,19 @@ public class vistaEditarArbitroController {
     private Date fechaNac;
     private int licencia;
     private String dni;
-    private String email;
-    private String contrasena;
 
     @EJB
     ArbitroFacadeLocal arbitroFacadeLocal;
+
+    public void verificarAdministrador() throws Exception{
+        String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        System.out.println(usuario);
+        if(!usuario.equals("admin")){
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        }
+    }
 
     public void editarArbitro(){
         Arbitro arbitro = new Arbitro();
@@ -31,8 +39,8 @@ public class vistaEditarArbitroController {
         arbitro.setFechaNac(this.fechaNac);
         arbitro.setLicencia(this.licencia);
         arbitro.setDni(this.dni);
-        arbitro.setEmail(this.email);
-        arbitro.setContrasena(this.contrasena);
+        arbitro.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
+        arbitro.setContrasena(this.dni);
 
         arbitroFacadeLocal.edit(arbitro);
         System.out.println("Arbitro editado");
@@ -45,8 +53,6 @@ public class vistaEditarArbitroController {
         this.fechaNac = arbitro.getFechaNac();
         this.licencia = arbitro.getLicencia();
         this.dni = arbitro.getDni();
-        this.email = arbitro.getEmail();
-        this.contrasena = arbitro.getContrasena();
     }
 
     public List<Arbitro> getArbitros(){
@@ -99,22 +105,6 @@ public class vistaEditarArbitroController {
 
     public void setDni(String dni) {
         this.dni = dni;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
     }
 
     public ArbitroFacadeLocal getArbitroFacadeLocal() {

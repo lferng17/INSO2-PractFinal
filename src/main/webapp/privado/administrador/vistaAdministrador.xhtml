@@ -9,7 +9,9 @@
 
     <h:head>
         <title>Vista Administrador</title>
-        <f:event type="preRenderView" listener="#{vistaAdministradorController.verificarAdministrador()}"/>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{vistaAdministradorController.verificarAdministrador()}"/>
+          </f:metadata>
     </h:head>
 
     <h:body>
