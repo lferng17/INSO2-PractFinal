@@ -37,12 +37,12 @@
                             <p:menuitem value="Partidos" icon="pi pi-fw pi-sitemap" url="#{request.contextPath}/faces/publico/partidos.xhtml"  styleClass="ui-button-info"/>
                         </p:submenu>
 
-                        <p:submenu label="Acciones Usuario" icon="pi pi-fw pi-users">
+                        <p:submenu label="Acciones Usuario" icon="pi pi-fw pi-users" class="absolute top-0 right-0 bottom-0 flex align-items-center">
                             <p:menuitem value="Administrador" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/administrador/vistaAdministrador.xhtml"  styleClass="ui-button-info"/>
                             <p:menuitem value="Árbitro" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/arbitro/vistaArbitro.xhtml"  styleClass="ui-button-info"/>
                             <p:menuitem value="Capitán" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/jugador/vistaJugador.xhtml"  styleClass="ui-button-info"/>
                         </p:submenu>
-
+                       
                     </p:menubar>
                 </h:form>
             </div>
