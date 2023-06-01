@@ -21,7 +21,7 @@ public class VistaCapitanController implements Serializable {
 
     private String mensaje;
     private Mensaje objMensaje;
-    private int idJugador;
+    private Integer idJugador;
 
     @EJB
     private MensajeFacadeLocal mensajeEJB;
@@ -32,7 +32,8 @@ public class VistaCapitanController implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            idJugador = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idJugador");
+            idJugador = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idJugador");
+            System.out.println("idJugador: EEEEEEEEEEEEEEES " + idJugador);
         } catch (Exception e) {
             System.out.println("Error al obtener el id del jugador");
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
