@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,6 +18,10 @@
 
     <h:body>
         <div id="top">
+            <div class="logo-container">
+                <img src="#{request.contextPath}/resources/images/LogoULE.png" alt="Logo ULE" class="logo-image logo-left" />
+                <img src="#{request.contextPath}/resources/images/Logo.PNG" alt="Logo ULEScore" class="logo-image logo-center" />
+            </div>
             <div class="card">
                 <h:form>
                     <p:growl id="messages"/>
@@ -31,10 +36,13 @@
                         <p:submenu label="Eventos" icon="pi pi-fw pi-calendar">
                             <p:menuitem value="Partidos" icon="pi pi-fw pi-sitemap" url="#{request.contextPath}/faces/publico/partidos.xhtml"  styleClass="ui-button-info"/>
                         </p:submenu>
-                        
-                        <f:facet name="options">
-                            <p:commandButton value="Cerrar Sesion" icon="pi pi-fw pi-sign-in" styleClass="ui-button-info" action="#{indexController.cerrarSesion()}"/>
-                        </f:facet>
+
+                        <p:submenu label="Acciones Usuario" icon="pi pi-fw pi-users">
+                            <p:menuitem value="Administrador" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/administrador/vistaAdministrador.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Árbitro" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/arbitro/vistaArbitro.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Capitán" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/jugador/vistaJugador.xhtml"  styleClass="ui-button-info"/>
+                        </p:submenu>
+
                     </p:menubar>
                 </h:form>
             </div>
@@ -46,7 +54,7 @@
 
         <div id="bottom" class="center_content">
             <ui:insert name="bottom">
-                <div class="footer_content">
+                <div class="footer_content"> 
                     <p class="footer_text">Universidad de León - ULEScore</p>
                 </div>
             </ui:insert>
