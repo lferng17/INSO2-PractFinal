@@ -1,6 +1,8 @@
 package inso2023.model;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,25 +19,34 @@ public class Partido implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPartido;
+    
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="idEquipoLocal")
-    @ManyToOne
     private Equipo idEquipoLocal;
+
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="idEquipoVis")
-    @ManyToOne
     private Equipo idEquipoVis;
+
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="idArbitro")
-    @ManyToOne
     private Arbitro idArbitro;
+
     @Column(name="fecha")
     private String fecha;
+
     @Column(name="hora")
     private String hora;
+    
     @Column(name="golesLocal")
     private int golesLocal;
+    
     @Column(name="golesVis")
     private int golesVis;
+    
     @Column(name="tarjAma")
     private int tarjAma;
+    
     @Column(name="tarjRojas")
     private int tarjRojas;
 

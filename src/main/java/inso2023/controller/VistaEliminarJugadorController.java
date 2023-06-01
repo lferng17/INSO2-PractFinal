@@ -24,7 +24,7 @@ public class VistaEliminarJugadorController implements Serializable{
     private List<Jugador> listaJugadores;
     private List<Equipo> listaEquipos;
     private boolean mostrarCombo = false;
-    List<Jugador> listaJugadoresEquipo = new ArrayList<>();
+    private List<Jugador> listaJugadoresEquipo = new ArrayList<>();
 
     @EJB
     private JugadorFacadeLocal jugadorEJB;
@@ -95,10 +95,6 @@ public class VistaEliminarJugadorController implements Serializable{
             if(j.getIdEquipo().getIdEquipo() == idEquipo){
                 listaJugadoresEquipo.add(j);
             }
-        }
-        //imprimir lista de jugadores
-        for(Jugador j : listaJugadores){
-            System.out.println(j.getNombre());
         }
     }
 
