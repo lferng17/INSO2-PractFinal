@@ -175,4 +175,21 @@ public class Jugador implements Serializable {
         this.contrasena = contrasena;
     }
 
+    public void anotarGol(int goles) {
+        this.goles += goles;
+    }
+
+    public void anotarAsistencia(int asistencias) {
+        this.asistencias += asistencias;
+    }
+
+    public void anotarTarjetaAmarilla(int tarjAma) {
+        this.tarjAma += tarjAma;
+    }
+
+    public void anotarTarjetaRoja(int tarjRojas) {
+        this.tarjRojas += tarjRojas;
+    }
+
+    
 }

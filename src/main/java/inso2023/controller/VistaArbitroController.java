@@ -28,6 +28,8 @@ public class VistaArbitroController implements Serializable{
     public List<Jugador> listaJugadoresEquipoLocal = new ArrayList<>();
     public List<Jugador> listaJugadoresEquipoVis = new ArrayList<>();
     public boolean mostrarActas = false;
+    public List<JugadorTabla> listaJugadoresPartidoLocal = new ArrayList<>();
+    public List<JugadorTabla> listaJugadoresPartidoVis = new ArrayList<>();
    
     @EJB
     private PartidoFacadeLocal partidoEJB;
@@ -90,18 +92,23 @@ public class VistaArbitroController implements Serializable{
 
         Partido partido = partidoEJB.find(idPartido);
         
-        listaJugadoresEquipoLocal.clear();
+        listaJugadoresPartidoLocal.clear();
         for (Jugador j : listaJugadores){
             if(j.getIdEquipo().getIdEquipo() == partido.getIdEquipoLocal().getIdEquipo()){
-                listaJugadoresEquipoLocal.add(j);
+                listaJugadoresPartidoLocal.add(new JugadorTabla(j, partido, 0, 0, 0, 0));
             }
         }
         
-        listaJugadoresEquipoVis.clear();
+        listaJugadoresPartidoVis.clear();
         for (Jugador j : listaJugadores){
             if(j.getIdEquipo().getIdEquipo() == partido.getIdEquipoVis().getIdEquipo()){
-                listaJugadoresEquipoVis.add(j);
+                listaJugadoresPartidoVis.add(new JugadorTabla(j, partido, 0, 0, 0, 0));
             }
+        }
+
+        //imprimir listaJugadoresPartidoLocal
+        for(JugadorTabla j : listaJugadoresPartidoLocal){
+            System.out.println(j.getJugador().getNombre());
         }
     
     } 
@@ -171,8 +178,105 @@ public class VistaArbitroController implements Serializable{
     public void setMostrarActas(boolean mostrarActas) {
         this.mostrarActas = mostrarActas;
     }
-    
   
+    public class JugadorTabla{
+
+        private Jugador jugador;
+        private Partido partido;
+        private int goles;
+        private int asistencias;
+        private int tarjetasAmarillas;
+        private int tarjetasRojas;
+        private boolean local;
+
+        public JugadorTabla(Jugador jugador, Partido partido, int goles, int asistencias, int tarjetasAmarillas, int tarjetasRojas) {
+            this.jugador = jugador;
+            this.partido = partido;
+            this.goles = goles;
+            this.asistencias = asistencias;
+            this.tarjetasAmarillas = tarjetasAmarillas;
+            this.tarjetasRojas = tarjetasRojas;
+        }
+
+        public Jugador getJugador() {
+            return jugador;
+        }
+
+        public void setJugador(Jugador jugador) {
+            this.jugador = jugador;
+        }
+
+        public Partido getPartido() {
+            return partido;
+        }
+
+        public void setPartido(Partido partido) {
+            this.partido = partido;
+        }
+
+        public int getGoles() {
+            return goles;
+        }
+
+        public void setGoles(int goles) {
+            this.goles = goles;
+            jugador.anotarGol(goles);
+        }
+
+        public int getAsistencias() {
+            return asistencias;
+        }
+
+        public void setAsistencias(int asistencias) {
+            this.asistencias = asistencias; 
+            jugador.anotarAsistencia(asistencias);
+        }
+
+        public int getTarjetasAmarillas() {
+            return tarjetasAmarillas;
+        }
+
+        public void setTarjetasAmarillas(int tarjetasAmarillas) {
+            this.tarjetasAmarillas = tarjetasAmarillas;
+            jugador.anotarTarjetaAmarilla(tarjetasAmarillas);
+        }
+
+        public int getTarjetasRojas() {
+            return tarjetasRojas;
+        }
+
+        public void setTarjetasRojas(int tarjetasRojas) {
+            this.tarjetasRojas = tarjetasRojas;
+            jugador.anotarTarjetaRoja(tarjetasRojas);
+        }
+
+        public boolean isLocal() {
+            return local;
+        }
+
+        public void setLocal(boolean local) {
+            this.local = local;
+        }
+
+        
+    }
+
+    public List<JugadorTabla> getListaJugadoresPartidoLocal() {
+        return listaJugadoresPartidoLocal;
+    }
+
+    public void setListaJugadoresPartidoLocal(List<JugadorTabla> listaJugadoresPartidoLocal) {
+        this.listaJugadoresPartidoLocal = listaJugadoresPartidoLocal;
+    }
+
+    public List<JugadorTabla> getListaJugadoresPartidoVis() {
+        return listaJugadoresPartidoVis;
+    }
+
+    public void setListaJugadoresPartidoVis(List<JugadorTabla> listaJugadoresPartidoVis) {
+        this.listaJugadoresPartidoVis = listaJugadoresPartidoVis;
+    }
+
     
     
 
