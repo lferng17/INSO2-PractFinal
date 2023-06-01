@@ -45,10 +45,10 @@ public class Partido implements Serializable{
     private Integer golesVis;
     
     @Column(name="tarjAma")
-    private Integer tarjAma;
+    private int tarjAma;
     
     @Column(name="tarjRojas")
-    private Integer tarjRojas;
+    private int tarjRojas;
 
     public int getIdPartido() {
         return idPartido;
