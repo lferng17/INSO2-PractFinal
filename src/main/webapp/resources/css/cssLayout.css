@@ -12,7 +12,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #c2dfef;
+    background-color: #3f904a;
     padding: 5px;
     margin-top: 10px;
 }
@@ -98,9 +98,41 @@
     margin-top: 10px;
 }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: auto; /* Para mantener la proporción original */
+    
+    margin-left: 20px; /* Margen izquierdo */
+}
+
+.logo-left {
+    width: 100px; 
+    margin-top: 8px; 
+    margin-bottom: 10px;
+}
+
+.logo-center {
+    margin-left: auto;
+    margin-right: 20px;
+    width: 70px;
+    margin-top: 0px; 
+    margin-bottom: 0px;
+}
 
 
-
-
-
-
+menubar{
+   display: flex;
+   position: fixed;
+   top:0;
+   width: 100%;
+   background-color: rgb(251, 255, 196);
+   overflow: auto;
+   height: auto;
+}
+.left-links{
+   flex:1 1 200px;
+}

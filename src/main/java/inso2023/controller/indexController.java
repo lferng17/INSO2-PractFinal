@@ -45,6 +45,7 @@ public class indexController implements Serializable {
         if(administradorFacade.buscarUsuario(usuario, password) != null){
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "admin");
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idAdministrador", administradorFacade.buscarUsuario(usuario, password).getIdAdministrador());
             tipoUsuario = "privado/administrador/vistaAdministrador.xhtml?faces-redirect=true";
             System.out.println("administrador");    
         }
