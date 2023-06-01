@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:head>
+    <title>Editar Equipo</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaEditarEquipoController.verificarAdministrador()}"/>
+    </f:metadata>
+  </h:head>
+  <h:body class="surface-300">
+    <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
+      <ui:define name="content">
+        <div class="flex align-items-center justify-content-center">
+          <div>
+            <h:form>
+              <p:outputLabel
+                for="txtIdEquipoMod"
+                value="Seleccione un equipo"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdEquipoMod"
+                value="#{vistaEditarEquipoController.idEquipoMod}"
+                styleClass="w-full mb-3"
+              >
+                <p:ajax
+                  listener="#{vistaEditarEquipoController.setDatosEquipo()}"
+                  update="txtNombre txtPuntos txtGolesFav txtGolesContra"
+                />
+                <f:selectItem
+                  itemLabel="Seleccione un equipo"
+                  itemValue=""
+                  noSelectionOption="true"
+                />
+                <f:selectItems
+                  value="#{vistaEditarEquipoController.getEquipos()}"
+                  var="equipo"
+                  itemLabel="#{equipo.nombre}"
+                  itemValue="#{equipo.idEquipo}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdEquipoMod" />
+
+              <p:outputLabel
+                for="txtNombre"
+                value="Nombre"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+                <p:inputText
+                    id="txtNombre"
+                    value="#{vistaEditarEquipoController.nombre}"
+                    required="true"
+                    requiredMessage="Campo Obligatorio"
+                    styleClass="w-full mb-3"
+                />
+              <p:message for="txtNombre" />
+
+              <p:outputLabel
+                for="txtPuntos"
+                value="Puntos"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtPuntos"
+                value="#{vistaEditarEquipoController.puntos}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtPuntos" />
+
+              <p:outputLabel
+                for="txtGolesFav"
+                value="Goles a favor"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtGolesFav"
+                value="#{vistaEditarEquipoController.golesFav}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtGolesFav" />
+
+              <p:outputLabel
+                for="txtGolesContra"
+                value="Dorsal"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtGolesContra"
+                value="#{vistaEditarEquipoController.golesContra}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtGolesContra" />
+
+              <p:commandButton
+                value="Editar Equipo"
+                action="#{vistaEditarEquipoController.editarEquipo()}"
+                styleClass="w-full"
+              />
+            </h:form>
+          </div>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>

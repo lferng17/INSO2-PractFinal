@@ -2,6 +2,8 @@ package inso2023.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,40 +15,52 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
-@Table(name="jugador")
-public class Jugador implements Serializable{
+@Table(name = "jugador")
+public class Jugador implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idJugador;
-    @Column(name="nombre")
+
+    @Column(name = "nombre")
     private String nombre;
-    @Column(name="apellidos")
+    
+    @Column(name = "apellidos")
     private String apellidos;
-    @Column(name="dni")
+    
+    @Column(name = "dni")
     private String dni;
-    @Column(name="dorsal")
+    
+    @Column(name = "dorsal")
     private int dorsal;
-    @Column(name="fechanac")
+    
+    @Column(name = "fechanac")
     @Temporal(TemporalType.DATE)
     private Date fechaNac;
-    @Column(name="goles")
+    
+    @Column(name = "goles")
     private int goles;
-    @Column(name="asistencias")
+    
+    @Column(name = "asistencias")
     private int asistencias;
-    @Column(name="tarjAma")
+    
+    @Column(name = "tarjAma")
     private int tarjAma;
-    @Column(name="tarjRojas")
+    
+    @Column(name = "tarjRojas")
     private int tarjRojas;
-    @JoinColumn(name="idEquipo")
+
     @ManyToOne
+    @JoinColumn(name = "idEquipo")
     private Equipo idEquipo;
-    @Column(name="capitan")
+    
+    @Column(name = "capitan")
     private int capitan;
-    @Column(name="email")
+    
+    @Column(name = "email")
     private String email;
-     @Column(name="contrasena")
+    
+    @Column(name = "contrasena")
     private String contrasena;
 
     public int getIdJugador() {
@@ -161,6 +175,21 @@ public class Jugador implements Serializable{
         this.contrasena = contrasena;
     }
 
-     
-   
+    public void anotarGol(int goles) {
+        this.goles += goles;
+    }
+
+    public void anotarAsistencia(int asistencias) {
+        this.asistencias += asistencias;
+    }
+
+    public void anotarTarjetaAmarilla(int tarjAma) {
+        this.tarjAma += tarjAma;
+    }
+
+    public void anotarTarjetaRoja(int tarjRojas) {
+        this.tarjRojas += tarjRojas;
+    }
+
+    
 }

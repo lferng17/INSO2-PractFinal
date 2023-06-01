@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:head>
+    <title>Editar Arbitro</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaEditarArbitroController.verificarAdministrador()}"/>
+    </f:metadata>
+  </h:head>
+  <h:body class="surface-300">
+    <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
+      <ui:define name="content">
+        <div class="flex align-items-center justify-content-center">
+          <div>
+            <h:form>
+              <p:outputLabel
+                for="txtIdArbitro"
+                value="Elige un arbitro"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdArbitro"
+                value="#{vistaEditarArbitroController.idArbitroMod}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              >
+                <p:ajax
+                  listener="#{vistaEditarArbitroController.setDatosArbitro()}" update="txtNombre txtApellidos txtDni txtLicencia txtFechaNac"/>
+                <f:selectItem itemLabel="Seleccione un arbitro" itemValue="" />
+                <f:selectItems
+                  value="#{vistaEditarArbitroController.getArbitros()}"
+                  var="arbitro"
+                  itemLabel="#{arbitro.nombre}"
+                  itemValue="#{arbitro.idArbitro}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdArbitro" />
+
+              <p:outputLabel
+                for="txtNombre"
+                value="Nombre"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtNombre"
+                value="#{vistaEditarArbitroController.nombre}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtNombre" />
+
+              <p:outputLabel
+                for="txtApellidos"
+                value="Apellidos"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtApellidos"
+                value="#{vistaEditarArbitroController.apellidos}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtApellidos" />
+
+              <p:outputLabel
+                for="txtDni"
+                value="DNI"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtDni"
+                value="#{vistaEditarArbitroController.dni}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtApellidos" />
+
+              <p:outputLabel
+                for="txtLicencia"
+                value="Licencia"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtLicencia"
+                value="#{vistaEditarArbitroController.licencia}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtLicencia" />
+
+              <p:outputLabel
+                for="txtFechaNac"
+                value="Fecha de nacimiento"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:calendar
+                id="txtFechaNac"
+                value="#{vistaEditarArbitroController.fechaNac}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtFechaNac" />
+
+              <p:commandButton
+                value="Editar Arbitro"
+                action="#{vistaEditarArbitroController.editarArbitro()}"
+                styleClass="w-full"
+              />
+            </h:form>
+          </div>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>

@@ -1,6 +1,8 @@
 package inso2023.model;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,25 +19,34 @@ public class Partido implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPartido;
+    
+    @ManyToOne
     @JoinColumn(name="idEquipoLocal")
-    @ManyToOne
     private Equipo idEquipoLocal;
+
+    @ManyToOne
     @JoinColumn(name="idEquipoVis")
-    @ManyToOne
     private Equipo idEquipoVis;
-    @JoinColumn(name="idArbitro")
+
     @ManyToOne
+    @JoinColumn(name="idArbitro")
     private Arbitro idArbitro;
+
     @Column(name="fecha")
     private String fecha;
+
     @Column(name="hora")
     private String hora;
+    
     @Column(name="golesLocal")
-    private int golesLocal;
+    private Integer golesLocal;
+    
     @Column(name="golesVis")
-    private int golesVis;
+    private Integer golesVis;
+    
     @Column(name="tarjAma")
     private int tarjAma;
+    
     @Column(name="tarjRojas")
     private int tarjRojas;
 
@@ -87,7 +98,7 @@ public class Partido implements Serializable{
         this.hora = hora;
     }
 
-    public int getGolesLocal() {
+    public Integer getGolesLocal() {
         return golesLocal;
     }
 
@@ -95,7 +106,7 @@ public class Partido implements Serializable{
         this.golesLocal = golesLocal;
     }
 
-    public int getGolesVis() {
+    public Integer getGolesVis() {
         return golesVis;
     }
 
@@ -119,5 +130,6 @@ public class Partido implements Serializable{
         this.tarjRojas = tarjRojas;
     }
 
+    
     
 }

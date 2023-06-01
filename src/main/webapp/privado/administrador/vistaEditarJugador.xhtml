@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:head>
+    <title>Editar Jugador</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaEditarJugadorController.verificarAdministrador()}"/>
+    </f:metadata>
+  </h:head>
+  <h:body class="surface-300">
+    <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
+      <ui:define name="content">
+        <div class="flex align-items-center justify-content-center">
+          <div>
+            <h:form>
+              <p:outputLabel
+                for="txtIdEquipoMod"
+                value="Seleccione un equipo"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdEquipoMod"
+                value="#{vistaEditarJugadorController.idEquipoMod}"
+                styleClass="w-full mb-3"
+              >
+                <p:ajax
+                  listener="#{vistaEditarJugadorController.setJugadoresEquipo()}"
+                  update="txtIdJugadorMod"
+                />
+                <f:selectItem
+                  itemLabel="Seleccione un equipo"
+                  itemValue=""
+                  noSelectionOption="true"
+                />
+                <f:selectItems
+                  value="#{vistaEditarJugadorController.getEquipos()}"
+                  var="equipo"
+                  itemLabel="#{equipo.nombre}"
+                  itemValue="#{equipo.idEquipo}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdEquipoMod" />
+
+              <p:outputLabel
+                for="txtIdJugadorMod"
+                value="Elige un jugador"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdJugadorMod"
+                value="#{vistaEditarJugadorController.idJugadorMod}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              >
+                <p:ajax
+                  listener="#{vistaEditarJugadorController.setDatosJugador()}"
+                  update="txtNombre txtApellidos txtDni txtDorsal txtFechaNac checkCapitan txtIdEquipo txtGoles txtAsistencias txtTarjAma txtTarjRojas"
+                />
+                <f:selectItem
+                  itemLabel="Seleccione un jugador"
+                  itemValue=""
+                  noSelectionOption="true"
+                />
+                <f:selectItems
+                  value="#{vistaEditarJugadorController.getJugadoresEquipo()}"
+                  var="jugador"
+                  itemLabel="#{jugador.nombre}"
+                  itemValue="#{jugador.idJugador}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdJugadorMod" />
+
+              <p:outputLabel
+                for="txtNombre"
+                value="Nombre"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtNombre"
+                value="#{vistaEditarJugadorController.nombre}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtNombre" />
+
+              <p:outputLabel
+                for="txtApellidos"
+                value="Apellidos"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtApellidos"
+                value="#{vistaEditarJugadorController.apellidos}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtApellidos" />
+
+              <p:outputLabel
+                for="txtDni"
+                value="DNI"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtDni"
+                value="#{vistaEditarJugadorController.dni}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtApellidos" />
+
+              <p:outputLabel
+                for="txtDorsal"
+                value="Dorsal"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtDorsal"
+                value="#{vistaEditarJugadorController.dorsal}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtDorsal" />
+
+              <p:outputLabel
+                for="txtFechaNac"
+                value="Fecha de nacimiento"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:calendar
+                id="txtFechaNac"
+                value="#{vistaEditarJugadorController.fechaNac}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtFechaNac" />
+
+              <p:outputLabel
+                for="txtIdEquipo"
+                value="Equipo"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:selectOneMenu
+                id="txtIdEquipo"
+                value="#{vistaEditarJugadorController.idEquipo}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              >
+                <f:selectItem
+                  itemLabel="#{vistaEditarJugadorController.nombre}"
+                  itemValue="#{vistaEditarJugadorController.idEquipo}"
+                />
+                <f:selectItems
+                  value="#{vistaEditarJugadorController.getEquipos()}"
+                  var="equipo"
+                  itemLabel="#{equipo.nombre}"
+                  itemValue="#{equipo.idEquipo}"
+                />
+              </p:selectOneMenu>
+              <p:message for="txtIdEquipo" />
+
+              <p:outputLabel
+                for="txtGoles"
+                value="Goles"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtGoles"
+                value="#{vistaEditarJugadorController.goles}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtGoles" />
+
+              <p:outputLabel
+                for="txtAsistencias"
+                value="Asistencias"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtAsistencias"
+                value="#{vistaEditarJugadorController.asistencias}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtAsistencias" />
+
+              <p:outputLabel
+                for="txtTarjAma"
+                value="Tarjetas Amarillas"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtTarjAma"
+                value="#{vistaEditarJugadorController.tarjAma}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtTarjAma" />
+
+              <p:outputLabel
+                for="txtTarjRojas"
+                value="Tarjetas Rojas"
+                class="block text-900 font-medium mb-2"
+              ></p:outputLabel>
+              <p:inputText
+                id="txtTarjRojas"
+                value="#{vistaEditarJugadorController.tarjRojas}"
+                required="true"
+                requiredMessage="Campo Obligatorio"
+                styleClass="w-full mb-3"
+              />
+              <p:message for="txtTarjRojas" />
+
+              <p:outputLabel for="checkCapitan" value="Capitán" />
+              <p:selectBooleanCheckbox
+                id="checkCapitan"
+                value="#{vistaEditarJugadorController.capitan}"
+              >
+              </p:selectBooleanCheckbox>
+
+              <p:commandButton
+                value="Editar jugador"
+                action="#{vistaEditarJugadorController.editarJugador()}"
+                styleClass="w-full"
+              />
+            </h:form>
+          </div>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>

@@ -5,10 +5,16 @@
  */
 package inso2023.ejb;
 
+import inso2023.model.Arbitro;
 import inso2023.model.Partido;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +33,13 @@ public class PartidoFacade extends AbstractFacade<Partido> implements PartidoFac
 
     public PartidoFacade() {
         super(Partido.class);
+    }
+
+    public List<Partido> findPartidoByArbitro(Arbitro arbitro) {
+        TypedQuery<Partido> query = em.createQuery("SELECT p FROM Partido p WHERE p.idArbitro = :idArbitro", Partido.class);
+        query.setParameter("idArbitro", arbitro);
+        List<Partido> partidos = query.getResultList();
+        return partidos;
     }
     
 }

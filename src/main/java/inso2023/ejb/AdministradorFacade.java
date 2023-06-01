@@ -7,7 +7,6 @@ package inso2023.ejb;
 
 import inso2023.model.Administrador;
 import javax.ejb.Stateless;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query; 
@@ -39,7 +38,6 @@ public class AdministradorFacade extends AbstractFacade<Administrador> implement
             query.setParameter("usuario", usuario);
             query.setParameter("password", password);
             admin = (Administrador) query.getSingleResult();
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", admin);
             return admin;
         } catch (Exception e) {
         }

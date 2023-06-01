@@ -8,14 +8,10 @@ package inso2023.controller;
 import inso2023.ejb.AdministradorFacadeLocal;
 import inso2023.ejb.ArbitroFacadeLocal;
 import inso2023.ejb.JugadorFacadeLocal;
-import inso2023.model.Administrador;
-import inso2023.model.Arbitro;
-import inso2023.model.Jugador;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -40,8 +36,6 @@ public class indexController implements Serializable {
 
     @PostConstruct
     public void init() {
-        System.out.println(usuario);
-        System.out.println(password);
         tipoUsuario = "";
     }
 
@@ -49,14 +43,23 @@ public class indexController implements Serializable {
         init();
 
         if(administradorFacade.buscarUsuario(usuario, password) != null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "admin");
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idAdministrador", administradorFacade.buscarUsuario(usuario, password).getIdAdministrador());
             tipoUsuario = "privado/administrador/vistaAdministrador.xhtml?faces-redirect=true";
             System.out.println("administrador");    
         }
         else if(arbitroFacade.buscarUsuario(usuario, password) != null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "arbitro");
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idArbitro", arbitroFacade.buscarUsuario(usuario, password).getIdArbitro());
             tipoUsuario = "privado/arbitro/vistaArbitro.xhtml?faces-redirect=true";
             System.out.println("Arbitro");
         }
         else if(jugadorFacade.buscarUsuario(usuario, password) != null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "jugador");
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idJugador", jugadorFacade.buscarUsuario(usuario, password).getIdJugador());
             tipoUsuario = "privado/jugador/vistaJugador.xhtml?faces-redirect=true";
             System.out.println("Jugador");
         }
@@ -67,6 +70,16 @@ public class indexController implements Serializable {
 
         return tipoUsuario;
 
+    }
+
+    public void cerrarSesion() throws Exception{
+        // Lógica para cerrar la sesión
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        
+        // Redirige a la página de inicio de sesión
+        String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+        String url = contextPath + "/faces/index.xhtml";
+        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
     }
 
     public String getUsuario() {

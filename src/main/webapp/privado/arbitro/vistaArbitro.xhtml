@@ -1,18 +1,153 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
+  <head>
+    <f:event
+      type="preRenderView"
+      listener="#{vistaArbitroController.verificarArbitro()}"
+    />
+  </head>
 
-    <f:event type="preRenderView" listener="#{vistaArbitroController.verificarArbitro()}"/>
-    <body>
-        <ui:composition template="./../../WEB-INF/template/plantillaGeneral.xhtml">
-            
-            <ui:define name="content">
-                <h1> Vista Arbitro</h1>
-            </ui:define>
+  <body>
+    <ui:composition template="./../../WEB-INF/template/plantillaGeneral.xhtml">
+      <ui:define name="content">
+        <div class="container grid">
+          <h1 class="title">Seleccione el partido</h1>
 
-        </ui:composition>
+          <h:form class="form">
+            <p:selectOneMenu
+              id="txtIdPartido"
+              value="#{vistaArbitroController.idPartido}"
+              required="true"
+              requiredMessage="Campo Obligatorio"
+              styleClass="w-full mb-3"
+            >
+              <f:selectItem itemLabel="Seleccione un Partido" itemValue="" />
+              <f:selectItems
+                value="#{vistaArbitroController.listaPartidosArbitro}"
+                var="partido"
+                itemLabel="#{partido.idEquipoLocal.nombre} vs #{partido.idEquipoVis.nombre}"
+                itemValue="#{partido.idPartido}"
+              />
+              <p:ajax
+                listener="#{vistaArbitroController.cargarJugadoresEquipos()}"
+                update="comboBox"
+              />
+            </p:selectOneMenu>
 
-    </body>
+            <p:outputPanel id="comboBox">
+              <h:panelGroup
+                rendered="#{vistaArbitroController.mostrarActas == true}"
+              >
+                <p:dataTable
+                  var="jugador"
+                  value="#{vistaArbitroController.listaJugadoresPartidoLocal}"
+                >
+                  <p:column headerText="Nombre">
+                    <h:outputText
+                      value="#{jugador.jugador.nombre} #{jugador.jugador.apellidos}"
+                    />
+                  </p:column>
+
+                  <p:column headerText="Dorsal">
+                    <h:outputText value="#{jugador.jugador.dorsal}" />
+                  </p:column>
+
+                  <p:column headerText="Goles">
+                    <p:inputNumber
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.goles}"
+                    />
+                  </p:column>
+
+                  <p:column headerText="Asistencias">
+                    <p:inputNumber
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.asistencias}"
+                    />
+                  </p:column>
+
+                  <p:column headerText="Amarillas">
+                    <p:inputNumber
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.tarjetasAmarillas}"
+                    />
+                  </p:column>
+
+                  <p:column headerText="Rojas">
+                    <p:inputNumber
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.tarjetasRojas}"
+                    />
+                  </p:column>
+                </p:dataTable>
+                <p:dataTable
+                  var="jugador"
+                  value="#{vistaArbitroController.listaJugadoresPartidoVis}"
+                >
+                  <p:column headerText="Nombre">
+                    <h:outputText
+                      value="#{jugador.jugador.nombre} #{jugador.jugador.apellidos}"
+                    />
+                  </p:column>
+
+                  <p:column headerText="Dorsal">
+                    <h:outputText value="#{jugador.jugador.dorsal}" />
+                  </p:column>
+
+                  <p:column headerText="Goles">
+                    <p:inputNumber
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.goles}"
+                    />
+                  </p:column>
+
+                  <p:column headerText="Asistencias">
+                    <p:inputNumber
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.asistencias}"
+                    />
+                  </p:column>
+
+                  <p:column headerText="Amarillas">
+                    <p:inputNumber
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.tarjetasAmarillas}"
+                    />
+                  </p:column>
+
+                  <p:column headerText="Rojas">
+                    <p:inputNumber
+                      styleClass="w-full mb-3"
+                      defaultValue="0"
+                      value="#{jugador.tarjetasRojas}"
+                    />
+                  </p:column>
+                </p:dataTable>
+              </h:panelGroup>
+              <div>
+                <p:commandButton
+                  value="Anotar resultados"
+                  action="#{vistaArbitroController.anotarResultados()}"
+                />
+              </div>
+            </p:outputPanel>
+          </h:form>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </body>
 </html>
