@@ -70,6 +70,19 @@ public class VistaCapitanController implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } 
     }
+    
+    // metodo boolean que devuelve true si el usuario esta logueado y es capitan
+    public boolean escapitan() {
+        try {
+            if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario")
+                    .equals("jugador")) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
 
     public String getMensaje() {
         return mensaje;

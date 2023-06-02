@@ -50,7 +50,7 @@ public class VistaArbitroController implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            idArbitro = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idArbitro");
+            idArbitro = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idArbitro");
         } catch (Exception e) {
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -91,13 +91,17 @@ public class VistaArbitroController implements Serializable {
         }
     }
 
-    // metodo boolean que devuelve true si el usuario es arbitro
+    // metodo boolean que devuelve true si el usuario esta logueado y es arbitro
     public boolean esArbitro() {
-        if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") == "arbitro") {
-            return true;
-        } else {
+        try {
+            if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario")
+                    .equals("arbitro")) {
+                return true;
+            }
+        } catch (Exception e) {
             return false;
         }
+        return false;
     }
 
     public void cargarJugadoresEquipos() {

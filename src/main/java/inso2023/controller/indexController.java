@@ -77,10 +77,25 @@ public class indexController implements Serializable {
         // Lógica para cerrar la sesión
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         
-        // Redirige a la página de inicio de sesión
+        // Redirige a la página publica
         String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
-        String url = contextPath + "/faces/index.xhtml";
+        String url = contextPath + "/faces/publico/clasificacionEquipos.xhtml";
         FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+    }
+
+    //Metodo boolean que devuelve false si hay usuario logueado
+    public boolean isNotLogueado() {
+        try {
+            if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario").equals("admin")
+                    || FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario").equals("arbitro")
+                    || FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario").equals("jugador")) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return true;
+        }
     }
 
     public String getUsuario() {

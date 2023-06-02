@@ -36,12 +36,12 @@
                         <p:submenu label="Eventos" icon="pi pi-fw pi-calendar">
                             <p:menuitem value="Partidos" icon="pi pi-fw pi-sitemap" url="#{request.contextPath}/faces/publico/partidos.xhtml"  styleClass="ui-button-info"/>
                         </p:submenu>
-
+                      
                         <p:submenu label="Acciones Usuario" icon="pi pi-fw pi-users" class="absolute top-0 right-0 bottom-0 flex align-items-center">
-                            <p:menuitem value="Administrador" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/administrador/vistaAdministrador.xhtml"  styleClass="ui-button-info"/>
-                            <p:menuitem value="Árbitro" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/arbitro/vistaArbitro.xhtml"  styleClass="ui-button-info"/>
-                            <p:menuitem value="Capitán" icon="pi pi-fw pi-user" url="#{request.contextPath}/faces/privado/jugador/vistaJugador.xhtml"  styleClass="ui-button-info"/>
-                            <p:menuitem value="Cerrar Sesión" action="#{indexController.cerrarSesion()}"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Administrar" icon="pi pi-fw pi-user-edit" rendered="#{vistaAdministradorController.esAdministrador()}" url="#{request.contextPath}/faces/privado/administrador/vistaAdministrador.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Mensaje" icon="pi pi-fw pi-envelope" rendered="#{vistaCapitanController.escapitan()}" url="#{request.contextPath}/faces/privado/jugador/vistaJugador.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Iniciar Sesión" icon="pi pi-fw pi-sign-in" rendered="#{indexController.isNotLogueado()}" url="#{request.contextPath}/faces/index.xhtml"  styleClass="ui-button-info"/>
+                            <p:menuitem value="Cerrar Sesión" icon="pi pi-fw pi-sign-out" rendered="#{indexController.isNotLogueado()==false}" action="#{indexController.cerrarSesion()}"  styleClass="ui-button-info"/>
                         </p:submenu>
                        
                     </p:menubar>
