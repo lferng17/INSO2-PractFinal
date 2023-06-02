@@ -8,6 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 
 import java.text.Normalizer;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ManagedBean
@@ -37,7 +39,17 @@ public class VistaCrearArbitroController {
             crear = true;
             arbitro.setNombre(this.nombre);
             arbitro.setApellidos(this.apellidos);
-            arbitro.setFechaNac(this.fechaNac);
+
+            LocalDate fechaActual = LocalDate.now();
+            String fechaPartido = this.fechaNac.toString();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(fechaPartido, formatter);
+            if(fechaActual.isBefore(fecha)){
+                crear = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Arbitro no creado", "La fecha de nacimiento no es válida."));
+            }else{
+                arbitro.setFechaNac(this.fechaNac);
+            }
             arbitro.setLicencia(this.licencia);
 
             if(this.dni.matches("[0-9]{8}[A-HJ-NP-TV-Za-hj-np-tv-z]")){
@@ -55,7 +67,7 @@ public class VistaCrearArbitroController {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro creado", "Arbitro creado con éxito!"));
             }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Arbitro no creado", "Error al crear el jugador."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Arbitro no creado", "Arbitro no creado, compruebe los datos introducidos."));
         }
     }
 
