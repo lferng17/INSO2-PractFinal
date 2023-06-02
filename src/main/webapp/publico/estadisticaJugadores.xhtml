@@ -11,7 +11,7 @@
 
             <ui:define name="content">
                 <h:form>
-                    <div class="card">
+                    <div class="card" style="margin-bottom: 50px">
                         <p:dataTable var="jugador" value="#{estadisticaJugadoresController.listaJugadores}">
                             <p:column headerText="Nombre Jugador">
                                 <h:outputText value="#{jugador.nombre} #{jugador.apellidos}" />
