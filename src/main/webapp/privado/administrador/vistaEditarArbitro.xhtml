@@ -107,9 +107,11 @@
                 value="Fecha de nacimiento"
                 class="block text-900 font-medium mb-2"
               ></p:outputLabel>
-              <p:calendar
+              <p:datePicker
                 id="txtFechaNac"
                 value="#{vistaEditarArbitroController.fechaNac}"
+                monthNavigator="true" 
+                yearNavigator="true"
                 required="true"
                 requiredMessage="Campo Obligatorio"
                 styleClass="w-full mb-3"

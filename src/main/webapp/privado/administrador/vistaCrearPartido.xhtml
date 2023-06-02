@@ -2,130 +2,131 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:p="http://primefaces.org/ui"
->
-  <h:head>
-    <title>Crear Partido</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
-    <f:metadata>
-      <f:event type="preRenderView" listener="#{vistaPartidoCrearController.verificarAdministrador()}"/>
-    </f:metadata>
-  </h:head>
-  <h:body class="surface-300">
-    <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
-      <ui:define name="content">
-        <div class="flex align-items-center justify-content-center">
-          <div>
-            <h:form>
-              <p:growl id="growl" showDetail="true" />
-              <p:outputLabel
-                for="txtIdEquipoLocal"
-                value="Equipo"
-                class="block text-900 font-medium mb-2"
-              ></p:outputLabel>
-              <p:selectOneMenu
-                id="txtIdEquipoLocal"
-                value="#{vistaPartidoCrearController.idEquipoLocal}"
-                required="true"
-                requiredMessage="Campo Obligatorio"
-                styleClass="w-full mb-3"
-              >
-                <f:selectItem itemLabel="Seleccione equipo local" itemValue="" />
-                <f:selectItems
-                  value="#{vistaPartidoCrearController.getEquipos()}"
-                  var="equipo"
-                  itemLabel="#{equipo.nombre}"
-                  itemValue="#{equipo.idEquipo}"
-                />
-              </p:selectOneMenu>
-              <p:message for="txtIdEquipoLocal" />
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    >
+    <h:head>
+        <title>Crear Partido</title>
+        <link rel="stylesheet" type="text/css" href="resources/css/primeflex.css" />
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{vistaPartidoCrearController.verificarAdministrador()}"/>
+        </f:metadata>
+    </h:head>
+    <h:body class="surface-300">
+        <ui:composition template="../../WEB-INF/template/plantillaGeneral.xhtml">
+            <ui:define name="content">
+                <div class="flex align-items-center justify-content-center">
+                    <div>
+                        <h:form>
+                            <p:growl id="growl" showDetail="true" />
+                            <p:outputLabel
+                                for="txtIdEquipoLocal"
+                                value="Equipo"
+                                class="block text-900 font-medium mb-2"
+                                ></p:outputLabel>
+                            <p:selectOneMenu
+                                id="txtIdEquipoLocal"
+                                value="#{vistaPartidoCrearController.idEquipoLocal}"
+                                required="true"
+                                requiredMessage="Campo Obligatorio"
+                                styleClass="w-full mb-3"
+                                >
+                                <f:selectItem itemLabel="Seleccione equipo local" itemValue="" />
+                                <f:selectItems
+                                    value="#{vistaPartidoCrearController.getEquipos()}"
+                                    var="equipo"
+                                    itemLabel="#{equipo.nombre}"
+                                    itemValue="#{equipo.idEquipo}"
+                                    />
+                            </p:selectOneMenu>
+                            <p:message for="txtIdEquipoLocal" />
 
-              <p:outputLabel
-                for="txtIdEquipoVisitante"
-                value="Equipo"
-                class="block text-900 font-medium mb-2"
-              ></p:outputLabel>
-              <p:selectOneMenu
-                id="txtIdEquipoVisitante"
-                value="#{vistaPartidoCrearController.idEquipoVisitante}"
-                required="true"
-                requiredMessage="Campo Obligatorio"
-                styleClass="w-full mb-3"
-              >
-                <f:selectItem itemLabel="Seleccione equipo visitante" itemValue="" />
-                <f:selectItems
-                  value="#{vistaPartidoCrearController.getEquipos()}"
-                  var="equipo"
-                  itemLabel="#{equipo.nombre}"
-                  itemValue="#{equipo.idEquipo}"
-                />
-              </p:selectOneMenu>
-              <p:message for="txtIdEquipoVisitante" />
+                            <p:outputLabel
+                                for="txtIdEquipoVisitante"
+                                value="Equipo"
+                                class="block text-900 font-medium mb-2"
+                                ></p:outputLabel>
+                            <p:selectOneMenu
+                                id="txtIdEquipoVisitante"
+                                value="#{vistaPartidoCrearController.idEquipoVisitante}"
+                                required="true"
+                                requiredMessage="Campo Obligatorio"
+                                styleClass="w-full mb-3"
+                                >
+                                <f:selectItem itemLabel="Seleccione equipo visitante" itemValue="" />
+                                <f:selectItems
+                                    value="#{vistaPartidoCrearController.getEquipos()}"
+                                    var="equipo"
+                                    itemLabel="#{equipo.nombre}"
+                                    itemValue="#{equipo.idEquipo}"
+                                    />
+                            </p:selectOneMenu>
+                            <p:message for="txtIdEquipoVisitante" />
 
-              <p:outputLabel
-                for="txtIdArbitro"
-                value="Arbitro"
-                class="block text-900 font-medium mb-2"
-              ></p:outputLabel>
-              <p:selectOneMenu
-                id="txtIdArbitro"
-                value="#{vistaPartidoCrearController.idArbitro}"
-                required="true"
-                requiredMessage="Campo Obligatorio"
-                styleClass="w-full mb-3"
-              >
-                <f:selectItem itemLabel="Seleccione arbitro" itemValue="" />
-                <f:selectItems
-                  value="#{vistaPartidoCrearController.getArbitros()}"
-                  var="arbitro"
-                  itemLabel="#{arbitro.nombre}"
-                  itemValue="#{arbitro.idArbitro}"
-                />
-              </p:selectOneMenu>
-              <p:message for="txtIdArbitro" />
+                            <p:outputLabel
+                                for="txtIdArbitro"
+                                value="Arbitro"
+                                class="block text-900 font-medium mb-2"
+                                ></p:outputLabel>
+                            <p:selectOneMenu
+                                id="txtIdArbitro"
+                                value="#{vistaPartidoCrearController.idArbitro}"
+                                required="true"
+                                requiredMessage="Campo Obligatorio"
+                                styleClass="w-full mb-3"
+                                >
+                                <f:selectItem itemLabel="Seleccione arbitro" itemValue="" />
+                                <f:selectItems
+                                    value="#{vistaPartidoCrearController.getArbitros()}"
+                                    var="arbitro"
+                                    itemLabel="#{arbitro.nombre}"
+                                    itemValue="#{arbitro.idArbitro}"
+                                    />
+                            </p:selectOneMenu>
+                            <p:message for="txtIdArbitro" />
 
-              <p:outputLabel
-                for="txtFecha"
-                value="Fecha"
-                class="block text-900 font-medium mb-2"
-              ></p:outputLabel>
-              <p:inputText
-                id="txtFecha"
-                value="#{vistaPartidoCrearController.fecha}"
-                required="true"
-                requiredMessage="Campo Obligatorio"
-                styleClass="w-full mb-3"
-              />
-              <p:message for="txtFecha" />
+                            <p:outputLabel
+                                for="txtFecha"
+                                value="Fecha"
+                                class="block text-900 font-medium mb-2"
+                                ></p:outputLabel>
+                            <p:inputText
+                                id="txtFecha"
+                                value="#{vistaPartidoCrearController.fecha}"
+                                placeholder="DD/MM/AAAA"
+                                required="true"
+                                requiredMessage="Campo Obligatorio"
+                                styleClass="w-full mb-3"
+                                />
+                            <p:message for="txtFecha" />
 
-              <p:outputLabel
-                for="txtHora"
-                value="Hora"
-                class="block text-900 font-medium mb-2"
-              ></p:outputLabel>
-              <p:inputText
-                id="txtHora"
-                value="#{vistaPartidoCrearController.hora}"
-                required="true"
-                requiredMessage="Campo Obligatorio"
-                styleClass="w-full mb-3"
-              />
-              <p:message for="txtHora" />
+                            <p:outputLabel
+                                for="txtHora"
+                                value="Hora"
+                                class="block text-900 font-medium mb-2"
+                                ></p:outputLabel>
+                            <p:inputText
+                                id="txtHora"
+                                value="#{vistaPartidoCrearController.hora}"
+                                required="true"
+                                requiredMessage="Campo Obligatorio"
+                                styleClass="w-full mb-3"
+                                />
+                            <p:message for="txtHora" />
 
-              <p:commandButton
-                value="Crear partido"
-                action="#{vistaPartidoCrearController.crearPartido()}"
-                styleClass="w-full"
-                update = "growl"
-              />
-            </h:form>
-          </div>
-        </div>
-      </ui:define>
-    </ui:composition>
-  </h:body>
+                            <p:commandButton
+                                value="Crear partido"
+                                action="#{vistaPartidoCrearController.crearPartido()}"
+                                styleClass="w-full"
+                                update = "growl"
+                                />
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>
