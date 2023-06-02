@@ -40,16 +40,7 @@ public class VistaCrearArbitroController {
             arbitro.setNombre(this.nombre);
             arbitro.setApellidos(this.apellidos);
 
-            LocalDate fechaActual = LocalDate.now();
-            String fechaPartido = this.fechaNac.toString();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate fecha = LocalDate.parse(fechaPartido, formatter);
-            if(fechaActual.isBefore(fecha)){
-                crear = false;
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Arbitro no creado", "La fecha de nacimiento no es válida."));
-            }else{
-                arbitro.setFechaNac(this.fechaNac);
-            }
+            arbitro.setFechaNac(this.fechaNac);
             arbitro.setLicencia(this.licencia);
 
             if(this.dni.matches("[0-9]{8}[A-HJ-NP-TV-Za-hj-np-tv-z]")){
