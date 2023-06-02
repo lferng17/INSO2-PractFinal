@@ -40,7 +40,7 @@ public class VistaCrearArbitroController {
             arbitro.setFechaNac(this.fechaNac);
             arbitro.setLicencia(this.licencia);
 
-            if(this.dni.matches("[0-9]{8}[A-Za-z]")){
+            if(this.dni.matches("[0-9]{8}[A-HJ-NP-TV-Za-hj-np-tv-z]")){
                 arbitro.setDni(this.dni);
             }else{
                 crear = false;

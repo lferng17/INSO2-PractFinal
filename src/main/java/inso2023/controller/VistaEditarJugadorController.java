@@ -62,7 +62,7 @@ public class VistaEditarJugadorController {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "El dorsal no es válido."));
             }
 
-            if(this.dni.matches("[0-9]{8}[A-Za-z]")){
+            if(this.dni.matches("[0-9]{8}[A-HJ-NP-TV-Za-hj-np-tv-z]")){
                 jugador.setDni(this.dni);
             }else{
                 editar = false;
