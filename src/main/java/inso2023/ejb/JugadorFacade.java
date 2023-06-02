@@ -42,7 +42,6 @@ public class JugadorFacade extends AbstractFacade<Jugador> implements JugadorFac
             query.setParameter("usuario", usuario);
             query.setParameter("password", password);
             jugador = (Jugador) query.getSingleResult();
-            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", jugador);
             return jugador;
         } catch (Exception e) {
         }

@@ -33,7 +33,7 @@ public class VistaCapitanController implements Serializable {
     public void init() {
         try {
             idJugador = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idJugador");
-            System.out.println("idJugador: EEEEEEEEEEEEEEES " + idJugador);
+
         } catch (Exception e) {
             System.out.println("Error al obtener el id del jugador");
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();

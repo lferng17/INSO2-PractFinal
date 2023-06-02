@@ -7,6 +7,7 @@ import inso2023.model.Arbitro;
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 
+import java.text.Normalizer;
 import java.util.Date;
 
 @ManagedBean
@@ -16,6 +17,7 @@ public class VistaCrearArbitroController {
     private Date fechaNac;
     private int licencia;
     private String dni;
+    private boolean crear;
 
     @EJB
     ArbitroFacadeLocal arbitroFacadeLocal;
@@ -32,19 +34,37 @@ public class VistaCrearArbitroController {
     public void crearArbitro(){
         try{
             Arbitro arbitro = new Arbitro();
+            crear = true;
             arbitro.setNombre(this.nombre);
             arbitro.setApellidos(this.apellidos);
             arbitro.setFechaNac(this.fechaNac);
             arbitro.setLicencia(this.licencia);
-            arbitro.setDni(this.dni);
-            arbitro.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
-            arbitro.setContrasena(this.dni);
-    
-            arbitroFacadeLocal.create(arbitro);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro creado", "Arbitro creado con éxito!"));
+
+            if(this.dni.matches("[0-9]{8}[A-Za-z]")){
+                arbitro.setDni(this.dni);
+            }else{
+                crear = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Arbitro no creado", "El DNI no es válido."));
+            }
+
+            arbitro.setEmail(generarCorreo());
+            arbitro.setContrasena(this.dni.toLowerCase());
+
+            if(crear==true){
+                arbitroFacadeLocal.create(arbitro);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro creado", "Arbitro creado con éxito!"));
+            }
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Arbitro no creado", "Error al crear el jugador."));
         }
+    }
+
+    public String generarCorreo(){
+        String correo = this.nombre.replaceAll(" ", "") + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com";
+        correo = correo.toLowerCase();
+        String correoFinal = Normalizer.normalize(correo, Normalizer.Form.NFD)
+        .replaceAll("\\p{M}", "");
+        return correoFinal;
     }
 
     public String getNombre() {
