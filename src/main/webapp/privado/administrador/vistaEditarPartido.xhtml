@@ -21,6 +21,7 @@
         <div class="flex align-items-center justify-content-center">
           <div>
             <h:form>
+              <p:growl id="growl" showDetail="true" />
               <p:outputLabel
                 for="txtIdPartidoMod"
                 value="Seleccione un partido"
@@ -115,7 +116,7 @@
                 <f:selectItems
                   value="#{vistaEditarPartidoController.getArbitros()}"
                   var="arbitro"
-                  itemLabel="#{arbitro.nombre}"
+                  itemLabel="#{arbitro.nombre} #{arbitro.apellidos}"
                   itemValue="#{arbitro.idArbitro}"
                 />
               </p:selectOneMenu>
@@ -129,6 +130,7 @@
               <p:inputText
                 id="txtFecha"
                 value="#{vistaEditarPartidoController.fecha}"
+                placeholder="DD/MM/AAAA"
                 required="true"
                 requiredMessage="Campo Obligatorio"
                 styleClass="w-full mb-3"
@@ -153,6 +155,8 @@
                 value="Editar partido"
                 action="#{vistaEditarPartidoController.editarPartido()}"
                 styleClass="w-full"
+                style="margin-bottom: 50px"
+                update="growl"
               />
             </h:form>
           </div>

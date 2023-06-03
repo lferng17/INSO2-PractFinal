@@ -21,6 +21,7 @@
         <div class="flex align-items-center justify-content-center">
           <div>
             <h:form>
+              <p:growl id="growl" showDetail="true" />
               <p:selectOneMenu
                 id="txtIdEquipo"
                 value="#{vistaEliminarJugadorController.idEquipo}"
@@ -64,6 +65,7 @@
                 value="Eliminar jugador"
                 action="#{vistaEliminarJugadorController.eliminarJugador()}"
                 styleClass="w-full"
+                update="growl"
               />
             </h:form>
           </div>

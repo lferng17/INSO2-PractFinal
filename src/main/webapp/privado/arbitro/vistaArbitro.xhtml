@@ -8,19 +8,19 @@
   xmlns:h="http://xmlns.jcp.org/jsf/html"
 >
   <head>
-    <f:event
-      type="preRenderView"
-      listener="#{vistaArbitroController.verificarArbitro()}"
-    />
+    <f:metadata>
+      <f:event type="preRenderView" listener="#{vistaArbitroController.verificarArbitro()}"/>
+    </f:metadata>
   </head>
 
   <body>
     <ui:composition template="./../../WEB-INF/template/plantillaGeneral.xhtml">
       <ui:define name="content">
-        <div class="container grid">
+        <div class="container grid" style="margin-bottom: 50px">
           <h1 class="title">Seleccione el partido</h1>
 
           <h:form class="form">
+            <p:growl id="growl" showDetail="true" />
             <p:selectOneMenu
               id="txtIdPartido"
               value="#{vistaArbitroController.idPartido}"
@@ -62,7 +62,6 @@
                   <p:column headerText="Goles">
                     <p:inputNumber
                       styleClass="w-full mb-3"
-                      defaultValue="0"
                       value="#{jugador.goles}"
                     />
                   </p:column>
@@ -70,7 +69,6 @@
                   <p:column headerText="Asistencias">
                     <p:inputNumber
                       styleClass="w-full mb-3"
-                      defaultValue="0"
                       value="#{jugador.asistencias}"
                     />
                   </p:column>
@@ -78,7 +76,6 @@
                   <p:column headerText="Amarillas">
                     <p:inputNumber
                       styleClass="w-full mb-3"
-                      defaultValue="0"
                       value="#{jugador.tarjetasAmarillas}"
                     />
                   </p:column>
@@ -86,7 +83,6 @@
                   <p:column headerText="Rojas">
                     <p:inputNumber
                       styleClass="w-full mb-3"
-                      defaultValue="0"
                       value="#{jugador.tarjetasRojas}"
                     />
                   </p:column>
@@ -108,7 +104,6 @@
                   <p:column headerText="Goles">
                     <p:inputNumber
                       styleClass="w-full mb-3"
-                      defaultValue="0"
                       value="#{jugador.goles}"
                     />
                   </p:column>
@@ -116,7 +111,6 @@
                   <p:column headerText="Asistencias">
                     <p:inputNumber
                       styleClass="w-full mb-3"
-                      defaultValue="0"
                       value="#{jugador.asistencias}"
                     />
                   </p:column>
@@ -124,7 +118,6 @@
                   <p:column headerText="Amarillas">
                     <p:inputNumber
                       styleClass="w-full mb-3"
-                      defaultValue="0"
                       value="#{jugador.tarjetasAmarillas}"
                     />
                   </p:column>
@@ -132,7 +125,6 @@
                   <p:column headerText="Rojas">
                     <p:inputNumber
                       styleClass="w-full mb-3"
-                      defaultValue="0"
                       value="#{jugador.tarjetasRojas}"
                     />
                   </p:column>
@@ -142,6 +134,7 @@
                 <p:commandButton
                   value="Anotar resultados"
                   action="#{vistaArbitroController.anotarResultados()}"
+                  update="growl"
                 />
               </div>
             </p:outputPanel>

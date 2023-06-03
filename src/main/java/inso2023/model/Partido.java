@@ -102,7 +102,7 @@ public class Partido implements Serializable{
         return golesLocal;
     }
 
-    public void setGolesLocal(int golesLocal) {
+    public void setGolesLocal(Integer golesLocal) {
         this.golesLocal = golesLocal;
     }
 
@@ -110,7 +110,7 @@ public class Partido implements Serializable{
         return golesVis;
     }
 
-    public void setGolesVis(int golesVis) {
+    public void setGolesVis(Integer golesVis) {
         this.golesVis = golesVis;
     }
 

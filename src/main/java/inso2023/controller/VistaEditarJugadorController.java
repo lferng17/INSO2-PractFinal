@@ -2,7 +2,9 @@ package inso2023.controller;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import java.util.List;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,6 +29,7 @@ public class VistaEditarJugadorController {
     private int idEquipo;
     private boolean capitan;
     private List<Jugador> jugadoresEquipo = new ArrayList<>();
+    private boolean editar;
 
     @EJB
     EquipoFacadeLocal equipoFacadeLocal;
@@ -37,7 +40,6 @@ public class VistaEditarJugadorController {
     
     public void verificarAdministrador() throws Exception{
         String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        System.out.println(usuario);
         if(!usuario.equals("admin")){
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -46,35 +48,89 @@ public class VistaEditarJugadorController {
     }
 
     public void editarJugador(){
-        Jugador jugador = new Jugador();
-        jugador.setIdJugador(this.idJugadorMod);
-        jugador.setNombre(this.nombre);
-        jugador.setApellidos(this.apellidos);
-        jugador.setDorsal(this.dorsal);
-        jugador.setDni(this.dni);
-        jugador.setFechaNac(this.fechaNac);
-        jugador.setGoles(this.goles);
-        jugador.setAsistencias(this.asistencias);
-        jugador.setTarjAma(this.tarjAma);
-        jugador.setTarjRojas(this.tarjRojas);
-        jugador.setIdEquipo(equipoFacadeLocal.find(this.idEquipo));
-        if(this.capitan == true){
-            jugador.setCapitan(1);
-            jugador.setEmail(this.nombre + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com");
-            jugador.setContrasena(this.dni);
-        }else{
-            jugador.setCapitan(0);
-            jugador.setEmail(null);
-            jugador.setContrasena(null);
-        }
+        try{
+            Jugador jugador = new Jugador();
+            editar = true;
+            jugador.setIdJugador(this.idJugadorMod);
+            jugador.setNombre(this.nombre);
+            jugador.setApellidos(this.apellidos);
 
-        jugadorFacadeLocal.edit(jugador);
+            if(this.dorsal > 0 && this.dorsal < 100){
+                jugador.setDorsal(this.dorsal);
+            }else{
+                editar = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "El dorsal no es válido."));
+            }
 
-        System.out.println("Jugador editado");
+            if(this.dni.matches("[0-9]{8}[A-HJ-NP-TV-Za-hj-np-tv-z]")){
+                jugador.setDni(this.dni);
+            }else{
+                editar = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "El DNI no es válido."));
+            }
+
+            jugador.setFechaNac(this.fechaNac);
+
+            if(this.goles >= 0){
+                jugador.setGoles(this.goles);
+            }else{
+                editar = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "Los goles no son válidos."));
+            }
+
+            if(this.asistencias >= 0){
+                jugador.setAsistencias(this.asistencias);
+            }else{
+                editar = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "Las asistencias no son válidas."));
+            }    
+
+            if(this.tarjAma >= 0){
+                jugador.setTarjAma(this.tarjAma);
+            }else{
+                editar = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "Las tarjetas amarillas no son válidas."));
+            }
+
+            if(this.tarjRojas >= 0){
+                jugador.setTarjRojas(this.tarjRojas);
+            }else{
+                editar = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "Las tarjetas rojas no son válidas."));
+            }
+            
+                jugador.setIdEquipo(equipoFacadeLocal.find(this.idEquipo));
+
+            if(this.capitan == true){
+                jugador.setCapitan(1);
+                jugador.setEmail(generarCorreo());
+                jugador.setContrasena(this.dni.toLowerCase());
+            }else{
+                jugador.setCapitan(0);
+                jugador.setEmail(null);
+                jugador.setContrasena(null);
+            }
+    
+            if(editar==true){
+                jugadorFacadeLocal.edit(jugador);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador editado", "Jugador editado correctamente!"));
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no editado", "El jugador no ha sido editado, compruebe los datos introducidos."));
+        }   
+
     }
 
     public List<Equipo> getEquipos(){
         return equipoFacadeLocal.findAll();
+    }
+
+    public String generarCorreo(){
+        String correo = this.nombre.replaceAll(" ", "") + "." + this.apellidos.replaceAll(" ", "") + "@ulescore.com";
+        correo = correo.toLowerCase();
+        String correoFinal = Normalizer.normalize(correo, Normalizer.Form.NFD)
+        .replaceAll("\\p{M}", "");
+        return correoFinal;
     }
 
     public void setJugadoresEquipo(){

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.application.FacesMessage;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -33,7 +34,6 @@ public class VistaEliminarArbitroController implements Serializable{
 
     public void verificarAdministrador() throws Exception{
         String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        System.out.println(usuario);
         if(!usuario.equals("admin")){
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -42,17 +42,21 @@ public class VistaEliminarArbitroController implements Serializable{
     }
 
     public void eliminarArbitro() throws IOException{
-        Arbitro arbitro = arbitroEJB.find(idArbitro);
-        List<Partido> partidos = partidoEJB.findPartidoByArbitro(arbitro);
-        if (!partidos.isEmpty()){
-            for(Partido partido : partidos){
-                System.out.println(partido.getIdPartido());
-                partidoEJB.remove(partido);
+        try{
+            Arbitro arbitro = arbitroEJB.find(idArbitro);
+            List<Partido> partidos = partidoEJB.findPartidoByArbitro(arbitro);
+            if (!partidos.isEmpty()){
+                for(Partido partido : partidos){
+                    System.out.println(partido.getIdPartido());
+                    partidoEJB.remove(partido);
+                }
             }
-        }
-        arbitroEJB.remove(arbitro);
-        listaArbitros.clear();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaAdministrador.xhtml");
+            arbitroEJB.remove(arbitro);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro eliminado", "Arbitro eliminado con éxito!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Arbitro no eliminado", "No se ha podido eliminar el arbitro, compruebe los datos introducidos."));
+        }   
+
     }
 
     public int getIdArbitro() {

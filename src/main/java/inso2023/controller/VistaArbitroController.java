@@ -20,13 +20,14 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 @ManagedBean
 @ViewScoped
 public class VistaArbitroController implements Serializable {
 
     public int idPartido;
-    public int idArbitro;
+    public Integer idArbitro;
     public List<Partido> listaPartidos;
     public List<Partido> listaPartidosArbitro = new ArrayList<>();
     public List<Jugador> listaJugadores;
@@ -49,7 +50,8 @@ public class VistaArbitroController implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            idArbitro = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idArbitro");
+            idArbitro = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+                    .get("idArbitro");
         } catch (Exception e) {
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -63,6 +65,7 @@ public class VistaArbitroController implements Serializable {
         listaJugadores = jugadorEJB.findAll();
         Arbitro arbitro = arbitroEJB.find(idArbitro);
         listaPartidos = partidoEJB.findPartidoByArbitro(arbitro);
+
         // Añadir a listaPartidosArbitro los partidos de listaPartidos que tengan el
         // idArbitro y no se hayan jugado
         for (Partido p : listaPartidos) {
@@ -72,7 +75,7 @@ public class VistaArbitroController implements Serializable {
             LocalDate fecha = LocalDate.parse(fechaPartido, formatter);
             boolean esAnterior = fecha.isBefore(fechaActual);
 
-            if (esAnterior && p.getGolesLocal()==null && p.getGolesVis()==null) {
+            if (esAnterior && p.getGolesLocal() == null && p.getGolesVis() == null) {
                 listaPartidosArbitro.add(p);
             }
 
@@ -82,20 +85,14 @@ public class VistaArbitroController implements Serializable {
 
     public void verificarArbitro() throws Exception {
         if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != "arbitro") {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../../publico/sinAcceso.xhtml");
+            String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+            String url = contextPath + "/faces/index.xhtml";
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } else {
             System.out.println("Vista Arbitro");
         }
     }
 
-    // metodo boolean que devuelve true si el usuario es arbitro
-    public boolean esArbitro() {
-        if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") == "arbitro") {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public void cargarJugadoresEquipos() {
 
@@ -257,39 +254,46 @@ public class VistaArbitroController implements Serializable {
     }
 
     public void anotarResultados() {
-        int golesLocales = 0;
-        int golesVis = 0;
-        for (JugadorTabla j : listaJugadoresPartidoLocal) {
-            jugadorEJB.edit(j.jugador);
-            golesLocales += j.goles;
-        }
-        for (JugadorTabla j : listaJugadoresPartidoVis) {
-            jugadorEJB.edit(j.jugador);
-            golesVis += j.goles;
-        }
-        Partido partido = partidoEJB.find(idPartido);
-        partido.setGolesLocal(golesLocales);
-        partido.setGolesVis(golesVis);
-        partidoEJB.edit(partido);
+        try {
+            int golesLocales = 0;
+            int golesVis = 0;
+            for (JugadorTabla j : listaJugadoresPartidoLocal) {
+                jugadorEJB.edit(j.jugador);
+                golesLocales += j.goles;
+            }
+            for (JugadorTabla j : listaJugadoresPartidoVis) {
+                jugadorEJB.edit(j.jugador);
+                golesVis += j.goles;
+            }
+            Partido partido = partidoEJB.find(idPartido);
+            partido.setGolesLocal(golesLocales);
+            partido.setGolesVis(golesVis);
+            partidoEJB.edit(partido);
 
-        Equipo equipoLocal = equipoEJB.find(partido.getIdEquipoLocal().getIdEquipo());
+            Equipo equipoLocal = equipoEJB.find(partido.getIdEquipoLocal().getIdEquipo());
 
-        Equipo equipoVis = equipoEJB.find(partido.getIdEquipoVis().getIdEquipo());
+            Equipo equipoVis = equipoEJB.find(partido.getIdEquipoVis().getIdEquipo());
 
-        if (golesLocales > golesVis) {
-            equipoLocal.setPuntos(equipoLocal.getPuntos() + 3);
-        } else if (golesLocales < golesVis) {
-            equipoVis.setPuntos(equipoVis.getPuntos() + 3);
-        } else {
-            equipoLocal.setPuntos(equipoLocal.getPuntos() + 1);
-            equipoVis.setPuntos(equipoVis.getPuntos() + 1);
+            if (golesLocales > golesVis) {
+                equipoLocal.setPuntos(equipoLocal.getPuntos() + 3);
+            } else if (golesLocales < golesVis) {
+                equipoVis.setPuntos(equipoVis.getPuntos() + 3);
+            } else {
+                equipoLocal.setPuntos(equipoLocal.getPuntos() + 1);
+                equipoVis.setPuntos(equipoVis.getPuntos() + 1);
+            }
+            equipoLocal.setGolesFav(golesLocales);
+            equipoLocal.setGolesContra(golesVis);
+            equipoVis.setGolesFav(golesVis);
+            equipoVis.setGolesContra(golesLocales);
+            equipoEJB.edit(equipoLocal);
+            equipoEJB.edit(equipoVis);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Resultado anotado", "Has anotado los datos del partido!"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Resultado no anotado", "Error al anotar los datos del partido."));
         }
-        equipoLocal.setGolesFav(golesLocales);
-        equipoLocal.setGolesContra(golesVis);
-        equipoVis.setGolesFav(golesVis);
-        equipoVis.setGolesContra(golesLocales);
-        equipoEJB.edit(equipoLocal);
-        equipoEJB.edit(equipoVis);
     }
 
 }

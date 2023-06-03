@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
+import javax.faces.application.FacesMessage;
 import inso2023.ejb.EquipoFacadeLocal;
 import inso2023.ejb.JugadorFacadeLocal;
 import inso2023.ejb.PartidoFacadeLocal;
@@ -37,7 +37,6 @@ public class VistaEliminarEquipoController implements Serializable{
 
     public void verificarAdministrador() throws Exception{
         String usuario = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        System.out.println(usuario);
         if(!usuario.equals("admin")){
             String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             String url = contextPath + "/faces/index.xhtml";
@@ -46,22 +45,26 @@ public class VistaEliminarEquipoController implements Serializable{
     }
 
     public void eliminarEquipo() throws IOException{
-        Equipo equipo = equipoEJB.find(idEquipo);
-        List<Jugador> listaJugadores = jugadorEJB.findAll();
-        List<Partido> listaPartidos = partidoEJB.findAll();
-        for(Partido partido : listaPartidos){
-            if(partido.getIdEquipoLocal().getIdEquipo() == equipo.getIdEquipo() || partido.getIdEquipoVis().getIdEquipo() == equipo.getIdEquipo()){
-                partidoEJB.remove(partido);
+        try{
+            Equipo equipo = equipoEJB.find(idEquipo);
+            List<Jugador> listaJugadores = jugadorEJB.findAll();
+            List<Partido> listaPartidos = partidoEJB.findAll();
+            for(Partido partido : listaPartidos){
+                if(partido.getIdEquipoLocal().getIdEquipo() == equipo.getIdEquipo() || partido.getIdEquipoVis().getIdEquipo() == equipo.getIdEquipo()){
+                    partidoEJB.remove(partido);
+                }
             }
-        }
-        for(Jugador jugador : listaJugadores){
-            if(jugador.getIdEquipo().getIdEquipo() == equipo.getIdEquipo()){
-                jugadorEJB.remove(jugador);
+            for(Jugador jugador : listaJugadores){
+                if(jugador.getIdEquipo().getIdEquipo() == equipo.getIdEquipo()){
+                    jugadorEJB.remove(jugador);
+                }
             }
+            equipoEJB.remove(equipo);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Equipo eliminado", "Equipo eliminado con éxito!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Equipo no eliminado", "Error al eliminar equipo, compruebe los datos introducidos."));
         }
-        equipoEJB.remove(equipo);
-        listaEquipos.clear();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaEliminarEquipo.xhtml");
+
     }
 
     public int getIdEquipo() {

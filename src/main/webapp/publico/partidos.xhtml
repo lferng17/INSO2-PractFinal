@@ -11,7 +11,7 @@
 
             <ui:define name="content">
                 <h:form>
-                    <div class="card">
+                    <div class="card" style="margin-bottom: 50px">
                         <p:dataTable var="partido" value="#{partidosController.listaPartidos}">
                             <p:column headerText="Partido">
                                 <h:outputText value="#{partido.idEquipoLocal.nombre} vs #{partido.idEquipoVis.nombre}" />

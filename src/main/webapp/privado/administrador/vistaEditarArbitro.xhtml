@@ -21,6 +21,7 @@
         <div class="flex align-items-center justify-content-center">
           <div>
             <h:form>
+              <p:growl id="growl" showDetail="true" />
               <p:outputLabel
                 for="txtIdArbitro"
                 value="Elige un arbitro"
@@ -106,9 +107,11 @@
                 value="Fecha de nacimiento"
                 class="block text-900 font-medium mb-2"
               ></p:outputLabel>
-              <p:calendar
+              <p:datePicker
                 id="txtFechaNac"
                 value="#{vistaEditarArbitroController.fechaNac}"
+                monthNavigator="true" 
+                yearNavigator="true"
                 required="true"
                 requiredMessage="Campo Obligatorio"
                 styleClass="w-full mb-3"
@@ -119,6 +122,8 @@
                 value="Editar Arbitro"
                 action="#{vistaEditarArbitroController.editarArbitro()}"
                 styleClass="w-full"
+                update="growl"
+                style="margin-bottom: 50px"
               />
             </h:form>
           </div>
