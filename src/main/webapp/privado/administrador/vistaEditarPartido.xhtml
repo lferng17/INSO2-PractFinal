@@ -116,7 +116,7 @@
                 <f:selectItems
                   value="#{vistaEditarPartidoController.getArbitros()}"
                   var="arbitro"
-                  itemLabel="#{arbitro.nombre}"
+                  itemLabel="#{arbitro.nombre} #{arbitro.apellidos}"
                   itemValue="#{arbitro.idArbitro}"
                 />
               </p:selectOneMenu>
