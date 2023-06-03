@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 import inso2023.ejb.PartidoFacadeLocal;
 import inso2023.model.Partido;
@@ -38,10 +39,15 @@ public class VistaEliminarPartidoController implements Serializable{
     }
 
     public void eliminarPartido() throws IOException{
-        Partido partido = partidoEJB.find(idPartido);
-        partidoEJB.remove(partido);
-        listaPartidos.clear();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaAdministrador.xhtml");
+        try{
+            Partido partido = partidoEJB.find(idPartido);
+            partidoEJB.remove(partido);
+            listaPartidos.clear();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Partido eliminado", "Partido eliminado con éxito!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Partido no eliminado", "No se ha podido eliminar el partido, compruebe los datos introducidos."));
+        }   
+
     }
 
     public List<Partido> getListaPartidos() {

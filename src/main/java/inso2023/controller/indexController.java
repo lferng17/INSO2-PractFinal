@@ -61,6 +61,7 @@ public class indexController implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", "jugador");
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idJugador", jugadorFacade.buscarUsuario(usuario, password).getIdJugador());
             tipoUsuario = "privado/jugador/vistaJugador.xhtml?faces-redirect=true";
+            System.out.println(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idJugador"));
             System.out.println("Jugador");
         }
         else{
@@ -76,10 +77,38 @@ public class indexController implements Serializable {
         // Lógica para cerrar la sesión
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         
-        // Redirige a la página de inicio de sesión
+        // Redirige a la página publica
         String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
-        String url = contextPath + "/faces/index.xhtml";
+        String url = contextPath + "/faces/publico/clasificacionEquipos.xhtml";
         FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+    }
+
+    //Metodo boolean que devuelve false si hay usuario logueado
+    public boolean isNotLogueado() {
+        try {
+            if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario").equals("admin")
+                    || FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario").equals("arbitro")
+                    || FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario").equals("jugador")) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    // metodo boolean que devuelve true si el usuario esta logueado y es arbitro
+    public boolean esArbitro() {
+        try {
+            if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario")
+                    .equals("arbitro")) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
     }
 
     public String getUsuario() {

@@ -23,6 +23,19 @@ public class VistaAdministradorController implements Serializable {
         }
 
     }
+    
+    // metodo boolean que devuelve true si el usuario esta logueado y es administrador
+    public boolean esAdministrador() {
+        try {
+            if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario")
+                    .equals("admin")) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
 
     public void crearJugador() throws Exception {
         FacesContext.getCurrentInstance().getExternalContext().redirect("vistaCrearJugador.xhtml");

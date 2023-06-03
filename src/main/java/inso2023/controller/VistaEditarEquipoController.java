@@ -1,6 +1,7 @@
 package inso2023.controller;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.application.FacesMessage;
 import java.util.List;
 
 import inso2023.ejb.EquipoFacadeLocal;
@@ -29,15 +30,19 @@ public class VistaEditarEquipoController {
     }
 
     public void editarEquipo(){
-        Equipo equipo = new Equipo();
-        equipo.setIdEquipo(this.idEquipoMod);
-        equipo.setNombre(this.nombre);
-        equipo.setPuntos(this.puntos);
-        equipo.setGolesFav(this.golesFav);
-        equipo.setGolesContra(this.golesContra);
-
-        equipoFacadeLocal.edit(equipo);
-        System.out.println("Equipo editado");
+        try{
+            Equipo equipo = new Equipo();
+            equipo.setIdEquipo(this.idEquipoMod);
+            equipo.setNombre(this.nombre);
+            equipo.setPuntos(this.puntos);
+            equipo.setGolesFav(this.golesFav);
+            equipo.setGolesContra(this.golesContra);
+    
+            equipoFacadeLocal.edit(equipo);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Equipo editado", "Equipo editado con éxito!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Equipo no editado.", "Error al editar el equipo, compruebe los datos introucidos."));
+        }
     }
 
     public void setDatosEquipo(){

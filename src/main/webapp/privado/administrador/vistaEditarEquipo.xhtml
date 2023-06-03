@@ -21,6 +21,7 @@
         <div class="flex align-items-center justify-content-center">
           <div>
             <h:form>
+              <p:growl id="growl" showDetail="true" />
               <p:outputLabel
                 for="txtIdEquipoMod"
                 value="Seleccione un equipo"
@@ -93,7 +94,7 @@
 
               <p:outputLabel
                 for="txtGolesContra"
-                value="Dorsal"
+                value="Goles en contra"
                 class="block text-900 font-medium mb-2"
               ></p:outputLabel>
               <p:inputText
@@ -109,6 +110,8 @@
                 value="Editar Equipo"
                 action="#{vistaEditarEquipoController.editarEquipo()}"
                 styleClass="w-full"
+                update="growl"
+                style="margin-bottom: 50px"
               />
             </h:form>
           </div>

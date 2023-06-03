@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -47,10 +48,14 @@ public class VistaEliminarJugadorController implements Serializable{
     }
 
     public void eliminarJugador() throws IOException{
-        Jugador jugador = jugadorEJB.find(idJugador);
-        jugadorEJB.remove(jugador);
-        listaJugadoresEquipo.clear();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("vistaAdministrador.xhtml");
+        try{
+            Jugador jugador = jugadorEJB.find(idJugador);
+            jugadorEJB.remove(jugador);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador eliminado", "Jugador eliminado correctamente!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jugador no eliminado", "No se ha podido eliminar el jugador, compruebe los datos introducidos."));
+        }
+
     }
 
     public int getIdJugador() {
